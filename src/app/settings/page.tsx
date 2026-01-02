@@ -142,7 +142,7 @@ export default function Page() {
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="p-4 rounded-lg bg-secondary/30">
                                     <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Target Organization</p>
                                     <p className="font-mono text-lg text-primary">{state.selectedOrg || "None"}</p>

@@ -86,7 +86,7 @@ export default function Page() {
             </div>
 
             {/* Repository cards */}
-            <div className="grid gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {filteredRepos.length === 0 ? (
                     <p className="text-center text-muted-foreground">No repositories found.</p>
                 ) : (

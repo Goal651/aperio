@@ -83,7 +83,7 @@ export default function Page() {
                         />
                     ))}
                 </div>
-                <div className="flex gap-6 mt-4">
+                <div className="flex flex-wrap gap-2 md:gap-6 mt-4">
                     <Button
                         variant={filter === "all" ? "secondary" : "ghost"}
                         size="sm"
