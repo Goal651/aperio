@@ -23,30 +23,22 @@ const StatusIcon = ({ status }: { status: string }) => {
     return <AlertTriangle className="h-4 w-4 text-destructive" />;
 };
 
+import { useRouter } from "next/navigation";
+
 export default function Page() {
     const { state, fetchOrgData, installApp } = useGitHubApp();
+    const router = useRouter();
     const [filter, setFilter] = useState<"all" | "healthy" | "warning" | "critical">("all");
 
-    // Auto-fetch org data when app is installed
     useEffect(() => {
-        if (state.installed) {
+        if (!state.installed) {
+            router.push("/connect");
+        } else {
             fetchOrgData();
         }
-    }, [state.installed, fetchOrgData]);
+    }, [state.installed, fetchOrgData, router]);
 
-    if (!state.installed) {
-        return (
-            <DashboardLayout>
-                <div className="min-h-screen flex flex-col items-center justify-center">
-                    <h2 className="text-xl font-semibold mb-4">GitHub App Not Installed</h2>
-                    <p className="text-muted-foreground mb-6">
-                        Please install the GitHub App to fetch your organization repositories.
-                    </p>
-                    <Button onClick={installApp}>Install GitHub App</Button>
-                </div>
-            </DashboardLayout>
-        );
-    }
+    if (!state.installed) return null;
 
     // Filter repos if fetched
     const repositories = state.repos || [];

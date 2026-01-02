@@ -14,15 +14,23 @@ import {
 } from "recharts";
 
 import { useGitHubApp, Member } from "@/hooks/useGitHubAuth";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 
 export default function Page() {
     const { state, fetchMembers } = useGitHubApp();
+    const router = useRouter();
 
     useEffect(() => {
-        fetchMembers();
-    }, [fetchMembers]);
+        if (!state.installed) {
+            router.push("/connect");
+        } else {
+            fetchMembers();
+        }
+    }, [state.installed, fetchMembers, router]);
+
+    if (!state.installed) return null;
 
     const members = state.members || [];
 

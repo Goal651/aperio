@@ -16,14 +16,23 @@ import { Button } from "@/components/ui/button";
 import { useGitHubApp } from "@/hooks/useGitHubAuth";
 import { useEffect } from "react";
 
+import { useRouter } from "next/navigation";
+
 export default function Page() {
     const { state, fetchSecurityAlerts } = useGitHubApp();
+    const router = useRouter();
 
     useEffect(() => {
-        fetchSecurityAlerts();
-    }, [fetchSecurityAlerts]);
+        if (!state.installed) {
+            router.push("/connect");
+        } else {
+            fetchSecurityAlerts();
+        }
+    }, [state.installed, fetchSecurityAlerts, router]);
 
-    const criticalAlerts = state.alerts.filter(a => a.severity === "critical");
+    if (!state.installed) return null;
+
+    const criticalAlerts = state.alerts?.filter(a => a.severity === "critical") || [];
 
     const alertStats = [
         { label: "Critical", count: state.alerts.filter(a => a.severity === "critical").length, color: "bg-destructive" },

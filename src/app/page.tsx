@@ -17,18 +17,24 @@ import {
     RefreshCw,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 import { useGitHubApp } from "@/hooks/useGitHubAuth";
 
 export default function Page() {
     const { state, fetchOrgData, fetchMembers, fetchSecurityAlerts } = useGitHubApp();
+    const router = useRouter();
 
     useEffect(() => {
-        if (state.installed) {
+        if (!state.installed) {
+            router.push("/connect");
+        } else {
             fetchOrgData();
             fetchMembers();
             fetchSecurityAlerts();
         }
-    }, [state.installed, fetchOrgData, fetchMembers, fetchSecurityAlerts]);
+    }, [state.installed, fetchOrgData, fetchMembers, fetchSecurityAlerts, router]);
+
+    if (!state.installed) return null;
 
     const totalPrs = state.members.reduce((acc, m) => acc + (m.prs || 0), 0);
     const totalCommits = state.members.reduce((acc, m) => acc + (m.commits || 0), 0);

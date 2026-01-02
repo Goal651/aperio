@@ -74,17 +74,26 @@ const StatusBar = ({ passed, total }: { passed: number; total: number }) => {
     );
 };
 
+import { useRouter } from "next/navigation";
+
 export default function Page() {
     const { state, fetchOrgData, fetchSecurityAlerts } = useGitHubApp();
+    const router = useRouter();
 
     useEffect(() => {
-        fetchOrgData();
-        fetchSecurityAlerts();
-    }, [fetchOrgData, fetchSecurityAlerts]);
+        if (!state.installed) {
+            router.push("/connect");
+        } else {
+            fetchOrgData();
+            fetchSecurityAlerts();
+        }
+    }, [state.installed, fetchOrgData, fetchSecurityAlerts, router]);
 
-    const totalRepos = state.repos.length || 47;
-    const criticalRepos = state.repos.filter(r => r.status === "critical").length;
-    const healthyRepos = state.repos.filter(r => r.status === "healthy").length;
+    if (!state.installed) return null;
+
+    const totalRepos = state.repos?.length || 47;
+    const criticalRepos = state.repos?.filter(r => r.status === "critical")?.length || 0;
+    const healthyRepos = state.repos?.filter(r => r.status === "healthy")?.length || 0;
     const compliantRepos = healthyRepos;
     const percentage = Math.round((compliantRepos / totalRepos) * 100) || 0;
 
