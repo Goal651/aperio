@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode, useCallback } from "react";
+import { createContext, useContext, useState, ReactNode, useCallback, useEffect } from "react";
 
 export interface Repository {
   name: string;
@@ -39,6 +39,24 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
     selectedOrg: null,
     repos: [],
   });
+
+  // Hydrate state from sessionStorage on mount
+  useEffect(() => {
+    const stored = sessionStorage.getItem("github_app_installation");
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        setState(prev => ({
+          ...prev,
+          installed: parsed.installed || false,
+          selectedOrg: parsed.selectedOrg || null,
+          installationId: parsed.installationId || null
+        }));
+      } catch (e) {
+        console.error("Failed to parse stored installation state", e);
+      }
+    }
+  }, []);
 
   const selectOrg = useCallback((org: string, installationId: number) => {
     setState(prev => ({ ...prev, installed: true, selectedOrg: org, installationId }));

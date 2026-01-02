@@ -13,6 +13,8 @@ import {
   LogOut,
 } from "lucide-react";
 
+import { useGitHubApp } from "@/hooks/useGitHubAuth";
+
 const navItems = [
   { icon: LayoutDashboard, label: "Overview", path: "/" },
   { icon: Shield, label: "Security", path: "/security" },
@@ -23,6 +25,7 @@ const navItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const { state } = useGitHubApp();
 
   return (
     <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r border-border bg-sidebar">
@@ -45,6 +48,10 @@ export function Sidebar() {
           </p>
           {navItems.map((item) => {
             const isActive = pathname === item.path;
+            const isBlocked = !state.installed && item.path !== "/";
+
+            if (isBlocked) return null;
+
             return (
               <Link
                 key={item.path}

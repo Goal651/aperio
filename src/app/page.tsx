@@ -15,8 +15,11 @@ import {
     RefreshCw,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useGitHubApp } from "@/hooks/useGitHubAuth";
 
 export default function Page() {
+    const { state, fetchOrgData } = useGitHubApp();
+
     return (
         <DashboardLayout>
             {/* Header */}
@@ -26,10 +29,10 @@ export default function Page() {
                         Organization Overview
                     </h1>
                     <p className="text-muted-foreground mt-1">
-                        <span className="font-mono text-primary">acme-corp</span> · Last scanned 5 minutes ago
+                        <span className="font-mono text-primary">{state.selectedOrg || "acme-corp"}</span> · Last scanned just now
                     </p>
                 </div>
-                <Button variant="glow" className="gap-2">
+                <Button variant="glow" className="gap-2" onClick={() => fetchOrgData()}>
                     <RefreshCw className="h-4 w-4" />
                     Run Scan
                 </Button>
@@ -39,8 +42,8 @@ export default function Page() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                 <StatCard
                     title="Total Repositories"
-                    value="47"
-                    change="+3 this month"
+                    value={state.repos?.length?.toString() || "47"}
+                    change={state.repos?.length ? "Live data" : "+3 this month"}
                     changeType="positive"
                     icon={GitBranch}
                     iconColor="primary"
