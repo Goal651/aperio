@@ -15,12 +15,14 @@ import {
 
 import { useGitHubApp, Member } from "@/hooks/useGitHubAuth";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
 export default function Page() {
     const { state, fetchMembers } = useGitHubApp();
     const router = useRouter();
+
+    const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
         if (!state.installed) {
@@ -33,6 +35,10 @@ export default function Page() {
     if (!state.installed) return null;
 
     const members = state.members || [];
+    const filteredMembers = members.filter(m =>
+        m.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        m.name?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     const chartData = members.slice(0, 5).map((m: Member) => ({
         name: m.username,
@@ -124,7 +130,12 @@ export default function Page() {
                     <h2 className="font-semibold text-foreground">All Members</h2>
                     <div className="relative w-64">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input placeholder="Search members..." className="pl-10" />
+                        <Input
+                            placeholder="Search members..."
+                            className="pl-10"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
                     </div>
                 </div>
 
@@ -146,7 +157,7 @@ export default function Page() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-border/50">
-                            {members.map((member) => (
+                            {filteredMembers.map((member) => (
                                 <tr key={member.username} className="hover:bg-secondary/30 transition-colors">
                                     <td className="py-4">
                                         <div className="flex items-center gap-3">

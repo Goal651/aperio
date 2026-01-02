@@ -70,6 +70,7 @@ export default function Page() {
                     changeType="positive"
                     icon={GitBranch}
                     iconColor="primary"
+                    href="/repos"
                 />
                 <StatCard
                     title="Team Members"
@@ -78,6 +79,7 @@ export default function Page() {
                     changeType="neutral"
                     icon={Users}
                     iconColor="success"
+                    href="/members"
                 />
                 <StatCard
                     title="Activity (PRs)"
@@ -94,6 +96,7 @@ export default function Page() {
                     changeType="negative"
                     icon={AlertTriangle}
                     iconColor="destructive"
+                    href="/security"
                 />
             </div>
 

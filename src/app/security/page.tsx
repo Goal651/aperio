@@ -14,13 +14,14 @@ import {
 import { Button } from "@/components/ui/button";
 
 import { useGitHubApp } from "@/hooks/useGitHubAuth";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { useRouter } from "next/navigation";
 
 export default function Page() {
     const { state, fetchSecurityAlerts } = useGitHubApp();
     const router = useRouter();
+    const [filter, setFilter] = useState<"all" | "critical" | "high" | "medium" | "low">("all");
 
     useEffect(() => {
         if (!state.installed) {
@@ -32,13 +33,16 @@ export default function Page() {
 
     if (!state.installed) return null;
 
-    const criticalAlerts = state.alerts?.filter(a => a.severity === "critical") || [];
+    const allAlerts = state.alerts || [];
+    const filteredAlerts = filter === "all"
+        ? allAlerts
+        : allAlerts.filter(a => a.severity === filter);
 
     const alertStats = [
-        { label: "Critical", count: state.alerts.filter(a => a.severity === "critical").length, color: "bg-destructive" },
-        { label: "High", count: state.alerts.filter(a => a.severity === "high").length, color: "bg-warning" },
-        { label: "Medium", count: state.alerts.filter(a => a.severity === "medium").length, color: "bg-primary" },
-        { label: "Low", count: state.alerts.filter(a => a.severity === "low").length, color: "bg-muted-foreground" },
+        { label: "Critical", count: state.alerts.filter(a => a.severity === "critical").length, color: "bg-destructive", value: "critical" },
+        { label: "High", count: state.alerts.filter(a => a.severity === "high").length, color: "bg-warning", value: "high" },
+        { label: "Medium", count: state.alerts.filter(a => a.severity === "medium").length, color: "bg-primary", value: "medium" },
+        { label: "Low", count: state.alerts.filter(a => a.severity === "low").length, color: "bg-muted-foreground", value: "low" },
     ];
 
     const totalAlertsCount = state.alerts.length;
@@ -77,13 +81,27 @@ export default function Page() {
                     ))}
                 </div>
                 <div className="flex gap-6 mt-4">
+                    <Button
+                        variant={filter === "all" ? "secondary" : "ghost"}
+                        size="sm"
+                        onClick={() => setFilter("all")}
+                        className="h-auto p-0 px-2 hover:bg-secondary/50"
+                    >
+                        <span className="text-sm text-muted-foreground">All: <span className="font-mono text-foreground">{totalAlertsCount}</span></span>
+                    </Button>
                     {alertStats.map((stat) => (
-                        <div key={stat.label} className="flex items-center gap-2">
+                        <Button
+                            key={stat.label}
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setFilter(stat.value as any)}
+                            className={`h-auto p-0 px-2 flex items-center gap-2 hover:bg-secondary/50 ${filter === stat.value ? "bg-secondary/50" : ""}`}
+                        >
                             <div className={`h-2 w-2 rounded-full ${stat.color}`} />
                             <span className="text-sm text-muted-foreground">
                                 {stat.label}: <span className="font-mono text-foreground">{stat.count}</span>
                             </span>
-                        </div>
+                        </Button>
                     ))}
                 </div>
             </div>
@@ -113,7 +131,7 @@ export default function Page() {
                         <div className="mt-3 h-2 rounded-full bg-secondary overflow-hidden">
                             <div
                                 className="h-full bg-primary rounded-full transition-all duration-500"
-                                style={{ width: `${(type.active / type.count) * 100}%` }}
+                                style={{ width: type.count > 0 ? `${(type.active / type.count) * 100}%` : "0%" }} // Fixed /0 check
                             />
                         </div>
                     </div>
@@ -125,16 +143,17 @@ export default function Page() {
                 <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center gap-3">
                         <AlertTriangle className="h-5 w-5 text-destructive" />
-                        <h2 className="font-semibold text-foreground">Critical Alerts</h2>
-                        <span className="badge-critical">{criticalAlerts.length} items</span>
+                        <h2 className="font-semibold text-foreground">
+                            {filter === "all" ? "All Alerts" : `${filter.charAt(0).toUpperCase() + filter.slice(1)} Priority Alerts`}
+                        </h2>
+                        <span className={filter === "critical" ? "badge-critical" : "badge-outline"}>
+                            {filteredAlerts.length} items
+                        </span>
                     </div>
-                    <Button variant="ghost" size="sm">
-                        View All <ChevronRight className="h-4 w-4 ml-1" />
-                    </Button>
                 </div>
 
                 <div className="space-y-3">
-                    {criticalAlerts.map((alert) => (
+                    {filteredAlerts.map((alert) => (
                         <div
                             key={alert.id}
                             className="flex items-center justify-between p-4 rounded-lg bg-destructive/5 border border-destructive/20 hover:bg-destructive/10 transition-colors cursor-pointer"

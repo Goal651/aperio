@@ -1,6 +1,8 @@
 import { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+import Link from "next/link";
+
 interface StatCardProps {
   title: string;
   value: string | number;
@@ -8,6 +10,7 @@ interface StatCardProps {
   changeType?: "positive" | "negative" | "neutral";
   icon: LucideIcon;
   iconColor?: "primary" | "success" | "warning" | "destructive";
+  href?: string;
 }
 
 const iconColorClasses = {
@@ -24,9 +27,10 @@ export function StatCard({
   changeType = "neutral",
   icon: Icon,
   iconColor = "primary",
+  href,
 }: StatCardProps) {
-  return (
-    <div className="stat-card animate-fade-in">
+  const content = (
+    <div className={cn("stat-card animate-fade-in transition-all", href && "hover:shadow-md hover:scale-[1.02] cursor-pointer")}>
       <div className="flex items-start justify-between">
         <div className="space-y-2">
           <p className="text-sm font-medium text-muted-foreground">{title}</p>
@@ -52,4 +56,10 @@ export function StatCard({
       </div>
     </div>
   );
+
+  if (href) {
+    return <Link href={href}>{content}</Link>;
+  }
+
+  return content;
 }

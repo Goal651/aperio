@@ -29,6 +29,7 @@ export default function Page() {
     const { state, fetchOrgData, installApp } = useGitHubApp();
     const router = useRouter();
     const [filter, setFilter] = useState<"all" | "healthy" | "warning" | "critical">("all");
+    const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
         if (!state.installed) {
@@ -43,7 +44,11 @@ export default function Page() {
     // Filter repos if fetched
     const repositories = state.repos || [];
 
-    const filteredRepos = filter === "all" ? repositories : repositories.filter(r => r.status === filter);
+    const filteredRepos = repositories.filter(repo => {
+        const matchesStatus = filter === "all" ? true : repo.status === filter;
+        const matchesSearch = repo.name.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesStatus && matchesSearch;
+    });
 
     return (
         <DashboardLayout>
@@ -62,7 +67,12 @@ export default function Page() {
             <div className="flex items-center gap-4 mb-6 animate-fade-in">
                 <div className="relative flex-1 max-w-md">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input placeholder="Search repositories..." className="pl-10" />
+                    <Input
+                        placeholder="Search repositories..."
+                        className="pl-10"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
                 </div>
                 <div className="flex gap-2">
                     <Button variant={filter === "all" ? "secondary" : "ghost"} size="sm" onClick={() => setFilter("all")}>All</Button>
