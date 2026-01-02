@@ -2,8 +2,9 @@
 
 import { Github, Shield, Lock, Zap, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useGitHubApp } from "@/hooks/useGitHubAuth";
 
 const features = [
@@ -26,7 +27,8 @@ const features = [
 
 export default function Page() {
     const router = useRouter();
-    const { state } = useGitHubApp();
+    const { state, selectOrg, fetchOrgData } = useGitHubApp();
+    const [manualId, setManualId] = useState("");
 
     useEffect(() => {
         if (state.installed) {
@@ -36,6 +38,17 @@ export default function Page() {
 
     const handleConnect = () => {
         window.location.href = 'https://github.com/apps/short-tagline/installations/new';
+    };
+
+    const handleManualConnect = () => {
+        if (!manualId) return;
+        // We set the org to "Loading..." initially, the real name will come from fetchOrgData
+        selectOrg("Loading...", parseInt(manualId));
+        setTimeout(() => {
+            // Give state a moment to update then fetch
+            fetchOrgData(true);
+            router.push("/");
+        }, 100);
     };
 
     return (
@@ -89,17 +102,36 @@ export default function Page() {
                     </div>
 
                     {/* Connect button */}
-                    <Button onClick={handleConnect} variant="glow" size="lg" className="w-full group">
+                    <Button onClick={handleConnect} variant="glow" size="lg" className="w-full group mb-6">
                         <Github className="h-5 w-5" />
                         Connect Your Organization
                         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </Button>
 
-                    <p className="text-xs text-muted-foreground text-center mt-4">
-                        By connecting, you agree to our{" "}
-                        <span className="text-primary cursor-pointer hover:underline">Terms of Service</span>
-                        {" "}and{" "}
-                        <span className="text-primary cursor-pointer hover:underline">Privacy Policy</span>
+                    <div className="relative mb-6">
+                        <div className="absolute inset-0 flex items-center">
+                            <span className="w-full border-t border-border" />
+                        </div>
+                        <div className="relative flex justify-center text-xs uppercase">
+                            <span className="bg-background px-2 text-muted-foreground">Or connect manually</span>
+                        </div>
+                    </div>
+
+                    <div className="flex gap-2 mb-4">
+                        <Input
+                            placeholder="Installation ID (e.g. 12345678)"
+                            value={manualId}
+                            onChange={(e) => setManualId(e.target.value)}
+                            className="bg-secondary/50"
+                        />
+                        <Button variant="secondary" onClick={handleManualConnect} disabled={!manualId}>
+                            Verify
+                        </Button>
+                    </div>
+
+                    <p className="text-xs text-muted-foreground text-center">
+                        <span className="opacity-70">Found in url: github.com/settings/installations/</span>
+                        <span className="font-mono text-primary font-bold">12345678</span>
                     </p>
                 </div>
 
