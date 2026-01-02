@@ -1,98 +1,79 @@
-# GitGuard 🛡️
+# GitGuard 🛡️✨
 
-GitGuard is a powerful, real-time dashboard for managing and visualizing your GitHub organization's health, security, and member activity. It provides a deeper layer of analytics on top of your existing GitHub data, focusing on security compliance and contribution metrics.
+> **Stop managing your GitHub organization in the dark.**
 
-![GitGuard Dashboard](https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=2000)
+GitGuard is a stateless, real-time command center designed for organization owners and maintainers who need clarity, security, and fairness.
 
-## ✨ Features
+![GitGuard Dashboard](./public/dashboard-preview.png)
 
-- **Real-time Analytics**: View up-to-the-minute stats on repositories, pull requests, and commits.
-- **Fair Ranking Algorithm**: A flexible scoring system to evaluate team member contributions based on PRs, reviews, and commits.
-- **Security Compliance**: Track automated compliance checks, including Dependsbot status, secret scanning, and code scanning alerts.
-- **Repo Health Cards**: Quickly identify repositories that need attention (Warning/Critical status).
-- **Interactive Dashboards**:
-  - **Repositories**: Filter by health status, search by name, and view detailed metrics.
-  - **Members**: Analyze team contribution velocity and search for specific members.
-  - **Security**: Filter vulnerability alerts by severity and type.
+## 🚀 Why GitGuard?
+
+Most GitHub Orgs are a black box. You have security in one tab, activity in another, and zero clear visibility into who is actually moving the needle.
+
+We built **GitGuard** to fix that.
+
+### 🛡️ Real-time Security
+
+Live scanning of **Dependabot**, **Secret Scanning**, and **Code Scanning** alerts in a single view. Know your vulnerability exposure instantly.
+
+### ⚖️ Fair Ranking
+
+We’re fixing the "raw commit" trap. GitGuard ranks contributors fairly by weighing **Pull Requests** and **Code Reviews** heavily in its algorithm—rewarding the behavior that actually builds healthy teams.
+
+### 🔒 Privacy-First & Stateless
+
+No database. No stored tokens. GitGuard runs entirely in your browser session (client-side) using a secure proxy for token exchange. Your data never leaves your session.
+
+---
+
+## ✨ Key Features
+
+- **High-Altitude View**: Filter 50+ repositories by health status in seconds.
+- **Interactive Contributors**: Hover over contributor avatars to see who is active in which repo.
+- **Language Distribution**: visualize your organization's tech stack with real-time charts.
+- **Member Velocity**: Identify inactive members and rising stars.
 
 ## 🛠️ Tech Stack
 
 - **Framework**: [Next.js 14](https://nextjs.org/) (App Directory)
 - **Language**: TypeScript
-- **Styling**: Tailwind CSS & `shadcn/ui` (Radix Primitives)
-- **Charts**: Recharts
-- **Icons**: Lucide React
-- **API**: GitHub REST & GraphQL API
-- **State Management**: React Context + LocalStorage Persistence
+- **Styling**: Tailwind CSS & `shadcn/ui`
+- **Data**: GitHub GraphQL API
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ installed
-- A GitHub App configured with the following permissions:
-  - **Repository**: Read-only (Contents, Metadata, Pull Requests, Security alerts)
-  - **Organization**: Read-only (Members)
+- Node.js 18+
+- A GitHub App (for token exchange)
 
 ### Installation
 
 1. **Clone the repository**:
 
-    ```bash
-    git clone https://github.com/your-username/github-compass.git
-    cd github-compass
-    ```
+   ```bash
+   git clone https://github.com/your-username/git-guard.git
+   cd git-guard
+   ```
 
 2. **Install dependencies**:
 
-    ```bash
-    npm install
-    # or
-    pnpm install
-    ```
+   ```bash
+   npm install
+   ```
 
-3. **Environment Setup**:
-    Create a `.env.local` file in the root directory and add your GitHub App credentials:
+3. **Run the development server**:
 
-    ```env
-    # Optional: Only needed for backend token exchange if using server-side auth
-    GITHUB_APP_ID=your_app_id
-    GITHUB_APP_PRIVATE_KEY=your_private_key
-    ```
+   ```bash
+   npm run dev
+   ```
 
-    *Note: The current version uses a client-side centric approach with a backend token proxy.*
-
-4. **Run the development server**:
-
-    ```bash
-    npm run dev
-    ```
-
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## 📖 Usage
-
-### Connecting Your Organization
-
-1. Click the **"Connect"** button on the landing page.
-2. You will be redirected to GitHub to install the GitGuard App on your organization.
-3. Once installed, you'll be redirected back to the dashboard.
-4. If you are already installed but redirected to settings, use the **"Manual Connect"** option and enter your Installation ID found in the URL.
-
-### Configuring Ranking Weights
-
-Go to **Settings > Ranking System** to adjust the weights for:
-
-- **PRs**: Weight for opening pull requests.
-- **Reviews**: Weight for reviewing code.
-- **Commits**: Weight for individual commits.
-
-These settings are saved locally and affect how the "Activity Score" is calculated across the app.
+4. Open [http://localhost:3000](http://localhost:3000) to scan your org!
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to get started.
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License - see [LICENSE](LICENSE).
