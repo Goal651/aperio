@@ -239,27 +239,44 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
 
       const currentOrg = org || state.selectedOrg;
 
-      // 2. Use the token to fetch repositories
-      const res = await fetch(
-        `https://api.github.com/orgs/${currentOrg}/repos`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: "application/vnd.github+json",
-          },
+      // 2. Use the token to fetch ALL repositories (handle pagination)
+      let allRepos: any[] = [];
+      let page = 1;
+      let hasNextPage = true;
+
+      while (hasNextPage) {
+        const res = await fetch(
+          `https://api.github.com/orgs/${currentOrg}/repos?per_page=100&page=${page}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Accept: "application/vnd.github+json",
+            },
+          }
+        );
+
+        if (!res.ok) {
+          const errorData = await res.json();
+          console.error(`Failed to fetch page ${page}:`, errorData);
+          break;
         }
-      );
 
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || "Failed to fetch repositories");
+        const pageData = await res.json();
+
+        if (!Array.isArray(pageData)) {
+          break;
+        }
+
+        allRepos = [...allRepos, ...pageData];
+
+        if (pageData.length < 100) {
+          hasNextPage = false;
+        } else {
+          page++;
+        }
       }
 
-      const reposData = await res.json();
-
-      if (!Array.isArray(reposData)) {
-        throw new Error("Invalid response from GitHub: expected an array of repositories");
-      }
+      const reposData = allRepos; // Compatible with existing map logic
 
       // Map GitHub API data to your UI structure
       const repos = reposData.map((r: any) => ({
