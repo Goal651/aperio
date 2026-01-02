@@ -1,6 +1,8 @@
-import { Github, Shield, Lock, Zap, ArrowRight } from "lucide-react";
+import { Github, Shield, Lock, Zap, ArrowRight, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { useGitHubAuth } from "@/hooks/useGitHubAuth";
+import { useEffect } from "react";
 
 const features = [
   {
@@ -22,10 +24,21 @@ const features = [
 
 export default function Connect() {
   const navigate = useNavigate();
+  const { login, isAuthenticated, isConfigured, error, isLoading } = useGitHubAuth();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleConnect = () => {
-    // In a real app, this would redirect to GitHub OAuth
-    navigate("/");
+    if (isConfigured) {
+      login();
+    } else {
+      // Demo mode - go directly to dashboard with mock data
+      navigate("/");
+    }
   };
 
   return (
@@ -78,17 +91,32 @@ export default function Connect() {
             ))}
           </div>
 
+          {/* Error message */}
+          {error && (
+            <div className="flex items-center gap-2 p-3 rounded-lg bg-destructive/10 text-destructive text-sm mb-4">
+              <AlertCircle className="h-4 w-4 shrink-0" />
+              {error}
+            </div>
+          )}
+
           {/* Connect button */}
           <Button
             onClick={handleConnect}
             variant="glow"
             size="lg"
             className="w-full group"
+            disabled={isLoading}
           >
             <Github className="h-5 w-5" />
-            Connect with GitHub
+            {isConfigured ? "Connect with GitHub" : "Enter Demo Mode"}
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Button>
+
+          {!isConfigured && (
+            <p className="text-xs text-amber-500 text-center mt-2">
+              GitHub OAuth not configured. Running in demo mode.
+            </p>
+          )}
 
           <p className="text-xs text-muted-foreground text-center mt-4">
             By connecting, you agree to our{" "}
