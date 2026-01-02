@@ -48,7 +48,7 @@ export default function Page() {
                         Organization Overview
                     </h1>
                     <p className="text-muted-foreground mt-1">
-                        <span className="font-mono text-primary">{state.selectedOrg || "acme-corp"}</span> · Last scanned just now
+                        <span className="font-mono text-primary">{state.selectedOrg || "Loading..."}</span> · Last scanned just now
                     </p>
                 </div>
                 <Button variant="glow" className="gap-2" onClick={() => {
@@ -65,16 +65,16 @@ export default function Page() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                 <StatCard
                     title="Total Repositories"
-                    value={state.repos?.length?.toString() || "47"}
-                    change={state.repos?.length ? "Live data" : "+3 this month"}
+                    value={state.repos?.length?.toString() || "0"}
+                    change={state.repos?.length ? "Live data" : "-"}
                     changeType="positive"
                     icon={GitBranch}
                     iconColor="primary"
                 />
                 <StatCard
                     title="Team Members"
-                    value={state.members?.length?.toString() || "24"}
-                    change={state.members?.length ? "Live data" : "2 pending invites"}
+                    value={state.members?.length?.toString() || "0"}
+                    change={state.members?.length ? "Live data" : "-"}
                     changeType="neutral"
                     icon={Users}
                     iconColor="success"
@@ -89,8 +89,8 @@ export default function Page() {
                 />
                 <StatCard
                     title="Open Alerts"
-                    value={state.alerts?.length?.toString() || "38"}
-                    change={state.alerts?.length ? `${state.alerts.filter(a => a.severity === "critical").length} critical` : "6 critical"}
+                    value={state.alerts?.length?.toString() || "0"}
+                    change={state.alerts?.length ? `${state.alerts.filter(a => a.severity === "critical").length} critical` : "0 critical"}
                     changeType="negative"
                     icon={AlertTriangle}
                     iconColor="destructive"

@@ -6,9 +6,7 @@ import {
     XCircle,
     AlertCircle,
     Shield,
-    GitBranch,
-    FileCode,
-    Workflow
+    FileCode
 } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
@@ -16,45 +14,6 @@ import { useGitHubApp } from "@/hooks/useGitHubAuth";
 import { useEffect } from "react";
 
 const COLORS = ["hsl(152, 76%, 45%)", "hsl(38, 95%, 55%)", "hsl(0, 84%, 60%)"];
-
-const checks = [
-    {
-        category: "CI/CD",
-        icon: Workflow,
-        items: [
-            { name: "CI workflows configured", passed: 42, failed: 5, total: 47 },
-            { name: "CI passing", passed: 38, failed: 4, total: 42 },
-            { name: "Automated tests", passed: 35, failed: 7, total: 42 },
-        ],
-    },
-    {
-        category: "Branch Protection",
-        icon: GitBranch,
-        items: [
-            { name: "Protected main branch", passed: 40, failed: 7, total: 47 },
-            { name: "Require PR reviews", passed: 36, failed: 11, total: 47 },
-            { name: "Require status checks", passed: 32, failed: 15, total: 47 },
-        ],
-    },
-    {
-        category: "Security Policies",
-        icon: Shield,
-        items: [
-            { name: "SECURITY.md present", passed: 28, failed: 19, total: 47 },
-            { name: "CODEOWNERS configured", passed: 22, failed: 25, total: 47 },
-            { name: "Dependabot enabled", passed: 45, failed: 2, total: 47 },
-        ],
-    },
-    {
-        category: "Code Quality",
-        icon: FileCode,
-        items: [
-            { name: "Linting configured", passed: 40, failed: 7, total: 47 },
-            { name: "Code scanning enabled", passed: 30, failed: 17, total: 47 },
-            { name: "License file present", passed: 44, failed: 3, total: 47 },
-        ],
-    },
-];
 
 const StatusBar = ({ passed, total }: { passed: number; total: number }) => {
     const percentage = (passed / total) * 100;
@@ -91,16 +50,43 @@ export default function Page() {
 
     if (!state.installed) return null;
 
-    const totalRepos = state.repos?.length || 47;
+    const totalRepos = state.repos?.length || 0;
     const criticalRepos = state.repos?.filter(r => r.status === "critical")?.length || 0;
+    const warningRepos = state.repos?.filter(r => r.status === "warning")?.length || 0;
     const healthyRepos = state.repos?.filter(r => r.status === "healthy")?.length || 0;
-    const compliantRepos = healthyRepos;
-    const percentage = Math.round((compliantRepos / totalRepos) * 100) || 0;
+
+    // Calculate compliance percentage
+    const percentage = totalRepos > 0 ? Math.round((healthyRepos / totalRepos) * 100) : 100;
 
     const complianceData = [
         { name: "Compliant", value: healthyRepos },
-        { name: "Partial", value: state.repos.filter(r => r.status === "warning").length },
+        { name: "Partial", value: warningRepos },
         { name: "Non-compliant", value: criticalRepos },
+    ];
+
+    // Real-time checks based on alerts
+    const reposWithDependabot = new Set(state.alerts?.filter(a => a.type === "Dependency").map(a => a.repo)).size;
+    const reposWithCodeScanning = new Set(state.alerts?.filter(a => a.type === "Code").map(a => a.repo)).size;
+    const reposWithSecretScanning = new Set(state.alerts?.filter(a => a.type === "Secret").map(a => a.repo)).size;
+
+    // Use totalRepos for total, as these features "should" be enabled on all
+    const checks = [
+        {
+            category: "Security Policies",
+            icon: Shield,
+            items: [
+                { name: "Dependabot Active", passed: reposWithDependabot, total: totalRepos },
+                { name: "Secret Scanning Active", passed: reposWithSecretScanning, total: totalRepos },
+            ],
+        },
+        {
+            category: "Code Quality",
+            icon: FileCode,
+            items: [
+                { name: "Code Scanning Active", passed: reposWithCodeScanning, total: totalRepos },
+                { name: "Healthy Status", passed: healthyRepos, total: totalRepos },
+            ],
+        },
     ];
 
     return (
@@ -164,7 +150,7 @@ export default function Page() {
                             <CheckCircle className="h-4 w-4 text-success" />
                             <span className="text-sm text-muted-foreground">Fully Compliant</span>
                         </div>
-                        <p className="text-3xl font-bold text-success">32</p>
+                        <p className="text-3xl font-bold text-success">{healthyRepos}</p>
                         <p className="text-xs text-muted-foreground mt-1">repositories</p>
                     </div>
                     <div className="stat-card animate-fade-in" style={{ animationDelay: "0.15s" }}>
@@ -172,7 +158,7 @@ export default function Page() {
                             <AlertCircle className="h-4 w-4 text-warning" />
                             <span className="text-sm text-muted-foreground">Partial</span>
                         </div>
-                        <p className="text-3xl font-bold text-warning">10</p>
+                        <p className="text-3xl font-bold text-warning">{warningRepos}</p>
                         <p className="text-xs text-muted-foreground mt-1">repositories</p>
                     </div>
                     <div className="stat-card animate-fade-in" style={{ animationDelay: "0.2s" }}>
@@ -180,7 +166,7 @@ export default function Page() {
                             <XCircle className="h-4 w-4 text-destructive" />
                             <span className="text-sm text-muted-foreground">Non-compliant</span>
                         </div>
-                        <p className="text-3xl font-bold text-destructive">5</p>
+                        <p className="text-3xl font-bold text-destructive">{criticalRepos}</p>
                         <p className="text-xs text-muted-foreground mt-1">repositories</p>
                     </div>
                 </div>
