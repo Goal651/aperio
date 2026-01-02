@@ -1,5 +1,5 @@
 // GitHub App Configuration (Public values only)
-const GITHUB_APP_NAME = 'short-tagline'; // exact GitHub App slug
+const GITHUB_APP_NAME = 'git-guard-app'; // exact GitHub App slug
 const GITHUB_CLIENT_ID =
   process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID || 'Iv23liKXLDw16D4n0bmQ';
 

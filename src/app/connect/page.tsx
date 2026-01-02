@@ -37,7 +37,7 @@ export default function Page() {
     }, [state.installed, router]);
 
     const handleConnect = () => {
-        window.location.href = 'https://github.com/apps/short-tagline/installations/new';
+        window.location.href = 'https://github.com/apps/git-guard-app/installations/new';
     };
 
     const handleManualConnect = () => {

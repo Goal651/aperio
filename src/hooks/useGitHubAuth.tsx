@@ -195,7 +195,7 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const installApp = useCallback(() => {
-    window.location.href = "https://github.com/apps/short-tagline/installations/new";
+    window.location.href = "https://github.com/apps/git-guard-app/installations/new";
   }, []);
 
   const updateRankingWeights = useCallback((weights: RankingWeights) => {
