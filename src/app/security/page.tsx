@@ -153,33 +153,58 @@ export default function Page() {
                 </div>
 
                 <div className="space-y-3">
-                    {filteredAlerts.map((alert) => (
-                        <div
-                            key={alert.id}
-                            className="flex items-center justify-between p-4 rounded-lg bg-destructive/5 border border-destructive/20 hover:bg-destructive/10 transition-colors cursor-pointer"
-                        >
-                            <div className="flex items-center gap-4">
-                                <div className="h-10 w-10 rounded-lg bg-destructive/20 flex items-center justify-center">
-                                    {alert.type === "Secret" && <Key className="h-5 w-5 text-destructive" />}
-                                    {alert.type === "Dependency" && <Package className="h-5 w-5 text-destructive" />}
-                                    {alert.type === "Code" && <Bug className="h-5 w-5 text-destructive" />}
-                                </div>
-                                <div>
-                                    <div className="flex items-center gap-2">
-                                        <span className="font-mono text-sm text-primary">{alert.repo}</span>
-                                        <span className="text-xs text-muted-foreground">·</span>
-                                        <span className="badge-critical">{alert.type}</span>
+                    {filteredAlerts.length === 0 ? (
+                        <p className="text-center text-muted-foreground py-8">No alerts found matching your criteria.</p>
+                    ) : (
+                        filteredAlerts.map((alert) => (
+                            <div
+                                key={alert.id}
+                                className="flex items-center justify-between p-4 rounded-lg bg-secondary/30 border border-border hover:bg-secondary/50 transition-all group"
+                            >
+                                <div className="flex items-center gap-4">
+                                    <div className="h-10 w-10 rounded-lg bg-secondary flex items-center justify-center">
+                                        {alert.type === "Secret" && <Key className="h-5 w-5 text-destructive" />}
+                                        {alert.type === "Dependency" && <Package className="h-5 w-5 text-warning" />}
+                                        {alert.type === "Code" && <Bug className="h-5 w-5 text-primary" />}
                                     </div>
-                                    <p className="text-sm font-medium text-foreground mt-1">{alert.title}</p>
-                                    <p className="text-xs text-muted-foreground font-mono mt-0.5">{alert.path}</p>
+                                    <div>
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-secondary border border-border text-xs font-medium">
+                                                <ExternalLink className="h-3 w-3" />
+                                                {alert.repo}
+                                            </div>
+                                            <span className="text-xs text-muted-foreground">·</span>
+                                            <span className={`text-xs font-semibold px-2 py-0.5 rounded-full border ${alert.severity === "critical" ? "border-destructive/50 text-destructive bg-destructive/10" :
+                                                    alert.severity === "high" ? "border-warning/50 text-warning bg-warning/10" :
+                                                        "border-primary/50 text-primary bg-primary/10"
+                                                }`}>
+                                                {alert.type}
+                                            </span>
+                                        </div>
+                                        <p className="text-sm font-medium text-foreground">{alert.title}</p>
+                                        <p className="text-xs text-muted-foreground font-mono mt-0.5 truncate max-w-md">{alert.path}</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <div className="hidden md:flex items-center gap-2 text-xs text-muted-foreground">
+                                        <Clock className="h-3 w-3" />
+                                        {alert.detected}
+                                    </div>
+                                    {alert.url && (
+                                        <Button
+                                            size="sm"
+                                            variant="ghost"
+                                            className="opacity-0 group-hover:opacity-100 transition-opacity gap-1"
+                                            onClick={() => window.open(alert.url, '_blank')}
+                                        >
+                                            View
+                                            <ExternalLink className="h-3 w-3" />
+                                        </Button>
+                                    )}
                                 </div>
                             </div>
-                            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                                <Clock className="h-3 w-3" />
-                                {alert.detected}
-                            </div>
-                        </div>
-                    ))}
+                        ))
+                    )}
                 </div>
             </div>
         </DashboardLayout>

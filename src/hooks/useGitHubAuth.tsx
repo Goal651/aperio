@@ -32,6 +32,7 @@ export interface SecurityAlert {
   severity: "critical" | "high" | "medium" | "low";
   detected: string;
   path: string;
+  url?: string;
 }
 
 export interface RankingWeights {
@@ -429,37 +430,40 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
 
       if (Array.isArray(depData)) {
         depData.forEach((a: any) => alerts.push({
-          id: a.number.toString(),
+          id: `${a.repository.name}-${a.number}`,
           repo: a.repository.name,
           type: "Dependency",
           title: a.security_advisory.summary,
           severity: a.security_advisory.severity,
           detected: new Date(a.created_at).toLocaleDateString(),
-          path: "package.json"
+          path: "package.json",
+          url: a.html_url
         }));
       }
 
       if (Array.isArray(secretData)) {
         secretData.forEach((a: any) => alerts.push({
-          id: a.number.toString(),
+          id: `${a.repository.name}-${a.number}`,
           repo: a.repository.name,
           type: "Secret",
           title: a.secret_type_display_name || "Secret exposed",
           severity: "critical",
           detected: new Date(a.created_at).toLocaleDateString(),
-          path: a.locations_url ? "multiple locations" : "unknown"
+          path: a.locations_url ? "multiple locations" : "unknown",
+          url: a.html_url
         }));
       }
 
       if (Array.isArray(codeData)) {
         codeData.forEach((a: any) => alerts.push({
-          id: a.number.toString(),
+          id: `${a.repository.name}-${a.number}`,
           repo: a.repository.name,
           type: "Code",
           title: a.rule.description || "Code vulnerability",
           severity: a.rule.severity === "error" ? "critical" : a.rule.severity === "warning" ? "high" : "medium",
           detected: new Date(a.created_at).toLocaleDateString(),
-          path: a.most_recent_instance?.location?.path || "unknown"
+          path: a.most_recent_instance?.location?.path || "unknown",
+          url: a.html_url
         }));
       }
 
