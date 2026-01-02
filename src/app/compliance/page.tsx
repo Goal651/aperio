@@ -12,11 +12,8 @@ import {
 } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
-const complianceData = [
-    { name: "Compliant", value: 32 },
-    { name: "Partial", value: 10 },
-    { name: "Non-compliant", value: 5 },
-];
+import { useGitHubApp } from "@/hooks/useGitHubAuth";
+import { useEffect } from "react";
 
 const COLORS = ["hsl(152, 76%, 45%)", "hsl(38, 95%, 55%)", "hsl(0, 84%, 60%)"];
 
@@ -78,9 +75,24 @@ const StatusBar = ({ passed, total }: { passed: number; total: number }) => {
 };
 
 export default function Page() {
-    const totalRepos = 47;
-    const compliantRepos = 32;
-    const percentage = Math.round((compliantRepos / totalRepos) * 100);
+    const { state, fetchOrgData, fetchSecurityAlerts } = useGitHubApp();
+
+    useEffect(() => {
+        fetchOrgData();
+        fetchSecurityAlerts();
+    }, [fetchOrgData, fetchSecurityAlerts]);
+
+    const totalRepos = state.repos.length || 47;
+    const criticalRepos = state.repos.filter(r => r.status === "critical").length;
+    const healthyRepos = state.repos.filter(r => r.status === "healthy").length;
+    const compliantRepos = healthyRepos;
+    const percentage = Math.round((compliantRepos / totalRepos) * 100) || 0;
+
+    const complianceData = [
+        { name: "Compliant", value: healthyRepos },
+        { name: "Partial", value: state.repos.filter(r => r.status === "warning").length },
+        { name: "Non-compliant", value: criticalRepos },
+    ];
 
     return (
         <DashboardLayout>

@@ -13,11 +13,34 @@ export interface Repository {
   alerts: number;
 }
 
+export interface Member {
+  name: string;
+  username: string;
+  avatar: string;
+  role: string;
+  status: "active" | "inactive";
+  commits: number;
+  prs: number;
+  reviews: number;
+}
+
+export interface SecurityAlert {
+  id: string;
+  repo: string;
+  type: "Secret" | "Dependency" | "Code";
+  title: string;
+  severity: "critical" | "high" | "medium" | "low";
+  detected: string;
+  path: string;
+}
+
 export interface AppInstallationState {
   installed: boolean;
   installationId: number | null;
   selectedOrg: string | null;
   repos: Repository[];
+  members: Member[];
+  alerts: SecurityAlert[];
 }
 
 const AppContext = createContext<{
@@ -25,11 +48,15 @@ const AppContext = createContext<{
   selectOrg: (org: string, installationId: number) => void;
   installApp: () => void;
   fetchOrgData: () => Promise<void>;
+  fetchMembers: () => Promise<void>;
+  fetchSecurityAlerts: () => Promise<void>;
 }>({
-  state: { installed: false, installationId: null, selectedOrg: null, repos: [] },
+  state: { installed: false, installationId: null, selectedOrg: null, repos: [], members: [], alerts: [] },
   selectOrg: () => { },
   installApp: () => { },
   fetchOrgData: async () => { },
+  fetchMembers: async () => { },
+  fetchSecurityAlerts: async () => { },
 });
 
 export function GitHubAppProvider({ children }: { children: ReactNode }) {
@@ -38,6 +65,8 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
     installationId: null,
     selectedOrg: null,
     repos: [],
+    members: [],
+    alerts: [],
   });
 
   // Hydrate state from sessionStorage on mount
@@ -142,8 +171,72 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
     }
   }, [state.selectedOrg, state.installationId]);
 
+  const fetchMembers = useCallback(async () => {
+    if (!state.selectedOrg || !state.installationId) return;
+    try {
+      const tokenRes = await fetch("/api/github/token", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ installationId: state.installationId }),
+      });
+      const { token } = await tokenRes.json();
+
+      const res = await fetch(`https://api.github.com/orgs/${state.selectedOrg}/members`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = await res.json();
+
+      const members = data.map((m: any) => ({
+        name: m.login,
+        username: m.login,
+        avatar: m.login.substring(0, 2).toUpperCase(),
+        role: "Member",
+        status: "active",
+        commits: 0,
+        prs: 0,
+        reviews: 0
+      }));
+
+      setState(prev => ({ ...prev, members }));
+    } catch (err) {
+      console.error("Failed to fetch members", err);
+    }
+  }, [state.selectedOrg, state.installationId]);
+
+  const fetchSecurityAlerts = useCallback(async () => {
+    if (!state.selectedOrg || !state.installationId) return;
+    try {
+      const tokenRes = await fetch("/api/github/token", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ installationId: state.installationId }),
+      });
+      const { token } = await tokenRes.json();
+
+      // Fetch Dependabot alerts for the org
+      const depRes = await fetch(`https://api.github.com/orgs/${state.selectedOrg}/dependabot/alerts?state=open`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const depData = await depRes.json();
+
+      const alerts: SecurityAlert[] = Array.isArray(depData) ? depData.map((a: any) => ({
+        id: a.number.toString(),
+        repo: a.repository.name,
+        type: "Dependency",
+        title: a.security_advisory.summary,
+        severity: a.security_advisory.severity,
+        detected: new Date(a.created_at).toLocaleString(),
+        path: "package.json"
+      })) : [];
+
+      setState(prev => ({ ...prev, alerts }));
+    } catch (err) {
+      console.error("Failed to fetch security alerts", err);
+    }
+  }, [state.selectedOrg, state.installationId]);
+
   return (
-    <AppContext.Provider value={{ state, selectOrg, installApp, fetchOrgData }}>
+    <AppContext.Provider value={{ state, selectOrg, installApp, fetchOrgData, fetchMembers, fetchSecurityAlerts }}>
       {children}
     </AppContext.Provider>
   );

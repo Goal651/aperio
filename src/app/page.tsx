@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
+
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { StatCard } from "@/components/dashboard/StatCard";
 import { SecurityAlertsCard } from "@/components/dashboard/SecurityAlertsCard";
@@ -18,7 +20,15 @@ import { Button } from "@/components/ui/button";
 import { useGitHubApp } from "@/hooks/useGitHubAuth";
 
 export default function Page() {
-    const { state, fetchOrgData } = useGitHubApp();
+    const { state, fetchOrgData, fetchMembers, fetchSecurityAlerts } = useGitHubApp();
+
+    useEffect(() => {
+        if (state.installed) {
+            fetchOrgData();
+            fetchMembers();
+            fetchSecurityAlerts();
+        }
+    }, [state.installed, fetchOrgData, fetchMembers, fetchSecurityAlerts]);
 
     return (
         <DashboardLayout>
@@ -32,7 +42,11 @@ export default function Page() {
                         <span className="font-mono text-primary">{state.selectedOrg || "acme-corp"}</span> · Last scanned just now
                     </p>
                 </div>
-                <Button variant="glow" className="gap-2" onClick={() => fetchOrgData()}>
+                <Button variant="glow" className="gap-2" onClick={() => {
+                    fetchOrgData();
+                    fetchMembers();
+                    fetchSecurityAlerts();
+                }}>
                     <RefreshCw className="h-4 w-4" />
                     Run Scan
                 </Button>
@@ -50,8 +64,8 @@ export default function Page() {
                 />
                 <StatCard
                     title="Team Members"
-                    value="24"
-                    change="2 pending invites"
+                    value={state.members?.length?.toString() || "24"}
+                    change={state.members?.length ? "Live data" : "2 pending invites"}
                     changeType="neutral"
                     icon={Users}
                     iconColor="success"
@@ -66,8 +80,8 @@ export default function Page() {
                 />
                 <StatCard
                     title="Open Alerts"
-                    value="38"
-                    change="6 critical"
+                    value={state.alerts?.length?.toString() || "38"}
+                    change={state.alerts?.length ? `${state.alerts.filter(a => a.severity === "critical").length} critical` : "6 critical"}
                     changeType="negative"
                     icon={AlertTriangle}
                     iconColor="destructive"

@@ -13,83 +13,26 @@ import {
     ResponsiveContainer,
 } from "recharts";
 
-const members = [
-    {
-        name: "Sarah Chen",
-        username: "schen",
-        avatar: "SC",
-        role: "Admin",
-        commits: 156,
-        prs: 24,
-        reviews: 45,
-        issues: 12,
-        status: "active",
-    },
-    {
-        name: "Alex Rivera",
-        username: "arivera",
-        avatar: "AR",
-        role: "Member",
-        commits: 134,
-        prs: 18,
-        reviews: 32,
-        issues: 8,
-        status: "active",
-    },
-    {
-        name: "Jordan Kim",
-        username: "jkim",
-        avatar: "JK",
-        role: "Member",
-        commits: 98,
-        prs: 15,
-        reviews: 28,
-        issues: 15,
-        status: "active",
-    },
-    {
-        name: "Morgan Liu",
-        username: "mliu",
-        avatar: "ML",
-        role: "Member",
-        commits: 87,
-        prs: 12,
-        reviews: 19,
-        issues: 6,
-        status: "active",
-    },
-    {
-        name: "Casey Park",
-        username: "cpark",
-        avatar: "CP",
-        role: "Member",
-        commits: 72,
-        prs: 9,
-        reviews: 15,
-        issues: 4,
-        status: "inactive",
-    },
-    {
-        name: "Taylor Swift",
-        username: "tswift",
-        avatar: "TS",
-        role: "Member",
-        commits: 45,
-        prs: 6,
-        reviews: 8,
-        issues: 2,
-        status: "active",
-    },
-];
+import { useGitHubApp, Member } from "@/hooks/useGitHubAuth";
+import { useEffect } from "react";
 
-const chartData = members.slice(0, 5).map((m) => ({
-    name: m.username,
-    commits: m.commits,
-    prs: m.prs,
-    reviews: m.reviews,
-}));
 
 export default function Page() {
+    const { state, fetchMembers } = useGitHubApp();
+
+    useEffect(() => {
+        fetchMembers();
+    }, [fetchMembers]);
+
+    const members = state.members || [];
+
+    const chartData = members.slice(0, 5).map((m: Member) => ({
+        name: m.username,
+        commits: m.commits || 0,
+        prs: m.prs || 0,
+        reviews: m.reviews || 0,
+    }));
+
     return (
         <DashboardLayout>
             {/* Header */}

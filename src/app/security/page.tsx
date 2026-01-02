@@ -13,50 +13,32 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const criticalAlerts = [
-    {
-        id: 1,
-        repo: "api-gateway",
-        type: "Secret",
-        title: "Exposed AWS Access Key",
-        severity: "critical",
-        detected: "2 hours ago",
-        path: "src/config/aws.ts",
-    },
-    {
-        id: 2,
-        repo: "frontend-app",
-        type: "Dependency",
-        title: "Critical vulnerability in lodash",
-        severity: "critical",
-        detected: "1 day ago",
-        path: "package.json",
-    },
-    {
-        id: 3,
-        repo: "data-pipeline",
-        type: "Code",
-        title: "SQL Injection vulnerability",
-        severity: "critical",
-        detected: "3 days ago",
-        path: "src/db/queries.py",
-    },
-];
-
-const alertStats = [
-    { label: "Critical", count: 6, color: "bg-destructive" },
-    { label: "High", count: 12, color: "bg-warning" },
-    { label: "Medium", count: 20, color: "bg-primary" },
-    { label: "Low", count: 8, color: "bg-muted-foreground" },
-];
-
-const alertTypes = [
-    { icon: Package, label: "Dependabot", count: 23, active: 15 },
-    { icon: Bug, label: "Code Scanning", count: 12, active: 8 },
-    { icon: Key, label: "Secret Scanning", count: 3, active: 3 },
-];
+import { useGitHubApp } from "@/hooks/useGitHubAuth";
+import { useEffect } from "react";
 
 export default function Page() {
+    const { state, fetchSecurityAlerts } = useGitHubApp();
+
+    useEffect(() => {
+        fetchSecurityAlerts();
+    }, [fetchSecurityAlerts]);
+
+    const criticalAlerts = state.alerts.filter(a => a.severity === "critical");
+
+    const alertStats = [
+        { label: "Critical", count: state.alerts.filter(a => a.severity === "critical").length, color: "bg-destructive" },
+        { label: "High", count: state.alerts.filter(a => a.severity === "high").length, color: "bg-warning" },
+        { label: "Medium", count: state.alerts.filter(a => a.severity === "medium").length, color: "bg-primary" },
+        { label: "Low", count: state.alerts.filter(a => a.severity === "low").length, color: "bg-muted-foreground" },
+    ];
+
+    const totalAlertsCount = state.alerts.length;
+
+    const alertTypes = [
+        { icon: Package, label: "Dependabot", count: state.alerts.filter(a => a.type === "Dependency").length, active: state.alerts.filter(a => a.type === "Dependency").length },
+        { icon: Bug, label: "Code Scanning", count: state.alerts.filter(a => a.type === "Code").length, active: state.alerts.filter(a => a.type === "Code").length },
+        { icon: Key, label: "Secret Scanning", count: state.alerts.filter(a => a.type === "Secret").length, active: state.alerts.filter(a => a.type === "Secret").length },
+    ];
     return (
         <DashboardLayout>
             {/* Header */}
@@ -74,14 +56,14 @@ export default function Page() {
             <div className="glass-card p-6 mb-8 animate-fade-in">
                 <div className="flex items-center justify-between mb-4">
                     <h2 className="font-semibold text-foreground">Alert Summary</h2>
-                    <span className="text-sm text-muted-foreground">46 total alerts</span>
+                    <span className="text-sm text-muted-foreground">{totalAlertsCount} total alerts</span>
                 </div>
                 <div className="flex gap-2 h-3 rounded-full overflow-hidden bg-secondary">
                     {alertStats.map((stat) => (
                         <div
                             key={stat.label}
                             className={`${stat.color} transition-all duration-500`}
-                            style={{ width: `${(stat.count / 46) * 100}%` }}
+                            style={{ width: totalAlertsCount > 0 ? `${(stat.count / totalAlertsCount) * 100}%` : "0%" }}
                         />
                     ))}
                 </div>
