@@ -62,7 +62,7 @@ export default function Page() {
                         <Github className="h-8 w-8 text-primary" />
                     </div>
                     <h1 className="text-4xl font-bold text-foreground mb-4 leading-tight">
-                        Stop managing your GitHub <br /> organization in the dark. 🛡️✨
+                        Stop managing your GitHub <br /> organization in the dark.
                     </h1>
                     <p className="text-lg text-muted-foreground max-w-lg mx-auto">
                         A state-of-the-art, stateless dashboard for maintainers who care about <span className="text-primary font-medium">Security</span>, <span className="text-success font-medium">Readability</span>, and <span className="text-foreground font-medium">Fairness</span>.
@@ -137,7 +137,7 @@ export default function Page() {
 
                 {/* Footer */}
                 <p className="text-xs text-muted-foreground text-center mt-6 animate-fade-in" style={{ animationDelay: "0.5s" }}>
-                    Built with 💙 for the Open Source Community
+                    Built for the Open Source Community
                 </p>
             </div>
         </div>
