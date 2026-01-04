@@ -142,25 +142,10 @@ export function OrganizationSelector() {
           </div>
           
           <div className="pt-4 border-t space-y-2">
-            <Button onClick={handleInstallApp} variant="outline" className="w-full" disabled={isInstalling || isLoading}>
-              {isInstalling ? (
-                <>
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  Installing...
-                </>
-              ) : (
-                <>
-                  <Plus className="h-4 w-4 mr-2" />
-                  {state.currentUserToken 
-                    ? "Install to Another Organization (OAuth)" 
-                    : "Install GitGuard (OAuth)"
-                  }
-                </>
-              )}
-            </Button>
+            
             <Button onClick={installToOrganization} variant="secondary" className="w-full">
               <Plus className="h-4 w-4 mr-2" />
-              Install Directly on GitHub
+              Install to New Organization
             </Button>
           </div>
         </CardContent>
@@ -177,13 +162,9 @@ export function OrganizationSelector() {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-2">
-        <Button onClick={installApp} className="w-full">
-          <Plus className="h-4 w-4 mr-2" />
-          Install GitGuard (OAuth)
-        </Button>
         <Button onClick={installToOrganization} variant="outline" className="w-full">
           <Plus className="h-4 w-4 mr-2" />
-          Install Directly on GitHub
+          Install to New Organization
         </Button>
       </CardContent>
     </Card>

@@ -268,41 +268,6 @@ export default function Page() {
                             )}
                         </Button>
                     </div>
-
-                    <div className="relative mb-6">
-                        <div className="absolute inset-0 flex items-center">
-                            <span className="w-full border-t border-border" />
-                        </div>
-                        <div className="relative flex justify-center text-xs uppercase">
-                            <span className="bg-background px-2 text-muted-foreground">Or verify manually</span>
-                        </div>
-                    </div>
-
-                    {!showManualInput ? (
-                        <div className="text-center">
-                            <Button
-                                variant="outline"
-                                onClick={() => setShowManualInput(true)}
-                                className="w-full md:w-auto"
-                                disabled={isRedirecting || isConnecting || isLoading || isCheckingInstallations}
-                            >
-                                Enter Installation ID Manually
-                            </Button>
-                        </div>
-                    ) : (
-                        <div className="flex gap-2 max-w-sm mx-auto">
-                            <Input
-                                placeholder="Installation ID"
-                                value={manualId}
-                                onChange={(e) => setManualId(e.target.value)}
-                                className="bg-secondary/50"
-                                disabled={isRedirecting || isConnecting || isLoading || isCheckingInstallations}
-                            />
-                            <Button variant="secondary" onClick={handleManualConnect} disabled={!manualId || isRedirecting || isConnecting || isLoading || isCheckingInstallations}>
-                                Go
-                            </Button>
-                        </div>
-                    )}
                 </div>
 
                 {/* Footer */}
