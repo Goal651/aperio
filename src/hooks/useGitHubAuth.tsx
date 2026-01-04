@@ -283,10 +283,7 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
             installationStatus: 'installed'
           }));
 
-          // Auto-select the first installation if none selected
-          if (!state.installationId && installations.length > 0) {
-            selectOrg(installations[0].organizationLogin, installations[0].installationId);
-          }
+          // Don't auto-select, let the user choose on the connect page
         } else {
           setState(prev => ({ ...prev, installationStatus: 'not_installed' }));
         }
@@ -372,10 +369,7 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
           installationStatus: 'installed'
         }));
 
-        // Auto-select first installation
-        if (installationList.length > 0) {
-          selectOrg(installationList[0].organizationLogin, installationList[0].installationId);
-        }
+        // Don't auto-select, let the user choose on the connect page
       } else {
         // No installations found - redirect to install
         setState(prev => ({

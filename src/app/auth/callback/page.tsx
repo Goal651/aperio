@@ -37,14 +37,8 @@ function AuthCallbackContent() {
                 localStorage.setItem("github_user_token", token);
                 localStorage.setItem("github_app_installations", JSON.stringify(installationsData));
                 
-                // Auto-select first installation if available
-                if (installationsData.length > 0) {
-                    const firstInstallation = installationsData[0];
-                    selectOrg(firstInstallation.account.login, firstInstallation.id);
-                    router.push("/");
-                } else {
-                    router.push("/connect");
-                }
+                // Don't auto-select, go back to connect to show organization selection
+                router.push("/connect");
             } catch (err) {
                 console.error("Failed to parse OAuth data:", err);
                 router.push("/connect");

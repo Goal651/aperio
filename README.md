@@ -4,7 +4,7 @@
 
 GitGuard is a stateless, real-time command center designed for organization owners and maintainers who need clarity, security, and fairness.
 
-![GitGuard Dashboard](./public/dashboard-preview.png)
+![GitGuard Dashboard](./public/dashboard.jpeg)
 
 ## Why GitGuard?
 
