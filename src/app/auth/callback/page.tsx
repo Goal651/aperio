@@ -37,14 +37,9 @@ function AuthCallbackContent() {
                 localStorage.setItem("github_user_token", token);
                 localStorage.setItem("github_app_installations", JSON.stringify(installationsData));
                 
-                // Auto-select first installation if available
-                if (installationsData.length > 0) {
-                    const firstInstallation = installationsData[0];
-                    selectOrg(firstInstallation.account.login, firstInstallation.id);
-                    router.push("/");
-                } else {
-                    router.push("/connect");
-                }
+                // Trigger a page reload to ensure the context picks up the new token
+                // This is a simple way to ensure the context re-initializes with the new token
+                window.location.href = "/connect";
             } catch (err) {
                 console.error("Failed to parse OAuth data:", err);
                 router.push("/connect");
