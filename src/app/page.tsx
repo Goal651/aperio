@@ -51,7 +51,7 @@ export default function Page() {
     return (
         <DashboardLayout>
             {/* Header */}
-            <div className="mb-8 flex items-center justify-between">
+            <div className="mb-8 flex items-center justify-between w-full">
                 <div>
                     <h1 className="text-2xl font-bold text-foreground">
                         Organization Overview
@@ -75,7 +75,7 @@ export default function Page() {
             </div>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 w-full">
                 <StatCard
                     title="Total Repositories"
                     value={state.repos?.length?.toString() || "0"}
@@ -118,8 +118,8 @@ export default function Page() {
             </div>
 
             {/* Main Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                <div className="lg:col-span-2">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8 w-full">
+                <div className="lg:col-span-2 w-full">
                     <ActivityChart />
                 </div>
                 <RiskScoreCard />

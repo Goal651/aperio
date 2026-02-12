@@ -73,7 +73,7 @@ export function ActivityChart() {
   }
 
   return (
-    <div className="glass-card  p-6 animate-fade-in hover:border-primary/30 transition-all duration-300">
+    <div className="glass-card w-full  p-6 animate-fade-in hover:border-primary/30 transition-all duration-300">
       {/* Header with gradient text */}
       <div className="mb-6 flex items-center justify-between">
         <div>
@@ -91,7 +91,7 @@ export function ActivityChart() {
       </div>
 
       {/* Chart */}
-      <div className="h-72">
+      <div className="h-72 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart 
             data={data} 
@@ -161,7 +161,7 @@ export function ActivityChart() {
       </div>
 
       {/* Footer with stats */}
-      <div className="mt-6 pt-4 border-t border-border/50">
+      <div className="mt-6 pt-4 border-t border-border/50 items-center w-full">
         <div className="grid grid-cols-3 gap-4 text-sm">
           <div>
             <p className="text-muted-foreground text-xs">Most used</p>

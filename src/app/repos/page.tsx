@@ -177,7 +177,10 @@ export default function Page() {
                                         )}
                                     </div>
                                 </div>
-                                <Button variant="ghost" size="sm">View Details</Button>
+                                <Button variant="ghost" size="sm"
+                            
+                                    onClick={() => window.open(`https://github.com/${state.selectedOrg}/${repo.name}`, "_blank")}
+                                >View Details</Button>
                             </div>
                         </div>
                     ))

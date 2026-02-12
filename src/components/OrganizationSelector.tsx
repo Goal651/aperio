@@ -82,7 +82,7 @@ export function OrganizationSelector() {
 
   if (state.installationStatus === 'installed' && state.installations.length > 0) {
     return (
-      <Card className="w-full max-w-2xl mx-auto">
+      <Card className="w-full max-w-3xl h-auto mx-auto glass-card ">
         <CardHeader>
           <CardTitle>Select Organization</CardTitle>
           <CardDescription>
@@ -94,7 +94,7 @@ export function OrganizationSelector() {
             {state.installations.map(installation => (
               <div
                 key={installation.installationId}
-                className={`flex items-center justify-between p-4 rounded-lg border transition-colors cursor-pointer ${
+                className={`flex items-center justify-between p-4 rounded-lg border  transition-colors cursor-pointer ${
                   state.installationId === installation.installationId
                     ? 'border-primary bg-primary/5'
                     : 'border-border hover:bg-muted/50'
@@ -147,7 +147,7 @@ export function OrganizationSelector() {
             <Button onClick={installToOrganization} variant="secondary" className="w-full">
               <Plus className="h-4 w-4 mr-2" />
               Install to New Organization
-            </Button>
+            </Button> 
           </div>
         </CardContent>
       </Card>

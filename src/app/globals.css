@@ -77,8 +77,8 @@
     .glass-card {
         @apply bg-black border border-border/50 rounded-xl;
         background: linear-gradient(135deg,
-                hsl(var(--card) / 0.4) 0%,
-                hsl(var(--card) / 0.2) 100%);
+                hsl(var(--card) / 0.3) 0%,
+                hsl(var(--card) / 0.1) 100%);
     }
 
     .glow-border {
@@ -132,7 +132,7 @@
     }
 
     .nav-link {
-        @apply flex items-center gap-3 px-4 py-2.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-all duration-200;
+        @apply flex items-center gap-3 px-4 py-2.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary/20 transition-all duration-200;
     }
 
     .nav-link.active {
