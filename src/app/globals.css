@@ -1,52 +1,67 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+/* ============================================================================
+   ENTERPRISE GLASSMORPHISM DESIGN SYSTEM
+   ============================================================================
+   A modern, professional design system featuring glassmorphism effects,
+   sophisticated animations, and enterprise-grade visual polish.
+   ========================================================================== */
+
+/* Font Imports */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+/* Tailwind Directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================================
+   BASE LAYER - Design Tokens & CSS Variables
+   ========================================================================== */
 
 @layer base {
     :root {
+        /* Core Colors - Black & White Foundation */
         --background: 0 0% 6%;
         --foreground: 0 0% 96%;
 
+        /* Surface Colors */
         --card: 0 0% 8%;
         --card-foreground: 0 0% 96%;
-
         --popover: 0 0% 8%;
         --popover-foreground: 0 0% 96%;
 
+        /* Brand Colors */
         --primary: 0 0% 50%;
         --primary-foreground: 0 0% 6%;
-
         --secondary: 0 0% 14%;
         --secondary-foreground: 0 0% 90%;
 
+        /* Semantic Colors */
         --muted: 0 0% 12%;
         --muted-foreground: 0 0% 55%;
-
         --accent: 0 0% 50%;
         --accent-foreground: 0 0% 6%;
 
+        /* Status Colors */
         --destructive: 0 84% 60%;
         --destructive-foreground: 0 0% 98%;
-
         --success: 152 76% 45%;
         --success-foreground: 0 0% 6%;
-
         --warning: 38 95% 55%;
         --warning-foreground: 0 0% 6%;
 
+        /* UI Elements */
         --border: 0 0% 16%;
         --input: 0 0% 16%;
         --ring: 0 0% 50%;
-
         --radius: 0.75rem;
 
+        /* Glow Effects - For hover states and emphasis */
         --glow-primary: 0 0 20px hsl(0 0% 50% / 0.3);
         --glow-success: 0 0 20px hsl(152 76% 45% / 0.3);
         --glow-warning: 0 0 20px hsl(38 95% 55% / 0.3);
         --glow-destructive: 0 0 20px hsl(0 84% 60% / 0.3);
 
+        /* Sidebar Specific */
         --sidebar-background: 0 0% 7%;
         --sidebar-foreground: 0 0% 90%;
         --sidebar-primary: 0 0% 50%;
@@ -55,54 +70,183 @@
         --sidebar-accent-foreground: 0 0% 96%;
         --sidebar-border: 0 0% 16%;
         --sidebar-ring: 0 0% 50%;
+
+        /* Glassmorphism Variables */
+        --glass-bg: 255 255 255;
+        --glass-border: 255 255 255;
+        --blur-amount: 12px;
+        --blur-strong: 16px;
+        --blur-subtle: 8px;
+
+        /* Elevation Shadows - Multi-layer depth system */
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.2);
+        --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.4), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+        --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.5);
+
+        /* Animation Timings - Consistent motion design */
+        --duration-fast: 150ms;
+        --duration-normal: 250ms;
+        --duration-slow: 350ms;
+        --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+        --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
 }
 
+/* ============================================================================
+   BASE STYLES - Global element styling
+   ========================================================================== */
+
 @layer base {
+    /* Universal box-sizing and border inheritance */
     * {
         @apply border-border;
     }
 
+    /* Body - Base typography and background */
     body {
         @apply bg-background text-foreground font-sans antialiased;
         font-family: 'Inter', system-ui, sans-serif;
+        /* Subtle noise texture for depth */
+        background-image: 
+            radial-gradient(at 40% 20%, hsl(var(--primary) / 0.03) 0px, transparent 50%),
+            radial-gradient(at 80% 0%, hsl(var(--accent) / 0.03) 0px, transparent 50%),
+            radial-gradient(at 0% 50%, hsl(var(--success) / 0.02) 0px, transparent 50%);
     }
 
+    /* Monospace font utility */
     .font-mono {
         font-family: 'JetBrains Mono', monospace;
     }
-}
 
-@layer components {
-    .glass-card {
-        @apply bg-black border border-border/50 rounded-xl;
-        background: linear-gradient(135deg,
-                hsl(var(--card) / 0.3) 0%,
-                hsl(var(--card) / 0.1) 100%);
+    /* Smooth scrolling for better UX */
+    html {
+        scroll-behavior: smooth;
     }
 
+    /* Selection styling */
+    ::selection {
+        @apply bg-primary/20 text-foreground;
+    }
+}
+
+/* ============================================================================
+   COMPONENTS LAYER - Reusable component classes
+   ========================================================================== */
+
+@layer components {
+    
+    /* ------------------------------------------------------------------------
+       GLASSMORPHISM CARDS - Multiple variants for different use cases
+       ---------------------------------------------------------------------- */
+    
+    /* Base glass card - Subtle frosted glass effect */
+    .glass-card {
+        @apply relative rounded-xl border overflow-hidden;
+        background: linear-gradient(
+            135deg,
+            hsl(var(--glass-bg) / 0.05) 0%,
+            hsl(var(--glass-bg) / 0.02) 100%
+        );
+        border-color: hsl(var(--glass-border) / 0.1);
+        backdrop-filter: blur(var(--blur-amount));
+        -webkit-backdrop-filter: blur(var(--blur-amount));
+        box-shadow: 
+            var(--shadow-md),
+            inset 0 1px 0 0 hsl(var(--glass-border) / 0.1);
+    }
+
+    /* Medium intensity glass - More prominent */
+    .glass-card-medium {
+        @apply glass-card;
+        background: linear-gradient(
+            135deg,
+            hsl(var(--glass-bg) / 0.08) 0%,
+            hsl(var(--glass-bg) / 0.04) 100%
+        );
+        border-color: hsl(var(--glass-border) / 0.15);
+        backdrop-filter: blur(var(--blur-strong));
+        -webkit-backdrop-filter: blur(var(--blur-strong));
+    }
+
+    /* Strong glass - Maximum frosted effect */
+    .glass-card-strong {
+        @apply glass-card;
+        background: linear-gradient(
+            135deg,
+            hsl(var(--glass-bg) / 0.12) 0%,
+            hsl(var(--glass-bg) / 0.06) 100%
+        );
+        border-color: hsl(var(--glass-border) / 0.2);
+        backdrop-filter: blur(var(--blur-strong));
+        -webkit-backdrop-filter: blur(var(--blur-strong));
+        box-shadow: 
+            var(--shadow-lg),
+            inset 0 1px 0 0 hsl(var(--glass-border) / 0.15);
+    }
+
+    /* Glass card with hover lift effect */
+    .glass-card-interactive {
+        @apply glass-card transition-all duration-300;
+    }
+
+    .glass-card-interactive:hover {
+        transform: translateY(-2px);
+        border-color: hsl(var(--glass-border) / 0.2);
+        box-shadow: 
+            var(--shadow-xl),
+            inset 0 1px 0 0 hsl(var(--glass-border) / 0.15);
+    }
+
+    /* ------------------------------------------------------------------------
+       GLOW EFFECTS - Sophisticated border and shadow glows
+       ---------------------------------------------------------------------- */
+    
+    /* Animated glow border on hover */
     .glow-border {
         @apply relative;
     }
 
     .glow-border::before {
         content: '';
-        @apply absolute inset-0 rounded-xl opacity-0 transition-opacity duration-300;
-        background: linear-gradient(135deg, hsl(var(--primary) / 0.2), transparent);
+        @apply absolute inset-0 rounded-xl opacity-0 pointer-events-none;
+        background: linear-gradient(
+            135deg, 
+            hsl(var(--primary) / 0.3), 
+            hsl(var(--accent) / 0.2),
+            transparent
+        );
+        transition: opacity var(--duration-normal) var(--ease-smooth);
     }
 
     .glow-border:hover::before {
         @apply opacity-100;
     }
 
+    /* Pulsing glow effect for emphasis */
+    .glow-pulse {
+        animation: glow-pulse 2s ease-in-out infinite;
+    }
+
+    /* ------------------------------------------------------------------------
+       STAT CARDS - Dashboard metric cards with glass effect
+       ---------------------------------------------------------------------- */
+    
     .stat-card {
-        @apply glass-card p-6 hover:border-primary/30 transition-all duration-300;
+        @apply glass-card p-6 transition-all duration-300;
     }
 
     .stat-card:hover {
-        box-shadow: var(--glow-primary);
+        @apply border-primary/30;
+        box-shadow: var(--glow-primary), var(--shadow-lg);
+        transform: translateY(-2px);
     }
 
+    /* ------------------------------------------------------------------------
+       STATUS INDICATORS - Color-coded status system
+       ---------------------------------------------------------------------- */
+    
     .status-success {
         @apply text-success;
     }
@@ -115,55 +259,413 @@
         @apply text-destructive;
     }
 
+    /* ------------------------------------------------------------------------
+       BADGES - Status and info badges with glass effect
+       ---------------------------------------------------------------------- */
+    
     .badge-success {
-        @apply bg-success/15 text-success border border-success/30 px-2.5 py-0.5 rounded-full text-xs font-medium;
+        @apply px-2.5 py-0.5 rounded-full text-xs font-medium;
+        @apply text-success border border-success/30;
+        background: linear-gradient(
+            135deg,
+            hsl(var(--success) / 0.15),
+            hsl(var(--success) / 0.08)
+        );
+        backdrop-filter: blur(var(--blur-subtle));
+        box-shadow: 0 0 10px hsl(var(--success) / 0.1);
     }
 
     .badge-warning {
-        @apply bg-warning/15 text-warning border border-warning/30 px-2.5 py-0.5 rounded-full text-xs font-medium;
+        @apply px-2.5 py-0.5 rounded-full text-xs font-medium;
+        @apply text-warning border border-warning/30;
+        background: linear-gradient(
+            135deg,
+            hsl(var(--warning) / 0.15),
+            hsl(var(--warning) / 0.08)
+        );
+        backdrop-filter: blur(var(--blur-subtle));
+        box-shadow: 0 0 10px hsl(var(--warning) / 0.1);
     }
 
     .badge-critical {
-        @apply bg-destructive/15 text-destructive border border-destructive/30 px-2.5 py-0.5 rounded-full text-xs font-medium;
+        @apply px-2.5 py-0.5 rounded-full text-xs font-medium;
+        @apply text-destructive border border-destructive/30;
+        background: linear-gradient(
+            135deg,
+            hsl(var(--destructive) / 0.15),
+            hsl(var(--destructive) / 0.08)
+        );
+        backdrop-filter: blur(var(--blur-subtle));
+        box-shadow: 0 0 10px hsl(var(--destructive) / 0.1);
     }
 
     .badge-info {
-        @apply bg-primary/15 text-primary border border-primary/30 px-2.5 py-0.5 rounded-full text-xs font-medium;
+        @apply px-2.5 py-0.5 rounded-full text-xs font-medium;
+        @apply text-primary border border-primary/30;
+        background: linear-gradient(
+            135deg,
+            hsl(var(--primary) / 0.15),
+            hsl(var(--primary) / 0.08)
+        );
+        backdrop-filter: blur(var(--blur-subtle));
+        box-shadow: 0 0 10px hsl(var(--primary) / 0.1);
     }
 
+    /* ------------------------------------------------------------------------
+       NAVIGATION - Nav links with smooth transitions
+       ---------------------------------------------------------------------- */
+    
     .nav-link {
-        @apply flex items-center gap-3 px-4 py-2.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary/20 transition-all duration-200;
+        @apply flex items-center gap-3 px-4 py-2.5 rounded-lg;
+        @apply text-muted-foreground transition-all duration-200;
+        @apply hover:text-foreground hover:bg-secondary/20;
     }
 
     .nav-link.active {
-        @apply text-primary bg-primary/10 border border-primary/20;
+        @apply text-primary border border-primary/20;
+        background: linear-gradient(
+            135deg,
+            hsl(var(--primary) / 0.1),
+            hsl(var(--primary) / 0.05)
+        );
+        box-shadow: 0 0 15px hsl(var(--primary) / 0.1);
     }
 
+    /* ------------------------------------------------------------------------
+       BUTTONS - Enhanced button styles with glass effect
+       ---------------------------------------------------------------------- */
+    
+    .btn-glass {
+        @apply glass-card px-4 py-2 font-medium transition-all duration-200;
+        @apply hover:border-primary/30 active:scale-95;
+    }
+
+    .btn-glass:hover {
+        box-shadow: var(--glow-primary), var(--shadow-md);
+    }
+
+    .btn-glass-primary {
+        @apply btn-glass text-primary;
+        background: linear-gradient(
+            135deg,
+            hsl(var(--primary) / 0.15),
+            hsl(var(--primary) / 0.08)
+        );
+    }
+
+    /* ------------------------------------------------------------------------
+       TEXT EFFECTS - Gradient and glow text
+       ---------------------------------------------------------------------- */
+    
     .gradient-text {
-        @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-gray-300;
+        @apply bg-clip-text text-transparent;
+        background-image: linear-gradient(
+            135deg,
+            hsl(var(--primary)),
+            hsl(var(--foreground) / 0.7)
+        );
     }
 
+    .text-glow {
+        text-shadow: 0 0 20px hsl(var(--primary) / 0.5);
+    }
+
+    /* ------------------------------------------------------------------------
+       BACKGROUNDS - Hero sections and decorative backgrounds
+       ---------------------------------------------------------------------- */
+    
     .hero-glow {
-        background: radial-gradient(ellipse 80% 50% at 50% -20%, hsl(var(--primary) / 0.15), transparent);
+        background: radial-gradient(
+            ellipse 80% 50% at 50% -20%,
+            hsl(var(--primary) / 0.15),
+            transparent
+        );
+    }
+
+    /* Mesh gradient background */
+    .mesh-gradient {
+        background-image: 
+            radial-gradient(at 0% 0%, hsl(var(--primary) / 0.1) 0px, transparent 50%),
+            radial-gradient(at 50% 0%, hsl(var(--accent) / 0.08) 0px, transparent 50%),
+            radial-gradient(at 100% 0%, hsl(var(--success) / 0.06) 0px, transparent 50%);
+    }
+
+    /* ------------------------------------------------------------------------
+       TABLES - Glass effect table rows
+       ---------------------------------------------------------------------- */
+    
+    .table-row-glass {
+        @apply border-b border-border/50 transition-all duration-200;
+        background: linear-gradient(
+            90deg,
+            hsl(var(--glass-bg) / 0.02),
+            transparent
+        );
+    }
+
+    .table-row-glass:hover {
+        background: linear-gradient(
+            90deg,
+            hsl(var(--glass-bg) / 0.05),
+            hsl(var(--glass-bg) / 0.02)
+        );
+        backdrop-filter: blur(var(--blur-subtle));
+    }
+
+    /* ------------------------------------------------------------------------
+       INPUTS - Enhanced form inputs with glass effect
+       ---------------------------------------------------------------------- */
+    
+    .input-glass {
+        @apply glass-card px-4 py-2 transition-all duration-200;
+        @apply focus:border-primary/50 focus:outline-none;
+    }
+
+    .input-glass:focus {
+        box-shadow: 
+            0 0 0 3px hsl(var(--primary) / 0.1),
+            var(--shadow-md);
+    }
+
+    /* ------------------------------------------------------------------------
+       MODALS & POPOVERS - Elevated glass surfaces
+       ---------------------------------------------------------------------- */
+    
+    .modal-glass {
+        @apply glass-card-strong p-6;
+        box-shadow: var(--shadow-2xl);
+    }
+
+    .popover-glass {
+        @apply glass-card-medium;
+        box-shadow: var(--shadow-xl);
+    }
+
+    /* ------------------------------------------------------------------------
+       DIVIDERS - Subtle separators with gradient
+       ---------------------------------------------------------------------- */
+    
+    .divider-glass {
+        @apply h-px w-full;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            hsl(var(--border)),
+            transparent
+        );
+    }
+
+    /* ------------------------------------------------------------------------
+       SHIMMER EFFECT - Loading state animation
+       ---------------------------------------------------------------------- */
+    
+    .shimmer {
+        @apply relative overflow-hidden;
+    }
+
+    .shimmer::after {
+        content: '';
+        @apply absolute inset-0;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            hsl(var(--glass-bg) / 0.1),
+            transparent
+        );
+        animation: shimmer 2s infinite;
     }
 }
 
+/* ============================================================================
+   UTILITIES LAYER - Helper classes and animations
+   ========================================================================== */
+
 @layer utilities {
+    
+    /* ------------------------------------------------------------------------
+       ANIMATION UTILITIES
+       ---------------------------------------------------------------------- */
+    
+    /* Slow pulse for subtle emphasis */
     .animate-pulse-slow {
         animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
 
+    /* Glow animation for attention */
     .animate-glow {
         animation: glow 2s ease-in-out infinite alternate;
     }
 
-    @keyframes glow {
-        from {
-            box-shadow: 0 0 10px hsl(var(--primary) / 0.2);
-        }
+    /* Fade in on mount */
+    .animate-fade-in {
+        animation: fade-in 0.5s var(--ease-smooth) forwards;
+    }
 
-        to {
-            box-shadow: 0 0 25px hsl(var(--primary) / 0.4);
-        }
+    /* Slide in from left */
+    .animate-slide-in {
+        animation: slide-in 0.4s var(--ease-smooth) forwards;
+    }
+
+    /* Scale in with bounce */
+    .animate-scale-in {
+        animation: scale-in 0.4s var(--ease-bounce) forwards;
+    }
+
+    /* Float animation for decorative elements */
+    .animate-float {
+        animation: float 6s ease-in-out infinite;
+    }
+
+    /* ------------------------------------------------------------------------
+       BACKDROP BLUR UTILITIES
+       ---------------------------------------------------------------------- */
+    
+    .backdrop-blur-glass {
+        backdrop-filter: blur(var(--blur-amount));
+        -webkit-backdrop-filter: blur(var(--blur-amount));
+    }
+
+    .backdrop-blur-glass-strong {
+        backdrop-filter: blur(var(--blur-strong));
+        -webkit-backdrop-filter: blur(var(--blur-strong));
+    }
+
+    .backdrop-blur-glass-subtle {
+        backdrop-filter: blur(var(--blur-subtle));
+        -webkit-backdrop-filter: blur(var(--blur-subtle));
+    }
+
+    /* ------------------------------------------------------------------------
+       ELEVATION UTILITIES - Shadow depth system
+       ---------------------------------------------------------------------- */
+    
+    .elevation-sm {
+        box-shadow: var(--shadow-sm);
+    }
+
+    .elevation-md {
+        box-shadow: var(--shadow-md);
+    }
+
+    .elevation-lg {
+        box-shadow: var(--shadow-lg);
+    }
+
+    .elevation-xl {
+        box-shadow: var(--shadow-xl);
+    }
+
+    .elevation-2xl {
+        box-shadow: var(--shadow-2xl);
+    }
+
+    /* ------------------------------------------------------------------------
+       HOVER LIFT EFFECT
+       ---------------------------------------------------------------------- */
+    
+    .hover-lift {
+        @apply transition-transform duration-200;
+    }
+
+    .hover-lift:hover {
+        transform: translateY(-4px);
+    }
+
+    /* ------------------------------------------------------------------------
+       STAGGER ANIMATION - For list items
+       ---------------------------------------------------------------------- */
+    
+    .stagger-item {
+        opacity: 0;
+        animation: fade-in 0.5s var(--ease-smooth) forwards;
+    }
+
+    .stagger-item:nth-child(1) { animation-delay: 0.05s; }
+    .stagger-item:nth-child(2) { animation-delay: 0.1s; }
+    .stagger-item:nth-child(3) { animation-delay: 0.15s; }
+    .stagger-item:nth-child(4) { animation-delay: 0.2s; }
+    .stagger-item:nth-child(5) { animation-delay: 0.25s; }
+    .stagger-item:nth-child(6) { animation-delay: 0.3s; }
+    .stagger-item:nth-child(7) { animation-delay: 0.35s; }
+    .stagger-item:nth-child(8) { animation-delay: 0.4s; }
+}
+
+/* ============================================================================
+   KEYFRAME ANIMATIONS
+   ========================================================================== */
+
+/* Glow pulse effect */
+@keyframes glow {
+    from {
+        box-shadow: 0 0 10px hsl(var(--primary) / 0.2);
+    }
+    to {
+        box-shadow: 0 0 25px hsl(var(--primary) / 0.4);
+    }
+}
+
+/* Pulsing glow for emphasis */
+@keyframes glow-pulse {
+    0%, 100% {
+        box-shadow: 0 0 10px hsl(var(--primary) / 0.2);
+    }
+    50% {
+        box-shadow: 0 0 30px hsl(var(--primary) / 0.5);
+    }
+}
+
+/* Shimmer loading effect */
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Fade in animation */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Slide in from left */
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Scale in with bounce */
+@keyframes scale-in {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Floating animation */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
     }
 }
