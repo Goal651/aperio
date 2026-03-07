@@ -1,14 +1,8 @@
-// GitHub App Configuration (Public values only)
-const GITHUB_APP_NAME = 'git-guard-app'; // exact GitHub App slug
-const GITHUB_CLIENT_ID =
-  process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID || 'Iv23liKXLDw16D4n0bmQ';
+import { AppInstallationState } from "@/types";
 
-export interface AppInstallationState {
-  installed: boolean;
-  installationId: number | null;
-  selectedOrg: string | null;
-  repos?: any[]; // optional, store fetched repositories
-}
+// GitHub App Configuration (Public values only)
+const GITHUB_APP_NAME = 'git-guard-app';
+const GITHUB_CLIENT_ID = process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID || 'Iv23liKXLDw16D4n0bmQ';
 
 const INSTALLATION_STORAGE_KEY = 'github_app_installation';
 
@@ -37,6 +31,13 @@ export function getInstallationState(): AppInstallationState {
       installationId: null,
       selectedOrg: null,
       repos: [],
+      members: [],
+      alerts: [],
+      rankingWeights: { prs: 20, reviews: 15, commits: 2 },
+      installations: [],
+      currentUserToken: null,
+      installationStatus: 'checking',
+      dateRange: null,
     };
   }
 
@@ -48,6 +49,13 @@ export function getInstallationState(): AppInstallationState {
       installationId: null,
       selectedOrg: null,
       repos: [],
+      members: [],
+      alerts: [],
+      rankingWeights: { prs: 20, reviews: 15, commits: 2 },
+      installations: [],
+      currentUserToken: null,
+      installationStatus: 'checking',
+      dateRange: null,
     };
   }
 }

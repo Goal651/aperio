@@ -738,8 +738,7 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
       });
 
       const json = await res.json();
-      console.log('📊 GitHub API Response:', json);
-      
+
       const nodes = json.data?.organization?.membersWithRole?.nodes || [];
 
       const members = nodes.map((node: any) => {
