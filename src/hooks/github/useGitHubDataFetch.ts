@@ -33,7 +33,10 @@ export function useGitHubDataFetch(
     const existing = localStorage.getItem(STORAGE_KEYS.CACHE);
     let cacheObj = existing ? JSON.parse(existing) : { timestamp: Date.now(), org: currentState.selectedOrg };
 
-    // Reset timestamp on new data or if org changed
+    // Reset timestamp on new data or if org/dateRange changed
+    const fromDate = currentState.dateRange?.from;
+    const toDate = currentState.dateRange?.to;
+
     if (cacheObj.org !== currentState.selectedOrg) {
       cacheObj = { timestamp: Date.now(), org: currentState.selectedOrg };
     }
@@ -41,6 +44,10 @@ export function useGitHubDataFetch(
     const newCache = {
       ...cacheObj,
       ...data,
+      dateRange: {
+        from: fromDate?.toISOString(),
+        to: toDate?.toISOString()
+      },
       timestamp: Date.now()
     };
     localStorage.setItem(STORAGE_KEYS.CACHE, JSON.stringify(newCache));
@@ -50,11 +57,16 @@ export function useGitHubDataFetch(
     const currentState = stateRef.current;
     if (!currentState.selectedOrg || !currentState.installationId || loadingStatesRef.current.fetchingRepos) return;
 
+    const fromDate = currentState.dateRange?.from;
+    const toDate = currentState.dateRange?.to;
+
     if (!force) {
       const cached = localStorage.getItem(CACHE_KEY);
       if (cached) {
-        const { repos, timestamp, org } = JSON.parse(cached);
-        if (org === currentState.selectedOrg && repos && repos.length > 0 && Date.now() - timestamp < CACHE_DURATION) {
+        const { repos, timestamp, org, dateRange } = JSON.parse(cached);
+        const dateMatch = !dateRange || (dateRange.from === fromDate?.toISOString() && dateRange.to === toDate?.toISOString());
+        
+        if (org === currentState.selectedOrg && repos && repos.length > 0 && dateMatch && Date.now() - timestamp < CACHE_DURATION) {
           // If we have cached repos but the current state is empty, fill it
           if (currentState.repos.length === 0) {
             setState(prev => ({ ...prev, repos: repos }));
@@ -81,10 +93,10 @@ export function useGitHubDataFetch(
       const currentOrg = org || currentState.selectedOrg;
       const finalAccountType = responseAccountType || currentState.accountType;
       
-      console.log(`[DEBUG] fetchOrgData starting for ${currentOrg} (${finalAccountType})`);
+      console.log(`[DEBUG] fetchOrgData starting for ${currentOrg} (${finalAccountType}) from ${fromDate?.toISOString()} to ${toDate?.toISOString()}`);
 
       const query = `
-        query($owner: String!) {
+        query($owner: String!, $since: DateTime, $until: DateTime) {
           repositoryOwner(login: $owner) {
             ... on Organization { createdAt }
             ... on User { createdAt }
@@ -106,7 +118,7 @@ export function useGitHubDataFetch(
                 defaultBranchRef {
                   target {
                     ... on Commit {
-                      history(first: 20) {
+                      history(first: 50, since: $since, until: $until) {
                         nodes {
                           author {
                             user {
@@ -134,7 +146,11 @@ export function useGitHubDataFetch(
         },
         body: JSON.stringify({
           query,
-          variables: { owner: currentOrg },
+          variables: { 
+            owner: currentOrg,
+            since: fromDate?.toISOString(),
+            until: toDate?.toISOString()
+          },
         }),
       });
 
@@ -223,11 +239,16 @@ export function useGitHubDataFetch(
     const currentState = stateRef.current;
     if (!currentState.selectedOrg || !currentState.installationId || loadingStatesRef.current.fetchingMembers) return;
 
+    const fromDate = currentState.dateRange?.from || new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+    const toDate = currentState.dateRange?.to || new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
+
     if (!force) {
       const cached = localStorage.getItem(CACHE_KEY);
       if (cached) {
-        const { members, timestamp, org } = JSON.parse(cached);
-        if (org === currentState.selectedOrg && members && members.length > 0 && Date.now() - timestamp < CACHE_DURATION) {
+        const { members, timestamp, org, dateRange } = JSON.parse(cached);
+        const dateMatch = !dateRange || (dateRange.from === fromDate.toISOString() && dateRange.to === toDate.toISOString());
+
+        if (org === currentState.selectedOrg && members && members.length > 0 && dateMatch && Date.now() - timestamp < CACHE_DURATION) {
           // If we have cached members but the current state is empty, fill it
           if (currentState.members.length === 0) {
             setState(prev => ({ ...prev, members: members }));
