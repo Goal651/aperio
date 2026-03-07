@@ -24,7 +24,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export default function Page() {
-    const { state, updateRankingWeights, fetchMembers, disconnect, isLoading } = useGitHubApp();
+    const { state, setState, updateRankingWeights, fetchMembers, disconnect, isLoading } = useGitHubApp();
     const [weights, setWeights] = useState(state.rankingWeights || { prs: 20, reviews: 15, commits: 2 });
     const router = useRouter();
 
@@ -187,7 +187,14 @@ export default function Page() {
                                     <Label className="text-base">Dark Mode</Label>
                                     <p className="text-sm text-muted-foreground">Enable dark mode for a more comfortable experience.</p>
                                 </div>
-                                <Switch checked={true} />
+                                <Switch 
+                                    checked={state.theme === 'dark'} 
+                                    onCheckedChange={(checked) => {
+                                        const newTheme = checked ? 'dark' : 'light';
+                                        setState(prev => ({ ...prev, theme: newTheme }));
+                                        localStorage.setItem('nexus_theme', newTheme);
+                                    }}
+                                />
                             </div>
                            
                         </CardContent>

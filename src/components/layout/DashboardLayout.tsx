@@ -3,7 +3,6 @@ import { Sidebar } from "./Sidebar";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -27,7 +26,6 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           <span className="font-semibold text-foreground">Nexus</span>
         </div>
         <div className="flex items-center gap-2">
-          <ThemeToggle />
           <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
@@ -44,11 +42,6 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       <main className="md:ml-64 h-full overflow-auto pt-16 md:pt-0 transition-all duration-300 ">
         <div className="hero-glow fixed inset-0 pointer-events-none" />
         
-        {/* Desktop Theme Toggle - Floating */}
-        <div className="hidden md:block fixed top-8 right-8 z-50">
-            <ThemeToggle />
-        </div>
-
         <div className="relative p-4 md:p-8 w-full">
           {children}
         </div>

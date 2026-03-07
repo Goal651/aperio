@@ -159,14 +159,18 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
   }, [authFlow.handleInstallationCallback, hydrateFromStorage]);
 
   useEffect(() => {
+    const root = window.document.documentElement;
+    if (state.theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+  }, [state.theme]);
+
+  useEffect(() => {
     const savedTheme = localStorage.getItem('nexus_theme') as 'light' | 'dark';
     if (savedTheme) {
       setState(prev => ({ ...prev, theme: savedTheme }));
-      if (savedTheme === 'dark') {
-          window.document.documentElement.classList.add('dark');
-      } else {
-          window.document.documentElement.classList.remove('dark');
-      }
     } else {
         // Default to dark if no preference
         window.document.documentElement.classList.add('dark');
