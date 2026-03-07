@@ -62,7 +62,7 @@ export function useGitHubSettings(
   }, [setState]);
 
   const updateDateRange = useCallback((range: DateRange) => {
-    console.log(`[Nexus] Changing date range to: ${range.label}`, {
+    console.log(`[GitWarden] Changing date range to: ${range.label}`, {
       from: range.from.toISOString(),
       to: range.to.toISOString()
     });

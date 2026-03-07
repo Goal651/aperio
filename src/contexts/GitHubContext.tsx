@@ -108,7 +108,7 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
         }
       }
 
-      const storedDateRange = localStorage.getItem('nexus_date_range');
+      const storedDateRange = localStorage.getItem('gitwarden_date_range');
       if (storedDateRange) {
         const parsed = JSON.parse(storedDateRange);
         setState(prev => ({ 
@@ -168,7 +168,7 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
   }, [state.theme]);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('nexus_theme') as 'light' | 'dark';
+    const savedTheme = localStorage.getItem('gitwarden_theme') as 'light' | 'dark';
     if (savedTheme) {
       setState(prev => ({ ...prev, theme: savedTheme }));
     } else {
@@ -184,7 +184,7 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
   // Centralized data fetching trigger
   useEffect(() => {
     if (state.installed && state.selectedOrg && state.installationId && !isLoading) {
-      console.log(`[DEBUG] Centralized fetch triggered for ${state.selectedOrg} (${state.dateRange?.label})`, {
+      console.log(`[GitWarden] Centralized fetch triggered for ${state.selectedOrg} (${state.dateRange?.label})`, {
         from: state.dateRange?.from.toISOString(),
         to: state.dateRange?.to.toISOString()
       });

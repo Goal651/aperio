@@ -86,7 +86,7 @@ export function OrganizationSelector() {
         <CardHeader>
           <CardTitle>Select Organization</CardTitle>
           <CardDescription>
-            Choose which organization to manage with Nexus
+            Choose which organization to manage with GitWarden
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -159,7 +159,7 @@ export function OrganizationSelector() {
       <CardHeader>
         <CardTitle>No Installations Found</CardTitle>
         <CardDescription>
-          Nexus is not installed to any of your organizations yet.
+          GitWarden is not installed to any of your organizations yet.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-2">

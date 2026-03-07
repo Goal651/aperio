@@ -93,7 +93,7 @@ export function useGitHubDataFetch(
       const currentOrg = org || currentState.selectedOrg;
       const finalAccountType = responseAccountType || currentState.accountType;
       
-      console.log(`[Nexus] fetchOrgData starting for ${currentOrg} (${finalAccountType}) from ${fromDate?.toISOString()} to ${toDate?.toISOString()}`);
+      console.log(`[GitWarden] fetchOrgData starting for ${currentOrg} (${finalAccountType}) from ${fromDate?.toISOString()} to ${toDate?.toISOString()}`);
 
       const query = `
         query($owner: String!, $since: GitTimestamp, $until: GitTimestamp) {
@@ -195,7 +195,7 @@ export function useGitHubDataFetch(
       });
 
       const json = await res.json();
-      console.log(`[Nexus] fetchOrgData response for ${currentOrg}:`, { 
+      console.log(`[GitWarden] fetchOrgData response for ${currentOrg}:`, { 
         hasData: !!json.data, 
         hasOwner: !!json.data?.repositoryOwner,
         repoCount: json.data?.repositoryOwner?.repositories?.nodes?.length || 0,
@@ -315,7 +315,7 @@ export function useGitHubDataFetch(
       const fromDate = currentState.dateRange?.from || new Date(new Date().getFullYear(), new Date().getMonth(), 1);
       const toDate = currentState.dateRange?.to || new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
 
-      console.log(`[Nexus] fetchMembers starting for ${currentState.selectedOrg} from ${fromDate.toISOString()} to ${toDate.toISOString()}`);
+      console.log(`[GitWarden] fetchMembers starting for ${currentState.selectedOrg} from ${fromDate.toISOString()} to ${toDate.toISOString()}`);
 
       const query = `
         query($owner: String!, $from: DateTime!, $to: DateTime!) {
@@ -428,7 +428,7 @@ export function useGitHubDataFetch(
         totalMembers = 1;
       }
 
-      console.log(`[Nexus] fetchMembers response for ${currentState.selectedOrg}:`, {
+      console.log(`[GitWarden] fetchMembers response for ${currentState.selectedOrg}:`, {
         nodeCount: nodes.length,
         totalMembers,
         errors: json.errors

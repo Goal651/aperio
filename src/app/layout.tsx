@@ -8,7 +8,7 @@ import { Analytics } from "@vercel/analytics/next";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Nexus - Security & Productivity Dashboard",
+    title: "GitWarden - Security & Productivity Dashboard",
     description: "Monitor your GitHub organization security and productivity",
 };
 
