@@ -61,7 +61,7 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
     fetchingPRs: false,
   });
 
-  const { fetchOrgData, fetchMembers, fetchSecurityAlerts } = useGitHubDataFetch(state, setState, setLoadingStates);
+  const { fetchOrgData, fetchMembers, fetchSecurityAlerts } = useGitHubDataFetch(state, setState, setLoadingStates, loadingStates);
   
   const { selectOrg, updateRankingWeights, updateDateRange } = useGitHubSettings(
     state, setState, fetchOrgData, fetchMembers, fetchSecurityAlerts
@@ -133,10 +133,10 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (state.currentUserToken) {
+    if (state.currentUserToken && state.installationStatus === 'not_installed') {
       authFlow.checkExistingInstallations();
     }
-  }, [state.currentUserToken, authFlow.checkExistingInstallations]);
+  }, [state.currentUserToken, state.installationStatus]); // Removed authFlow.checkExistingInstallations as a dependency
 
   const value = {
     state,

@@ -11,7 +11,14 @@ export function useGitHubDataFetch(
     fetchingAlerts: boolean;
     fetchingRepos: boolean;
     fetchingPRs: boolean;
-  }>>
+  }>>,
+  loadingStates: {
+    fetchingOrgData: boolean;
+    fetchingMembers: boolean;
+    fetchingAlerts: boolean;
+    fetchingRepos: boolean;
+    fetchingPRs: boolean;
+  }
 ) {
   const saveToCache = useCallback((data: Partial<AppInstallationState>) => {
     const existing = localStorage.getItem(STORAGE_KEYS.CACHE);
@@ -31,7 +38,7 @@ export function useGitHubDataFetch(
   }, [state.selectedOrg]);
 
   const fetchOrgData = useCallback(async (force = false) => {
-    if (!state.selectedOrg || !state.installationId) return;
+    if (!state.selectedOrg || !state.installationId || loadingStates.fetchingRepos) return;
 
     if (!force) {
       const cached = localStorage.getItem(CACHE_KEY);
@@ -43,7 +50,7 @@ export function useGitHubDataFetch(
       }
     }
 
-    setLoadingStates(prev => ({ ...prev, fetchingOrgData: true }));
+    setLoadingStates(prev => ({ ...prev, fetchingRepos: true }));
 
     try {
       const tokenRes = await fetch("/api/github/token", {
@@ -169,12 +176,12 @@ export function useGitHubDataFetch(
     } catch (err: any) {
       console.error("Failed to fetch repos:", err.message);
     } finally {
-      setLoadingStates(prev => ({ ...prev, fetchingOrgData: false }));
+      setLoadingStates(prev => ({ ...prev, fetchingRepos: false }));
     }
-  }, [state.selectedOrg, state.installationId, setState, setLoadingStates, saveToCache]);
+  }, [state.selectedOrg, state.installationId, setState, setLoadingStates, saveToCache, loadingStates.fetchingRepos]);
 
   const fetchMembers = useCallback(async (force = false) => {
-    if (!state.selectedOrg || !state.installationId) return;
+    if (!state.selectedOrg || !state.installationId || loadingStates.fetchingMembers) return;
 
     if (!force) {
       const cached = localStorage.getItem(CACHE_KEY);
@@ -263,10 +270,10 @@ export function useGitHubDataFetch(
     } finally {
       setLoadingStates(prev => ({ ...prev, fetchingMembers: false }));
     }
-  }, [state.selectedOrg, state.installationId, state.rankingWeights, state.dateRange, setState, setLoadingStates, saveToCache]);
+  }, [state.selectedOrg, state.installationId, state.rankingWeights, state.dateRange, setState, setLoadingStates, saveToCache, loadingStates.fetchingMembers]);
 
   const fetchSecurityAlerts = useCallback(async (force = false) => {
-    if (!state.selectedOrg || !state.installationId) return;
+    if (!state.selectedOrg || !state.installationId || loadingStates.fetchingAlerts) return;
 
     if (!force) {
       const cached = localStorage.getItem(CACHE_KEY);
@@ -367,7 +374,7 @@ export function useGitHubDataFetch(
     } finally {
       setLoadingStates(prev => ({ ...prev, fetchingAlerts: false }));
     }
-  }, [state.selectedOrg, state.installationId, setState, setLoadingStates, saveToCache]);
+  }, [state.selectedOrg, state.installationId, setState, setLoadingStates, saveToCache, loadingStates.fetchingAlerts]);
 
   return {
     fetchOrgData,

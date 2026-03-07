@@ -1,17 +1,17 @@
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-import { Shield } from "lucide-react";
+import { Shield, Loader2 } from "lucide-react";
 import { useGitHubApp } from "@/hooks/useGitHubAuth";
 
 
 
 const COLORS = ["hsl(152, 76%, 45%)", "hsl(222, 30%, 16%)"];
 
-export function RiskScoreCard() {
+export function RiskScoreCard({ loading = false }: { loading?: boolean }) {
   const { state } = useGitHubApp()
   const healthyRepo = state.repos.filter(repo => repo.status == 'healthy')
   const totalRepo = state.repos.length
 
-  const score = Math.round(healthyRepo.length / totalRepo * 100);
+  const score = totalRepo > 0 ? Math.round(healthyRepo.length / totalRepo * 100) : 0;
   const getScoreColor = () => {
     if (score >= 80) return "text-success";
     if (score >= 60) return "text-warning";
@@ -63,8 +63,14 @@ export function RiskScoreCard() {
             </PieChart>
           </ResponsiveContainer>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className={`text-4xl font-bold ${getScoreColor()}`}>{score}</span>
-            <span className="text-xs text-muted-foreground">{getScoreLabel()}</span>
+            {loading ? (
+              <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+            ) : (
+              <>
+                <span className={`text-4xl font-bold ${getScoreColor()}`}>{score}</span>
+                <span className="text-xs text-muted-foreground">{getScoreLabel()}</span>
+              </>
+            )}
           </div>
         </div>
       </div>

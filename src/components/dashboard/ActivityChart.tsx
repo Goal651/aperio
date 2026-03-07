@@ -10,6 +10,7 @@ import {
   LabelList
 } from "recharts";
 import { useGitHubApp } from "@/hooks/useGitHubAuth";
+import { Loader2 } from "lucide-react";
 
 const COLORS = [
   "hsl(190, 95%, 50%)", // cyan
@@ -35,7 +36,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-export function ActivityChart() {
+export function ActivityChart({ loading = false }: { loading?: boolean }) {
   const { state } = useGitHubApp();
 
   const languageCounts: Record<string, number> = {};
@@ -55,6 +56,22 @@ export function ActivityChart() {
     }))
     .sort((a, b) => b.count - a.count)
     .slice(0, 7);
+
+  // If loading, show loading state
+  if (loading) {
+    return (
+      <div className="glass-card p-6 animate-fade-in">
+        <div className="mb-6">
+          <h3 className="font-semibold text-foreground">Language Distribution</h3>
+          <p className="text-sm text-muted-foreground">Primary languages across repositories</p>
+        </div>
+        <div className="h-64 flex flex-col items-center justify-center gap-4 text-muted-foreground">
+          <Loader2 className="h-8 w-8 animate-spin" />
+          <p>Fetching language data...</p>
+        </div>
+      </div>
+    );
+  }
 
   // If no data, show empty state
   if (data.length === 0) {

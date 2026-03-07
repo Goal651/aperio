@@ -112,7 +112,7 @@ export default function Page() {
                     icon={GitBranch}
                     iconColor="primary"
                     href="/repos"
-                    loading={isRefreshing}
+                    loading={loadingStates.fetchingRepos}
                 />
                 <StatCard
                     title="Team Members"
@@ -122,7 +122,7 @@ export default function Page() {
                     icon={Users}
                     iconColor="success"
                     href="/members"
-                    loading={isRefreshing}
+                    loading={loadingStates.fetchingMembers}
                 />
                 <StatCard
                     title="Activity (PRs)"
@@ -131,7 +131,7 @@ export default function Page() {
                     changeType="positive"
                     icon={GitCommit}
                     iconColor="primary"
-                    loading={isRefreshing}
+                    loading={loadingStates.fetchingMembers}
                 />
                 <StatCard
                     title="Open Alerts"
@@ -141,24 +141,24 @@ export default function Page() {
                     icon={AlertTriangle}
                     iconColor="destructive"
                     href="/security"
-                    loading={isRefreshing}
+                    loading={loadingStates.fetchingAlerts}
                 />
             </div>
 
             {/* Main Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8 w-full">
                 <div className="lg:col-span-2 w-full">
-                    <ActivityChart />
+                    <ActivityChart loading={loadingStates.fetchingRepos} />
                 </div>
-                <RiskScoreCard />
+                <RiskScoreCard loading={loadingStates.fetchingRepos} />
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                <SecurityAlertsCard loading={isRefreshing} />
-                <TopContributors loading={isRefreshing} />
+                <SecurityAlertsCard loading={loadingStates.fetchingAlerts} />
+                <TopContributors loading={loadingStates.fetchingMembers} />
             </div>
 
-            <RepoHealthCard />
+            <RepoHealthCard loading={loadingStates.fetchingRepos} />
         </DashboardLayout>
     );
 }

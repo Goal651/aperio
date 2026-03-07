@@ -1,4 +1,4 @@
-import { CheckCircle2, XCircle, AlertCircle, AlertTriangle, Lock, Unlock, Clock } from "lucide-react";
+import { CheckCircle2, XCircle, AlertCircle, AlertTriangle, Lock, Unlock, Clock, Loader2 } from "lucide-react";
 import { useGitHubApp } from "@/hooks/useGitHubAuth";
 import { Button } from "@/components/ui/button";
 
@@ -10,7 +10,7 @@ const StatusIcon = ({ status }: { status: string }) => {
   return <AlertTriangle className="h-4 w-4 text-destructive" />;
 };
 
-export function RepoHealthCard() {
+export function RepoHealthCard({ loading = false }: { loading?: boolean }) {
   const { state } = useGitHubApp();
 
   state.repos.map(repo => {
@@ -58,7 +58,16 @@ export function RepoHealthCard() {
             </tr>
           </thead>
           <tbody className="divide-y divide-border/50">
-            {!hasIssues ? (
+            {loading ? (
+              <tr>
+                <td colSpan={4} className="py-8 text-center text-muted-foreground">
+                  <div className="flex items-center justify-center gap-2">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <span>Loading repositories...</span>
+                  </div>
+                </td>
+              </tr>
+            ) : !hasIssues ? (
               <tr>
                 <td colSpan={4} className="py-8 text-center text-muted-foreground">
                   No repositories currently have critical or warning status.

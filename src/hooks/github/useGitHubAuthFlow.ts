@@ -76,8 +76,7 @@ export function useGitHubAuthFlow(
   }, [state.currentUserToken, getUserInstallations, selectOrg, installToOrganization]);
 
   const checkExistingInstallations = useCallback(async () => {
-    if (!state.currentUserToken) {
-      setState(prev => ({ ...prev, installationStatus: 'not_installed' }));
+    if (!state.currentUserToken || state.installationStatus === 'checking') {
       return;
     }
 
