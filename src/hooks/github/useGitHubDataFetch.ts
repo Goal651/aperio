@@ -69,6 +69,7 @@ export function useGitHubDataFetch(
       const query = `
         query($org: String!) {
           organization(login: $org) {
+            createdAt
             repositories(first: 100, orderBy: {field: PUSHED_AT, direction: DESC}) {
               nodes {
                 name
@@ -171,8 +172,10 @@ export function useGitHubDataFetch(
         };
       });
 
-      setState(prev => ({ ...prev, repos }));
-      saveToCache({ repos });
+      const orgCreatedAt = json.data?.organization?.createdAt || null;
+
+      setState(prev => ({ ...prev, repos, orgCreatedAt }));
+      saveToCache({ repos, orgCreatedAt });
     } catch (err: any) {
       console.error("Failed to fetch repos:", err.message);
     } finally {

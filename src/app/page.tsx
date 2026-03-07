@@ -85,7 +85,7 @@ export default function Page() {
                 </div>
                 <div className="flex items-center gap-3">
                     {/* Date Range Selector */}
-                    <DateRangeSelector onDateRangeChange={updateDateRange} />
+                    <DateRangeSelector onDateRangeChange={updateDateRange} orgCreatedAt={state.orgCreatedAt} />
                     
                     <Button
                         variant="glow" className="gap-2 bg-black shadow text-white hover:bg-black/90" onClick={() => {

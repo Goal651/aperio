@@ -73,4 +73,5 @@ export interface AppInstallationState {
   currentUserToken: string | null;
   installationStatus: 'checking' | 'installed' | 'not_installed' | 'error';
   dateRange: DateRange | null;
+  orgCreatedAt: string | null;
 }

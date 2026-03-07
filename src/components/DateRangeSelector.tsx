@@ -26,6 +26,7 @@ export interface DateRange {
 interface DateRangeSelectorProps {
   onDateRangeChange: (range: DateRange) => void;
   className?: string;
+  orgCreatedAt?: string | null;
 }
 
 // Preset date ranges - SPECIFIC MONTHS, not rolling dates
@@ -35,7 +36,7 @@ const PRESETS = [
     getValue: () => {
       const now = new Date();
       const from = new Date(now.getFullYear(), now.getMonth(), 1);
-      const to = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+      const to = now; // Until today
       return { from, to };
     },
   },
@@ -53,16 +54,7 @@ const PRESETS = [
     getValue: () => {
       const now = new Date();
       const from = new Date(now.getFullYear(), now.getMonth() - 3, 1);
-      const to = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-      return { from, to };
-    },
-  },
-  {
-    label: "Last 6 months",
-    getValue: () => {
-      const now = new Date();
-      const from = new Date(now.getFullYear(), now.getMonth() - 6, 1);
-      const to = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+      const to = now;
       return { from, to };
     },
   },
@@ -71,16 +63,7 @@ const PRESETS = [
     getValue: () => {
       const now = new Date();
       const from = new Date(now.getFullYear(), 0, 1);
-      const to = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-      return { from, to };
-    },
-  },
-  {
-    label: "Last year",
-    getValue: () => {
-      const now = new Date();
-      const from = new Date(now.getFullYear() - 1, 0, 1);
-      const to = new Date(now.getFullYear() - 1, 11, 31);
+      const to = now;
       return { from, to };
     },
   },
@@ -175,36 +158,43 @@ function MonthYearPicker({
   );
 }
 
-export function DateRangeSelector({ onDateRangeChange, className }: DateRangeSelectorProps) {
+export function DateRangeSelector({ onDateRangeChange, className, orgCreatedAt }: DateRangeSelectorProps) {
   const [open, setOpen] = useState(false);
-  const [selectedPreset, setSelectedPreset] = useState("Last 30 days");
+  const [selectedPreset, setSelectedPreset] = useState("This month");
   const [isCustom, setIsCustom] = useState(false);
   
   const now = new Date();
-  const [fromMonth, setFromMonth] = useState({ month: now.getMonth() - 1, year: now.getFullYear() });
+  const [fromMonth, setFromMonth] = useState({ month: now.getMonth(), year: now.getFullYear() });
   const [toMonth, setToMonth] = useState({ month: now.getMonth(), year: now.getFullYear() });
 
-  // Initialize from localStorage or default to this month
+  // Generate dynamic month presets based on org creation date
+  const [monthlyPresets, setMonthlyPresets] = useState<{ label: string; from: Date; to: Date }[]>([]);
+
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-        setSelectedPreset(parsed.label);
-        if (parsed.label === "Custom") {
-          setIsCustom(true);
-          const from = new Date(parsed.from);
-          const to = new Date(parsed.to);
-          setFromMonth({ month: from.getMonth(), year: from.getFullYear() });
-          setToMonth({ month: to.getMonth(), year: to.getFullYear() });
-        }
-      } catch (e) {
-        applyPreset("This month");
-      }
-    } else {
-      applyPreset("This month");
+    const presets: { label: string; from: Date; to: Date }[] = [];
+    const minDate = orgCreatedAt ? new Date(orgCreatedAt) : new Date(now.getFullYear() - 1, now.getMonth(), 1);
+    
+    let current = new Date(now.getFullYear(), now.getMonth(), 1);
+    
+    // Limits to last 12 months or since org created
+    for (let i = 0; i < 12; i++) {
+        const monthStart = new Date(current.getFullYear(), current.getMonth(), 1);
+        if (monthStart < minDate) break;
+        
+        const monthEnd = i === 0 
+            ? new Date() // Current month ends today
+            : new Date(current.getFullYear(), current.getMonth() + 1, 0); // Past months end at end of month
+            
+        presets.push({
+            label: MONTHS[current.getMonth()] + " " + current.getFullYear(),
+            from: monthStart,
+            to: monthEnd
+        });
+        
+        current.setMonth(current.getMonth() - 1);
     }
-  }, []);
+    setMonthlyPresets(presets);
+  }, [orgCreatedAt]);
 
   const applyPreset = (label: string) => {
     const preset = PRESETS.find((p) => p.label === label);
@@ -229,6 +219,15 @@ export function DateRangeSelector({ onDateRangeChange, className }: DateRangeSel
     localStorage.setItem(STORAGE_KEY, JSON.stringify(dateRange));
 
     // Notify parent
+    onDateRangeChange(dateRange);
+    setOpen(false);
+  };
+
+  const applyRange = (label: string, from: Date, to: Date) => {
+    const dateRange: DateRange = { from, to, label };
+    setSelectedPreset(label);
+    setIsCustom(false);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(dateRange));
     onDateRangeChange(dateRange);
     setOpen(false);
   };
@@ -308,9 +307,9 @@ export function DateRangeSelector({ onDateRangeChange, className }: DateRangeSel
       >
         <div className="flex">
           {/* Preset Options */}
-          <div className="border-r border-border/50 p-3 space-y-1 min-w-[160px]">
+          <div className="border-r border-border/50 p-3 space-y-1 min-w-[180px]">
             <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2 px-2">
-              Quick Select
+              Time Range
             </p>
             {PRESETS.map((preset) => (
               <button
@@ -330,6 +329,30 @@ export function DateRangeSelector({ onDateRangeChange, className }: DateRangeSel
                 )}
               </button>
             ))}
+
+            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2 mt-4 px-2">
+              Monthly Summary
+            </p>
+            <div className="max-h-[200px] overflow-y-auto space-y-1 pr-1">
+                {monthlyPresets.map((preset) => (
+                <button
+                    key={preset.label}
+                    onClick={() => applyRange(preset.label, preset.from, preset.to)}
+                    className={cn(
+                    "w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200",
+                    "hover:bg-secondary/50 flex items-center justify-between group",
+                    selectedPreset === preset.label && !isCustom
+                        ? "bg-primary/10 text-primary font-medium"
+                        : "text-foreground"
+                    )}
+                >
+                    <span>{preset.label}</span>
+                    {selectedPreset === preset.label && !isCustom && (
+                    <Check className="h-4 w-4 text-primary" />
+                    )}
+                </button>
+                ))}
+            </div>
 
             <div className="pt-2 border-t border-border/50 mt-2">
               <button

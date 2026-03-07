@@ -48,9 +48,10 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
     alerts: [],
     dateRange: {
       from: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
-      to: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0),
+      to: new Date(),
       label: "This month"
-    }
+    },
+    orgCreatedAt: null
   });
 
   const [loadingStates, setLoadingStates] = useState({
