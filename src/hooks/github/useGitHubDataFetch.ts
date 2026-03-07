@@ -64,7 +64,7 @@ export function useGitHubDataFetch(
       const cached = localStorage.getItem(CACHE_KEY);
       if (cached) {
         const { repos, timestamp, org, dateRange } = JSON.parse(cached);
-        const dateMatch = !dateRange || (dateRange.from === fromDate?.toISOString() && dateRange.to === toDate?.toISOString());
+        const dateMatch = dateRange && (dateRange.from === fromDate?.toISOString() && dateRange.to === toDate?.toISOString());
         
         if (org === currentState.selectedOrg && repos && repos.length > 0 && dateMatch && Date.now() - timestamp < CACHE_DURATION) {
           // If we have cached repos but the current state is empty, fill it
@@ -246,7 +246,7 @@ export function useGitHubDataFetch(
       const cached = localStorage.getItem(CACHE_KEY);
       if (cached) {
         const { members, timestamp, org, dateRange } = JSON.parse(cached);
-        const dateMatch = !dateRange || (dateRange.from === fromDate.toISOString() && dateRange.to === toDate.toISOString());
+        const dateMatch = dateRange && (dateRange.from === fromDate.toISOString() && dateRange.to === toDate.toISOString());
 
         if (org === currentState.selectedOrg && members && members.length > 0 && dateMatch && Date.now() - timestamp < CACHE_DURATION) {
           // If we have cached members but the current state is empty, fill it

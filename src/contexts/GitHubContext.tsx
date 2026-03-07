@@ -106,6 +106,19 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
         }
       }
 
+      const storedDateRange = localStorage.getItem('gitguard_date_range');
+      if (storedDateRange) {
+        const parsed = JSON.parse(storedDateRange);
+        setState(prev => ({ 
+          ...prev, 
+          dateRange: { 
+            from: new Date(parsed.from), 
+            to: new Date(parsed.to), 
+            label: parsed.label 
+          } 
+        }));
+      }
+
       const cached = localStorage.getItem(STORAGE_KEYS.CACHE);
       if (cached) {
         const { repos, members, alerts, timestamp, org } = JSON.parse(cached);
@@ -165,7 +178,11 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
   // Centralized data fetching trigger
   useEffect(() => {
     if (state.installed && state.selectedOrg && state.installationId && !isLoading) {
-      // Always fetch or check cache when org shifts
+      console.log(`[DEBUG] Centralized fetch triggered for ${state.selectedOrg} (${state.dateRange?.label})`, {
+        from: state.dateRange?.from.toISOString(),
+        to: state.dateRange?.to.toISOString()
+      });
+      // Always fetch or check cache when org shifts or dateRange changes
       fetchOrgData();
       fetchMembers();
       fetchSecurityAlerts();
