@@ -42,10 +42,8 @@ export default function Page() {
     useEffect(() => {
         if (!isLoading && !state.installed) {
             router.push("/connect");
-        } else if (!isLoading && state.installed) {
-            fetchOrgData();
         }
-    }, [isLoading, state.installed, fetchOrgData, router]);
+    }, [isLoading, state.installed, router]);
 
     if (isLoading) return <LoadingScreen />;
     if (!state.installed) return null;

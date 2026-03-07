@@ -160,7 +160,28 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
     if (state.currentUserToken && state.installationStatus === 'not_installed') {
       authFlow.checkExistingInstallations();
     }
-  }, [state.currentUserToken, state.installationStatus]); // Removed authFlow.checkExistingInstallations as a dependency
+  }, [state.currentUserToken, state.installationStatus]);
+
+  // Centralized data fetching trigger
+  useEffect(() => {
+    if (state.installed && state.selectedOrg && state.installationId && !isLoading) {
+      if (state.repos.length === 0) fetchOrgData();
+      if (state.members.length === 0) fetchMembers();
+      if (state.alerts.length === 0) fetchSecurityAlerts();
+    }
+  }, [
+    state.installed, 
+    state.selectedOrg, 
+    state.installationId, 
+    state.repos.length, 
+    state.members.length, 
+    state.alerts.length, 
+    state.dateRange, // PR stats and alerts might need refresh on date change
+    isLoading,
+    fetchOrgData, 
+    fetchMembers, 
+    fetchSecurityAlerts
+  ]);
 
   const value = {
     state,

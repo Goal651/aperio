@@ -24,21 +24,18 @@ export function useGitHubDataFetch(
   const stateRef = useRef(state);
   const loadingStatesRef = useRef(loadingStates);
 
-  useEffect(() => {
-    stateRef.current = state;
-  }, [state]);
-
-  useEffect(() => {
-    loadingStatesRef.current = loadingStates;
-  }, [loadingStates]);
+  // CRITICAL: Update refs in the render body so they are fresh for effects in child components
+  stateRef.current = state;
+  loadingStatesRef.current = loadingStates;
 
   const saveToCache = useCallback((data: Partial<AppInstallationState>) => {
+    const currentState = stateRef.current;
     const existing = localStorage.getItem(STORAGE_KEYS.CACHE);
-    let cacheObj = existing ? JSON.parse(existing) : { timestamp: Date.now(), org: stateRef.current.selectedOrg };
+    let cacheObj = existing ? JSON.parse(existing) : { timestamp: Date.now(), org: currentState.selectedOrg };
 
     // Reset timestamp on new data or if org changed
-    if (cacheObj.org !== stateRef.current.selectedOrg) {
-      cacheObj = { timestamp: Date.now(), org: stateRef.current.selectedOrg };
+    if (cacheObj.org !== currentState.selectedOrg) {
+      cacheObj = { timestamp: Date.now(), org: currentState.selectedOrg };
     }
 
     const newCache = {
@@ -58,6 +55,10 @@ export function useGitHubDataFetch(
       if (cached) {
         const { repos, timestamp, org } = JSON.parse(cached);
         if (org === currentState.selectedOrg && repos && Date.now() - timestamp < CACHE_DURATION) {
+          // If we have cached repos but the current state is empty, fill it
+          if (currentState.repos.length === 0) {
+            setState(prev => ({ ...prev, repos: repos }));
+          }
           return;
         }
       }
@@ -71,7 +72,7 @@ export function useGitHubDataFetch(
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ installationId: currentState.installationId }),
       });
-      const { token, org } = await tokenRes.json();
+      const { token, org, isOrg } = await tokenRes.json();
 
       if (org && org !== currentState.selectedOrg) {
         setState(prev => ({ ...prev, selectedOrg: org }));
@@ -213,6 +214,10 @@ export function useGitHubDataFetch(
       if (cached) {
         const { members, timestamp, org } = JSON.parse(cached);
         if (org === currentState.selectedOrg && members && Date.now() - timestamp < CACHE_DURATION) {
+          // If we have cached members but the current state is empty, fill it
+          if (currentState.members.length === 0) {
+            setState(prev => ({ ...prev, members: members }));
+          }
           return;
         }
       }
@@ -389,6 +394,10 @@ export function useGitHubDataFetch(
       if (cached) {
         const { alerts, timestamp, org } = JSON.parse(cached);
         if (org === currentState.selectedOrg && alerts && Date.now() - timestamp < CACHE_DURATION) {
+          // If we have cached alerts but the current state is empty, fill it
+          if (currentState.alerts.length === 0) {
+            setState(prev => ({ ...prev, alerts: alerts }));
+          }
           return;
         }
       }

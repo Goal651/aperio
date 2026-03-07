@@ -33,20 +33,8 @@ export default function Page() {
     useEffect(() => {
         if (!isLoading && !state.installed) {
             router.push("/connect");
-        } else if (!isLoading && state.installed) {
-            fetchOrgData();
-            fetchMembers();
-            fetchSecurityAlerts();
         }
-    }, [isLoading, state.installed, fetchOrgData, fetchMembers, fetchSecurityAlerts, router]);
-
-    // Refetch data when date range changes
-    useEffect(() => {
-        if (state.installed && state.dateRange) {
-            fetchMembers(true);
-            fetchSecurityAlerts(true);
-        }
-    }, [state.dateRange, state.installed]);
+    }, [isLoading, state.installed, router]);
 
     if (isLoading) return <LoadingScreen />;
     if (!state.installed) return null;
