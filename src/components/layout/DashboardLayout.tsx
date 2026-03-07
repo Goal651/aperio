@@ -12,7 +12,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="h-screen bg-black/50 relative overflow-hidden ">
+    <div className="h-screen bg-background relative overflow-hidden ">
      
       {/* Desktop Sidebar */}
       <Sidebar className="hidden md:flex" />

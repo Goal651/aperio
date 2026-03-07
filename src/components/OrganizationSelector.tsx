@@ -82,7 +82,7 @@ export function OrganizationSelector() {
 
   if (state.installationStatus === 'installed' && state.installations.length > 0) {
     return (
-      <Card className="w-full max-w-3xl h-auto mx-auto glass-card ">
+      <Card className="w-full max-w-3xl h-auto mx-auto border-border">
         <CardHeader>
           <CardTitle>Select Organization</CardTitle>
           <CardDescription>
@@ -142,7 +142,7 @@ export function OrganizationSelector() {
             ))}
           </div>
           
-          <div className="pt-4 border-t space-y-2">
+          <div className="pt-4 border-border border-t space-y-2">
             
             <Button onClick={installToOrganization} variant="secondary" className="w-full">
               <Plus className="h-4 w-4 mr-2" />

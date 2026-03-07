@@ -1,9 +1,3 @@
-/* ============================================================================
-   ENTERPRISE GLASSMORPHISM DESIGN SYSTEM
-   ============================================================================
-   A modern, professional design system featuring glassmorphism effects,
-   sophisticated animations, and enterprise-grade visual polish.
-   ========================================================================== */
 
 /* Font Imports */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
@@ -72,7 +66,7 @@
         --sidebar-ring: 0 0% 50%;
 
         /* Glassmorphism Variables */
-        --glass-bg: 255 255 255;
+        --glass-bg: 0 0% 0%;
         --glass-border: 255 255 255;
         --blur-amount: 12px;
         --blur-strong: 16px;
@@ -99,6 +93,7 @@
    ========================================================================== */
 
 @layer base {
+
     /* Universal box-sizing and border inheritance */
     * {
         @apply border-border;
@@ -109,7 +104,7 @@
         @apply bg-background text-foreground font-sans antialiased;
         font-family: 'Inter', system-ui, sans-serif;
         /* Subtle noise texture for depth */
-        background-image: 
+        background-image:
             radial-gradient(at 40% 20%, hsl(var(--primary) / 0.03) 0px, transparent 50%),
             radial-gradient(at 80% 0%, hsl(var(--accent) / 0.03) 0px, transparent 50%),
             radial-gradient(at 0% 50%, hsl(var(--success) / 0.02) 0px, transparent 50%);
@@ -136,35 +131,50 @@
    ========================================================================== */
 
 @layer components {
-    
+
     /* ------------------------------------------------------------------------
        GLASSMORPHISM CARDS - Multiple variants for different use cases
        ---------------------------------------------------------------------- */
-    
+
     /* Base glass card - Subtle frosted glass effect */
     .glass-card {
-        @apply relative rounded-xl border overflow-hidden;
-        background: linear-gradient(
-            135deg,
-            hsl(var(--glass-bg) / 0.05) 0%,
-            hsl(var(--glass-bg) / 0.02) 100%
-        );
-        border-color: hsl(var(--glass-border) / 0.1);
-        backdrop-filter: blur(var(--blur-amount));
-        -webkit-backdrop-filter: blur(var(--blur-amount));
-        box-shadow: 
-            var(--shadow-md),
-            inset 0 1px 0 0 hsl(var(--glass-border) / 0.1);
+        @apply relative rounded-xl overflow-hidden border;
+
+        background: hsl(var(--glass-bg)/0.05);
+
+
+        border: 1px solid hsl(var(--glass-border) / 0.18);
+
+        backdrop-filter: blur(calc(var(--blur-amount) * 1.4)) saturate(160%);
+        -webkit-backdrop-filter: blur(calc(var(--blur-amount) * 1.4)) saturate(160%);
+    }
+
+    /* liquid reflection */
+    .glass-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: hsl(var(--glass-bg)/0.02);
+        opacity: 0.05;
+        pointer-events: none;
+    }
+
+    /* subtle edge glow */
+    .glass-card::after {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        background: hsl(var(--glass-bg)/0.1);
+        z-index: -1;
     }
 
     /* Medium intensity glass - More prominent */
     .glass-card-medium {
         @apply glass-card;
-        background: linear-gradient(
-            135deg,
-            hsl(var(--glass-bg) / 0.08) 0%,
-            hsl(var(--glass-bg) / 0.04) 100%
-        );
+        background: linear-gradient(135deg,
+                hsl(var(--glass-bg) / 0.08) 0%,
+                hsl(var(--glass-bg) / 0.04) 100%);
         border-color: hsl(var(--glass-border) / 0.15);
         backdrop-filter: blur(var(--blur-strong));
         -webkit-backdrop-filter: blur(var(--blur-strong));
@@ -173,15 +183,13 @@
     /* Strong glass - Maximum frosted effect */
     .glass-card-strong {
         @apply glass-card;
-        background: linear-gradient(
-            135deg,
-            hsl(var(--glass-bg) / 0.12) 0%,
-            hsl(var(--glass-bg) / 0.06) 100%
-        );
+        background: linear-gradient(135deg,
+                hsl(var(--glass-bg) / 0.12) 0%,
+                hsl(var(--glass-bg) / 0.06) 100%);
         border-color: hsl(var(--glass-border) / 0.2);
         backdrop-filter: blur(var(--blur-strong));
         -webkit-backdrop-filter: blur(var(--blur-strong));
-        box-shadow: 
+        box-shadow:
             var(--shadow-lg),
             inset 0 1px 0 0 hsl(var(--glass-border) / 0.15);
     }
@@ -194,7 +202,7 @@
     .glass-card-interactive:hover {
         transform: translateY(-2px);
         border-color: hsl(var(--glass-border) / 0.2);
-        box-shadow: 
+        box-shadow:
             var(--shadow-xl),
             inset 0 1px 0 0 hsl(var(--glass-border) / 0.15);
     }
@@ -202,7 +210,7 @@
     /* ------------------------------------------------------------------------
        GLOW EFFECTS - Sophisticated border and shadow glows
        ---------------------------------------------------------------------- */
-    
+
     /* Animated glow border on hover */
     .glow-border {
         @apply relative;
@@ -211,12 +219,10 @@
     .glow-border::before {
         content: '';
         @apply absolute inset-0 rounded-xl opacity-0 pointer-events-none;
-        background: linear-gradient(
-            135deg, 
-            hsl(var(--primary) / 0.3), 
-            hsl(var(--accent) / 0.2),
-            transparent
-        );
+        background: linear-gradient(135deg,
+                hsl(var(--primary) / 0.3),
+                hsl(var(--accent) / 0.2),
+                transparent);
         transition: opacity var(--duration-normal) var(--ease-smooth);
     }
 
@@ -232,7 +238,7 @@
     /* ------------------------------------------------------------------------
        STAT CARDS - Dashboard metric cards with glass effect
        ---------------------------------------------------------------------- */
-    
+
     .stat-card {
         @apply glass-card p-6 transition-all duration-300;
     }
@@ -246,7 +252,7 @@
     /* ------------------------------------------------------------------------
        STATUS INDICATORS - Color-coded status system
        ---------------------------------------------------------------------- */
-    
+
     .status-success {
         @apply text-success;
     }
@@ -262,15 +268,13 @@
     /* ------------------------------------------------------------------------
        BADGES - Status and info badges with glass effect
        ---------------------------------------------------------------------- */
-    
+
     .badge-success {
         @apply px-2.5 py-0.5 rounded-full text-xs font-medium;
         @apply text-success border border-success/30;
-        background: linear-gradient(
-            135deg,
-            hsl(var(--success) / 0.15),
-            hsl(var(--success) / 0.08)
-        );
+        background: linear-gradient(135deg,
+                hsl(var(--success) / 0.15),
+                hsl(var(--success) / 0.08));
         backdrop-filter: blur(var(--blur-subtle));
         box-shadow: 0 0 10px hsl(var(--success) / 0.1);
     }
@@ -278,11 +282,9 @@
     .badge-warning {
         @apply px-2.5 py-0.5 rounded-full text-xs font-medium;
         @apply text-warning border border-warning/30;
-        background: linear-gradient(
-            135deg,
-            hsl(var(--warning) / 0.15),
-            hsl(var(--warning) / 0.08)
-        );
+        background: linear-gradient(135deg,
+                hsl(var(--warning) / 0.15),
+                hsl(var(--warning) / 0.08));
         backdrop-filter: blur(var(--blur-subtle));
         box-shadow: 0 0 10px hsl(var(--warning) / 0.1);
     }
@@ -290,11 +292,9 @@
     .badge-critical {
         @apply px-2.5 py-0.5 rounded-full text-xs font-medium;
         @apply text-destructive border border-destructive/30;
-        background: linear-gradient(
-            135deg,
-            hsl(var(--destructive) / 0.15),
-            hsl(var(--destructive) / 0.08)
-        );
+        background: linear-gradient(135deg,
+                hsl(var(--destructive) / 0.15),
+                hsl(var(--destructive) / 0.08));
         backdrop-filter: blur(var(--blur-subtle));
         box-shadow: 0 0 10px hsl(var(--destructive) / 0.1);
     }
@@ -302,11 +302,9 @@
     .badge-info {
         @apply px-2.5 py-0.5 rounded-full text-xs font-medium;
         @apply text-primary border border-primary/30;
-        background: linear-gradient(
-            135deg,
-            hsl(var(--primary) / 0.15),
-            hsl(var(--primary) / 0.08)
-        );
+        background: linear-gradient(135deg,
+                hsl(var(--primary) / 0.15),
+                hsl(var(--primary) / 0.08));
         backdrop-filter: blur(var(--blur-subtle));
         box-shadow: 0 0 10px hsl(var(--primary) / 0.1);
     }
@@ -314,7 +312,7 @@
     /* ------------------------------------------------------------------------
        NAVIGATION - Nav links with smooth transitions
        ---------------------------------------------------------------------- */
-    
+
     .nav-link {
         @apply flex items-center gap-3 px-4 py-2.5 rounded-lg;
         @apply text-muted-foreground transition-all duration-200;
@@ -323,18 +321,16 @@
 
     .nav-link.active {
         @apply text-primary border border-primary/20;
-        background: linear-gradient(
-            135deg,
-            hsl(var(--primary) / 0.1),
-            hsl(var(--primary) / 0.05)
-        );
+        background: linear-gradient(135deg,
+                hsl(var(--primary) / 0.1),
+                hsl(var(--primary) / 0.05));
         box-shadow: 0 0 15px hsl(var(--primary) / 0.1);
     }
 
     /* ------------------------------------------------------------------------
        BUTTONS - Enhanced button styles with glass effect
        ---------------------------------------------------------------------- */
-    
+
     .btn-glass {
         @apply glass-card px-4 py-2 font-medium transition-all duration-200;
         @apply hover:border-primary/30 active:scale-95;
@@ -346,24 +342,20 @@
 
     .btn-glass-primary {
         @apply btn-glass text-primary;
-        background: linear-gradient(
-            135deg,
-            hsl(var(--primary) / 0.15),
-            hsl(var(--primary) / 0.08)
-        );
+        background: linear-gradient(135deg,
+                hsl(var(--primary) / 0.15),
+                hsl(var(--primary) / 0.08));
     }
 
     /* ------------------------------------------------------------------------
        TEXT EFFECTS - Gradient and glow text
        ---------------------------------------------------------------------- */
-    
+
     .gradient-text {
         @apply bg-clip-text text-transparent;
-        background-image: linear-gradient(
-            135deg,
-            hsl(var(--primary)),
-            hsl(var(--foreground) / 0.7)
-        );
+        background-image: linear-gradient(135deg,
+                hsl(var(--primary)),
+                hsl(var(--foreground) / 0.7));
     }
 
     .text-glow {
@@ -373,18 +365,16 @@
     /* ------------------------------------------------------------------------
        BACKGROUNDS - Hero sections and decorative backgrounds
        ---------------------------------------------------------------------- */
-    
+
     .hero-glow {
-        background: radial-gradient(
-            ellipse 80% 50% at 50% -20%,
-            hsl(var(--primary) / 0.15),
-            transparent
-        );
+        background: radial-gradient(ellipse 80% 50% at 50% -20%,
+                hsl(var(--primary) / 0.15),
+                transparent);
     }
 
     /* Mesh gradient background */
     .mesh-gradient {
-        background-image: 
+        background-image:
             radial-gradient(at 0% 0%, hsl(var(--primary) / 0.1) 0px, transparent 50%),
             radial-gradient(at 50% 0%, hsl(var(--accent) / 0.08) 0px, transparent 50%),
             radial-gradient(at 100% 0%, hsl(var(--success) / 0.06) 0px, transparent 50%);
@@ -393,36 +383,32 @@
     /* ------------------------------------------------------------------------
        TABLES - Glass effect table rows
        ---------------------------------------------------------------------- */
-    
+
     .table-row-glass {
         @apply border-b border-border/50 transition-all duration-200;
-        background: linear-gradient(
-            90deg,
-            hsl(var(--glass-bg) / 0.02),
-            transparent
-        );
+        background: linear-gradient(90deg,
+                hsl(var(--glass-bg) / 0.02),
+                transparent);
     }
 
     .table-row-glass:hover {
-        background: linear-gradient(
-            90deg,
-            hsl(var(--glass-bg) / 0.05),
-            hsl(var(--glass-bg) / 0.02)
-        );
+        background: linear-gradient(90deg,
+                hsl(var(--glass-bg) / 0.05),
+                hsl(var(--glass-bg) / 0.02));
         backdrop-filter: blur(var(--blur-subtle));
     }
 
     /* ------------------------------------------------------------------------
        INPUTS - Enhanced form inputs with glass effect
        ---------------------------------------------------------------------- */
-    
+
     .input-glass {
         @apply glass-card px-4 py-2 transition-all duration-200;
         @apply focus:border-primary/50 focus:outline-none;
     }
 
     .input-glass:focus {
-        box-shadow: 
+        box-shadow:
             0 0 0 3px hsl(var(--primary) / 0.1),
             var(--shadow-md);
     }
@@ -430,7 +416,7 @@
     /* ------------------------------------------------------------------------
        MODALS & POPOVERS - Elevated glass surfaces
        ---------------------------------------------------------------------- */
-    
+
     .modal-glass {
         @apply glass-card-strong p-6;
         box-shadow: var(--shadow-2xl);
@@ -444,21 +430,19 @@
     /* ------------------------------------------------------------------------
        DIVIDERS - Subtle separators with gradient
        ---------------------------------------------------------------------- */
-    
+
     .divider-glass {
         @apply h-px w-full;
-        background: linear-gradient(
-            90deg,
-            transparent,
-            hsl(var(--border)),
-            transparent
-        );
+        background: linear-gradient(90deg,
+                transparent,
+                hsl(var(--border)),
+                transparent);
     }
 
     /* ------------------------------------------------------------------------
        SHIMMER EFFECT - Loading state animation
        ---------------------------------------------------------------------- */
-    
+
     .shimmer {
         @apply relative overflow-hidden;
     }
@@ -466,12 +450,10 @@
     .shimmer::after {
         content: '';
         @apply absolute inset-0;
-        background: linear-gradient(
-            90deg,
-            transparent,
-            hsl(var(--glass-bg) / 0.1),
-            transparent
-        );
+        background: linear-gradient(90deg,
+                transparent,
+                hsl(var(--glass-bg) / 0.1),
+                transparent);
         animation: shimmer 2s infinite;
     }
 }
@@ -481,11 +463,11 @@
    ========================================================================== */
 
 @layer utilities {
-    
+
     /* ------------------------------------------------------------------------
        ANIMATION UTILITIES
        ---------------------------------------------------------------------- */
-    
+
     /* Slow pulse for subtle emphasis */
     .animate-pulse-slow {
         animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -519,7 +501,7 @@
     /* ------------------------------------------------------------------------
        BACKDROP BLUR UTILITIES
        ---------------------------------------------------------------------- */
-    
+
     .backdrop-blur-glass {
         backdrop-filter: blur(var(--blur-amount));
         -webkit-backdrop-filter: blur(var(--blur-amount));
@@ -538,7 +520,7 @@
     /* ------------------------------------------------------------------------
        ELEVATION UTILITIES - Shadow depth system
        ---------------------------------------------------------------------- */
-    
+
     .elevation-sm {
         box-shadow: var(--shadow-sm);
     }
@@ -562,7 +544,7 @@
     /* ------------------------------------------------------------------------
        HOVER LIFT EFFECT
        ---------------------------------------------------------------------- */
-    
+
     .hover-lift {
         @apply transition-transform duration-200;
     }
@@ -574,20 +556,43 @@
     /* ------------------------------------------------------------------------
        STAGGER ANIMATION - For list items
        ---------------------------------------------------------------------- */
-    
+
     .stagger-item {
         opacity: 0;
         animation: fade-in 0.5s var(--ease-smooth) forwards;
     }
 
-    .stagger-item:nth-child(1) { animation-delay: 0.05s; }
-    .stagger-item:nth-child(2) { animation-delay: 0.1s; }
-    .stagger-item:nth-child(3) { animation-delay: 0.15s; }
-    .stagger-item:nth-child(4) { animation-delay: 0.2s; }
-    .stagger-item:nth-child(5) { animation-delay: 0.25s; }
-    .stagger-item:nth-child(6) { animation-delay: 0.3s; }
-    .stagger-item:nth-child(7) { animation-delay: 0.35s; }
-    .stagger-item:nth-child(8) { animation-delay: 0.4s; }
+    .stagger-item:nth-child(1) {
+        animation-delay: 0.05s;
+    }
+
+    .stagger-item:nth-child(2) {
+        animation-delay: 0.1s;
+    }
+
+    .stagger-item:nth-child(3) {
+        animation-delay: 0.15s;
+    }
+
+    .stagger-item:nth-child(4) {
+        animation-delay: 0.2s;
+    }
+
+    .stagger-item:nth-child(5) {
+        animation-delay: 0.25s;
+    }
+
+    .stagger-item:nth-child(6) {
+        animation-delay: 0.3s;
+    }
+
+    .stagger-item:nth-child(7) {
+        animation-delay: 0.35s;
+    }
+
+    .stagger-item:nth-child(8) {
+        animation-delay: 0.4s;
+    }
 }
 
 /* ============================================================================
@@ -599,6 +604,7 @@
     from {
         box-shadow: 0 0 10px hsl(var(--primary) / 0.2);
     }
+
     to {
         box-shadow: 0 0 25px hsl(var(--primary) / 0.4);
     }
@@ -606,9 +612,12 @@
 
 /* Pulsing glow for emphasis */
 @keyframes glow-pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         box-shadow: 0 0 10px hsl(var(--primary) / 0.2);
     }
+
     50% {
         box-shadow: 0 0 30px hsl(var(--primary) / 0.5);
     }
@@ -619,6 +628,7 @@
     0% {
         transform: translateX(-100%);
     }
+
     100% {
         transform: translateX(100%);
     }
@@ -630,6 +640,7 @@
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -642,6 +653,7 @@
         opacity: 0;
         transform: translateX(-20px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -654,6 +666,7 @@
         opacity: 0;
         transform: scale(0.9);
     }
+
     to {
         opacity: 1;
         transform: scale(1);
@@ -662,9 +675,12 @@
 
 /* Floating animation */
 @keyframes float {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0px);
     }
+
     50% {
         transform: translateY(-10px);
     }
