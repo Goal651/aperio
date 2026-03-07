@@ -316,15 +316,15 @@
     .nav-link {
         @apply flex items-center gap-3 px-4 py-2.5 rounded-lg;
         @apply text-muted-foreground transition-all duration-200;
-        @apply hover:text-foreground hover:bg-secondary/20;
+        @apply hover:text-foreground hover:bg-primary-foreground;
+        /* background: hsl(var(--glass-bg) /0.1); */
+        /* border: 1px solid hsl(var(--glass-border) / 0.2); */
     }
 
     .nav-link.active {
-        @apply text-primary border border-primary/20;
-        background: linear-gradient(135deg,
-                hsl(var(--primary) / 0.1),
-                hsl(var(--primary) / 0.05));
-        box-shadow: 0 0 15px hsl(var(--primary) / 0.1);
+        @apply text-primary;
+        background: hsl(var(--glass-bg) /0.1);
+        border: 1px solid hsl(var(--glass-border) / 0.2);
     }
 
     /* ------------------------------------------------------------------------

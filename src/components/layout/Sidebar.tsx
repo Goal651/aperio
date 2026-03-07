@@ -72,7 +72,9 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
       </nav>
 
       <div className="border-t border-border p-4 flex-shrink-0">
-        <Link href="/settings" className="nav-link" onClick={onNavigate}>
+        <Link href="/settings" 
+        className={`nav-link ${pathname === "/settings" ? "active" : ""}`}
+          onClick={onNavigate}>
           <Settings className="h-4 w-4" />
           <span>Settings</span>
         </Link>

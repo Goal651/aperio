@@ -146,7 +146,7 @@ export default function Page() {
                 </div>
 
                 {/* Quick stats */}
-                <div className="lg:col-span-2 grid grid-cols-3 gap-4">
+                <div className="lg:col-span-2 grid grid-cols-2 gap-4">
                     <div className="stat-card animate-fade-in" style={{ animationDelay: "0.1s" }}>
                         <div className="flex items-center gap-2 mb-2">
                             <CheckCircle className="h-4 w-4 text-success" />

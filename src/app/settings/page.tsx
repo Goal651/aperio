@@ -39,7 +39,7 @@ export default function Page() {
 
     const handleSaveWeights = () => {
         updateRankingWeights(weights);
-        fetchMembers(); // Re-rank members with new weights
+        fetchMembers(); 
         toast.success("Ranking algorithm updated successfully!");
     };
 
@@ -84,6 +84,7 @@ export default function Page() {
                                     <span className="text-sm font-mono text-primary">{weights.prs}x</span>
                                 </div>
                                 <Slider
+                                
                                     value={[weights.prs]}
                                     max={50}
                                     step={1}
@@ -121,10 +122,10 @@ export default function Page() {
                             </div>
 
                             <div className="flex gap-4 pt-4">
-                                <Button onClick={handleSaveWeights} className="gap-2">
+                                <Button onClick={handleSaveWeights} className="gap-2 bg-background text-foreground hover:bg-background/80">
                                     Apply Weights
                                 </Button>
-                                <Button variant="secondary" onClick={() => setWeights({ prs: 20, reviews: 15, commits: 2 })}>
+                                <Button variant="secondary" className="gap-2 bg-background text-foreground hover:bg-background/80" onClick={() => setWeights({ prs: 20, reviews: 15, commits: 2 })}>
                                     Reset to Defaults
                                 </Button>
                             </div>
@@ -183,25 +184,12 @@ export default function Page() {
                         <CardContent className="space-y-6">
                             <div className="flex items-center justify-between">
                                 <div className="space-y-0.5">
-                                    <Label className="text-base">Glassmorphism Mode</Label>
-                                    <p className="text-sm text-muted-foreground">Enable frosted glass effects on all cards.</p>
+                                    <Label className="text-base">Dark Mode</Label>
+                                    <p className="text-sm text-muted-foreground">Enable dark mode for a more comfortable experience.</p>
                                 </div>
                                 <Switch checked={true} />
                             </div>
-                            <div className="flex items-center justify-between">
-                                <div className="space-y-0.5">
-                                    <Label className="text-base">Real-time Updates</Label>
-                                    <p className="text-sm text-muted-foreground">Automatically refresh data every 5 minutes.</p>
-                                </div>
-                                <Switch checked={false} />
-                            </div>
-                            <div className="flex items-center justify-between">
-                                <div className="space-y-0.5">
-                                    <Label className="text-base">Animations</Label>
-                                    <p className="text-sm text-muted-foreground">Enable smooth transitions and fade-ins.</p>
-                                </div>
-                                <Switch checked={true} />
-                            </div>
+                           
                         </CardContent>
                     </Card>
                 </TabsContent>

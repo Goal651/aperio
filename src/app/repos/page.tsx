@@ -146,8 +146,8 @@ export default function Page() {
                                                                 alt={c.login}
                                                             />
                                                         </HoverCardTrigger>
-                                                        <HoverCardContent className="w-80">
-                                                            <div className="flex justify-between space-x-4">
+                                                        <HoverCardContent className="w-80 bg-background/80">
+                                                            <div className="flex justify-between space-x-4 ">
                                                                 <div className="flex items-center space-x-4">
                                                                     <div className="rounded-full overflow-hidden h-10 w-10 border border-border">
                                                                         <img src={c.avatar} alt={c.login} className="h-full w-full object-cover" />

@@ -20,6 +20,27 @@ import { useEffect, useState } from "react";
 
 import { LoadingScreen } from "@/components/ui/LoadingScreen";
 
+// Custom tooltip with better styling
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="glass-card px-4 py-3 shadow-lg border border-border/50">
+        <p className="font-medium text-foreground">{label}</p>
+        <p className="flex flex-col font-mono text-sm text-foreground">
+          {payload[0].value} {payload[0].value === 1 ? 'repository' : 'repositories'}
+        </p>
+        <p className="flex flex-col font-mono text-sm text-foreground/80">
+          {payload[1].value} {payload[1].value === 1 ? 'pull request' : 'pull requests'}
+        </p>
+        <p className="flex flex-col font-mono text-sm text-foreground/80">
+          {payload[2].value} {payload[2].value === 1 ? 'review' : 'reviews'}
+        </p>
+      </div>
+    );
+  }
+  return null;
+};
+
 export default function Page() {
     const { state, fetchMembers, isLoading } = useGitHubApp();
     const router = useRouter();
@@ -98,12 +119,7 @@ export default function Page() {
                                 width={80}
                             />
                             <Tooltip
-                                contentStyle={{
-                                    backgroundColor: "hsl(222, 47%, 8%)",
-                                    border: "1px solid hsl(222, 30%, 16%)",
-                                    borderRadius: "8px",
-                                    color: "hsl(210, 40%, 96%)",
-                                }}
+                                content={<CustomTooltip />}
                             />
                             <Bar dataKey="commits" fill="hsl(190, 95%, 50%)" radius={[0, 4, 4, 0]} />
                             <Bar dataKey="prs" fill="hsl(152, 76%, 45%)" radius={[0, 4, 4, 0]} />
