@@ -52,8 +52,8 @@ No database. No stored tokens. GitGuard runs entirely in your browser session (c
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/goal651/git-guard.git
-   cd git-guard
+   git clone https://github.com/goal651/git-warden.git
+   cd git-warden
    ```
 
 2. **Install dependencies**:

@@ -8,7 +8,7 @@ export const STORAGE_KEYS = {
 export const CACHE_DURATION = 15 * 60 * 1000;
 
 export const GITHUB_CONFIG = {
-  APP_NAME: "git-guard-app",
+  APP_NAME: "git-warden",
   CLIENT_ID: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID || "",
   REDIRECT_URI: typeof window !== 'undefined'
     ? `${window.location.origin}/api/auth/callback`
