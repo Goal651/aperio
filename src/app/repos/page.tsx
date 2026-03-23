@@ -191,7 +191,8 @@ export default function Page() {
                                 <Button variant="ghost" size="sm"
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        setState(prev => ({ ...prev, selectedRepoName: repo.name }));
+                                        router.push(`/repos/${repo.name}`);
+                                        // setState(prev => ({ ...prev, selectedRepoName: repo.name }));
                                     }}
                                 >View Details</Button>
                             </div>
