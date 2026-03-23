@@ -38,10 +38,10 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
       {/* Logo */}
       <div className="flex h-16 items-center gap-3 border-b border-border px-6 flex-shrink-0">
         <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 overflow-hidden">
-          <img src="/icon.png" alt="GitWarden Logo" className="h-full w-full object-cover" />
+          <img src="/icon.png" alt="Kordian Logo" className="h-full w-full object-cover" />
         </div>
         <div>
-          <h1 className="text-sm font-semibold text-foreground">GitWarden</h1>
+          <h1 className="text-sm font-semibold text-foreground">Kordian</h1>
           <p className="text-xs text-muted-foreground">Security & Activity Hub</p>
         </div>
       </div>
@@ -72,8 +72,8 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
       </nav>
 
       <div className="border-t border-border p-4 flex-shrink-0">
-        <Link href="/settings" 
-        className={`nav-link ${pathname === "/settings" ? "active" : ""}`}
+        <Link href="/settings"
+          className={`nav-link ${pathname === "/settings" ? "active" : ""}`}
           onClick={onNavigate}>
           <Settings className="h-4 w-4" />
           <span>Settings</span>

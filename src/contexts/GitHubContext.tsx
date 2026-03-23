@@ -70,7 +70,7 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
   });
 
   const { fetchOrgData, fetchMembers, fetchSecurityAlerts } = useGitHubDataFetch(state, setState, setLoadingStates, loadingStates);
-  
+
   const { selectOrg, updateRankingWeights, updateDateRange } = useGitHubSettings(
     state, setState, fetchOrgData, fetchMembers, fetchSecurityAlerts
   );
@@ -108,16 +108,16 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
         }
       }
 
-      const storedDateRange = localStorage.getItem('gitwarden_date_range');
+      const storedDateRange = localStorage.getItem('kordian_date_range');
       if (storedDateRange) {
         const parsed = JSON.parse(storedDateRange);
-        setState(prev => ({ 
-          ...prev, 
-          dateRange: { 
-            from: new Date(parsed.from), 
-            to: new Date(parsed.to), 
-            label: parsed.label 
-          } 
+        setState(prev => ({
+          ...prev,
+          dateRange: {
+            from: new Date(parsed.from),
+            to: new Date(parsed.to),
+            label: parsed.label
+          }
         }));
       }
 
@@ -139,7 +139,7 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
     const initializeAuth = async () => {
       if (initialized.current) return;
       initialized.current = true;
-      
+
       const urlParams = new URLSearchParams(window.location.search);
       const code = urlParams.get('code');
 
@@ -168,14 +168,14 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
   }, [state.theme]);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('gitwarden_theme') as 'light' | 'dark';
+    const savedTheme = localStorage.getItem('kordian_theme') as 'light' | 'dark';
     if (savedTheme) {
       setState(prev => ({ ...prev, theme: savedTheme }));
     } else {
-        // Default to dark if no preference
-        window.document.documentElement.classList.add('dark');
+      // Default to dark if no preference
+      window.document.documentElement.classList.add('dark');
     }
-    
+
     if (state.currentUserToken && state.installationStatus === 'not_installed') {
       authFlow.checkExistingInstallations();
     }
@@ -184,7 +184,7 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
   // Centralized data fetching trigger
   useEffect(() => {
     if (state.installed && state.selectedOrg && state.installationId && !isLoading) {
-      console.log(`[GitWarden] Centralized fetch triggered for ${state.selectedOrg} (${state.dateRange?.label})`, {
+      console.log(`[Kordian] Centralized fetch triggered for ${state.selectedOrg} (${state.dateRange?.label})`, {
         from: state.dateRange?.from.toISOString(),
         to: state.dateRange?.to.toISOString()
       });
@@ -194,13 +194,13 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
       fetchSecurityAlerts();
     }
   }, [
-    state.installed, 
-    state.selectedOrg, 
-    state.installationId, 
-    state.dateRange, 
+    state.installed,
+    state.selectedOrg,
+    state.installationId,
+    state.dateRange,
     isLoading,
-    fetchOrgData, 
-    fetchMembers, 
+    fetchOrgData,
+    fetchMembers,
     fetchSecurityAlerts
   ]);
 

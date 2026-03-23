@@ -65,7 +65,7 @@ export function useGitHubDataFetch(
       if (cached) {
         const { repos, timestamp, org, dateRange } = JSON.parse(cached);
         const dateMatch = dateRange && (dateRange.from === fromDate?.toISOString() && dateRange.to === toDate?.toISOString());
-        
+
         if (org === currentState.selectedOrg && repos && repos.length > 0 && dateMatch && Date.now() - timestamp < CACHE_DURATION) {
           // If we have cached repos but the current state is empty, fill it
           if (currentState.repos.length === 0) {
@@ -92,8 +92,8 @@ export function useGitHubDataFetch(
 
       const currentOrg = org || currentState.selectedOrg;
       const finalAccountType = responseAccountType || currentState.accountType;
-      
-      console.log(`[GitWarden] fetchOrgData starting for ${currentOrg} (${finalAccountType}) from ${fromDate?.toISOString()} to ${toDate?.toISOString()}`);
+
+      console.log(`[Kordian] fetchOrgData starting for ${currentOrg} (${finalAccountType}) from ${fromDate?.toISOString()} to ${toDate?.toISOString()}`);
 
       const query = `
         query($owner: String!, $since: GitTimestamp, $until: GitTimestamp) {
@@ -186,7 +186,7 @@ export function useGitHubDataFetch(
         },
         body: JSON.stringify({
           query,
-          variables: { 
+          variables: {
             owner: currentOrg,
             since: fromDate?.toISOString(),
             until: toDate?.toISOString()
@@ -195,14 +195,14 @@ export function useGitHubDataFetch(
       });
 
       const json = await res.json();
-      console.log(`[GitWarden] fetchOrgData response for ${currentOrg}:`, { 
-        hasData: !!json.data, 
+      console.log(`[Kordian] fetchOrgData response for ${currentOrg}:`, {
+        hasData: !!json.data,
         hasOwner: !!json.data?.repositoryOwner,
         repoCount: json.data?.repositoryOwner?.repositories?.nodes?.length || 0,
         totalRepos: json.data?.repositoryOwner?.repositories?.totalCount || 0,
-        errors: json.errors 
+        errors: json.errors
       });
-      
+
       if (json.errors) {
         console.error("GraphQL errors fetching repos:", json.errors.map((e: any) => e.message).join(", "));
       }
@@ -315,7 +315,7 @@ export function useGitHubDataFetch(
       const fromDate = currentState.dateRange?.from || new Date(new Date().getFullYear(), new Date().getMonth(), 1);
       const toDate = currentState.dateRange?.to || new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
 
-      console.log(`[GitWarden] fetchMembers starting for ${currentState.selectedOrg} from ${fromDate.toISOString()} to ${toDate.toISOString()}`);
+      console.log(`[Kordian] fetchMembers starting for ${currentState.selectedOrg} from ${fromDate.toISOString()} to ${toDate.toISOString()}`);
 
       const query = `
         query($owner: String!, $from: DateTime!, $to: DateTime!) {
@@ -417,7 +417,7 @@ export function useGitHubDataFetch(
       const owner = json.data?.repositoryOwner;
       let nodes: any[] = [];
       let totalMembers = 0;
-      
+
       if (owner?.membersWithRole) {
         // It's an Organization
         nodes = owner.membersWithRole.nodes;
@@ -428,7 +428,7 @@ export function useGitHubDataFetch(
         totalMembers = 1;
       }
 
-      console.log(`[GitWarden] fetchMembers response for ${currentState.selectedOrg}:`, {
+      console.log(`[Kordian] fetchMembers response for ${currentState.selectedOrg}:`, {
         nodeCount: nodes.length,
         totalMembers,
         errors: json.errors
@@ -436,7 +436,7 @@ export function useGitHubDataFetch(
 
       const members = nodes.map((node: any) => {
         const stats = node.contributionsCollection;
-        
+
         // Helper to filter and sum contributions for the selected org/user
         const filterAndSum = (repos: any[]) => {
           return repos
@@ -447,7 +447,7 @@ export function useGitHubDataFetch(
         const commits = filterAndSum(stats.commitContributionsByRepository);
         const prs = filterAndSum(stats.pullRequestContributionsByRepository);
         const reviews = filterAndSum(stats.pullRequestReviewContributionsByRepository);
-        
+
         const contributedRepos = stats.commitContributionsByRepository
           ?.filter((r: any) => r.repository.owner.login.toLowerCase() === currentState.selectedOrg?.toLowerCase())
           .map((repoContr: any) => repoContr.repository.name) || [];
@@ -465,14 +465,14 @@ export function useGitHubDataFetch(
           score: (prs * currentState.rankingWeights.prs) + (reviews * currentState.rankingWeights.reviews) + (commits * currentState.rankingWeights.commits)
         };
       }).sort((a: any, b: any) => b.score - a.score);
- 
+
       const typedMembers: Member[] = members;
-      setState(prev => ({ 
-        ...prev, 
+      setState(prev => ({
+        ...prev,
         members: typedMembers,
         totalMembers: totalMembers || prev.totalMembers
       }));
-      saveToCache({ 
+      saveToCache({
         members: typedMembers,
         totalMembers: totalMembers
       });
@@ -512,7 +512,7 @@ export function useGitHubDataFetch(
         const res = await fetch("/api/github/alerts", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ 
+          body: JSON.stringify({
             installationId: currentState.installationId,
             endpoint
           }),

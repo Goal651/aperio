@@ -9,9 +9,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Loader2, CheckCircle, Plus, SwitchCamera } from "lucide-react";
 
 export function OrganizationSelector() {
-  const { 
-    state, 
-    checkExistingInstallations, 
+  const {
+    state,
+    checkExistingInstallations,
     switchInstallation,
     installApp,
     installToOrganization,
@@ -86,7 +86,7 @@ export function OrganizationSelector() {
         <CardHeader>
           <CardTitle>Select Organization</CardTitle>
           <CardDescription>
-            Choose which organization to manage with GitWarden
+            Choose which organization to manage with Kordian
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -94,18 +94,17 @@ export function OrganizationSelector() {
             {state.installations.map(installation => (
               <div
                 key={installation.installationId}
-                className={`flex items-center justify-between p-4 rounded-lg border  transition-colors cursor-pointer ${
-                  state.installationId === installation.installationId
+                className={`flex items-center justify-between p-4 rounded-lg border  transition-colors cursor-pointer ${state.installationId === installation.installationId
                     ? 'border-primary bg-primary/5'
                     : 'border-border hover:bg-muted/50'
-                }`}
+                  }`}
                 onClick={() => switchInstallation(installation.installationId)}
               >
                 <div className="flex items-center space-x-3">
                   <Avatar className="h-8 w-8">
-                    <AvatarImage 
-                      src={`https://github.com/${installation.organizationLogin}.png`} 
-                      alt={installation.organizationLogin} 
+                    <AvatarImage
+                      src={`https://github.com/${installation.organizationLogin}.png`}
+                      alt={installation.organizationLogin}
                     />
                     <AvatarFallback>
                       {installation.organizationLogin.slice(0, 2).toUpperCase()}
@@ -125,8 +124,8 @@ export function OrganizationSelector() {
                       Active
                     </Badge>
                   )}
-                  <Button 
-                    variant="ghost" 
+                  <Button
+                    variant="ghost"
                     size="sm"
                     onClick={() => handleSwitchInstallation(installation.installationId)}
                     disabled={isSwitching === installation.installationId || isLoading}
@@ -141,13 +140,13 @@ export function OrganizationSelector() {
               </div>
             ))}
           </div>
-          
+
           <div className="pt-4 border-border border-t space-y-2">
-            
+
             <Button onClick={installToOrganization} variant="secondary" className="w-full">
               <Plus className="h-4 w-4 mr-2" />
               Install to New Organization
-            </Button> 
+            </Button>
           </div>
         </CardContent>
       </Card>
@@ -159,7 +158,7 @@ export function OrganizationSelector() {
       <CardHeader>
         <CardTitle>No Installations Found</CardTitle>
         <CardDescription>
-          GitWarden is not installed to any of your organizations yet.
+          Kordian is not installed to any of your organizations yet.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-2">

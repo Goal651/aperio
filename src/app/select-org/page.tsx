@@ -42,7 +42,7 @@ function SelectOrgContent() {
                         Connect Your Organization
                     </h1>
                     <p className="text-sm text-muted-foreground">
-                        Install the GitHub App to allow GitWarden to scan your organization's repos.
+                        Install the GitHub App to allow Kordian to scan your organization's repos.
                     </p>
                 </div>
 

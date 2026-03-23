@@ -21,7 +21,7 @@ export function ThemeToggle() {
     const toggleTheme = () => {
         const newTheme = isDark ? 'light' : 'dark';
         setState(prev => ({ ...prev, theme: newTheme }));
-        localStorage.setItem('gitwarden_theme', newTheme);
+        localStorage.setItem('kordian_theme', newTheme);
     };
 
     return (

@@ -39,7 +39,7 @@ export default function Page() {
 
     const handleSaveWeights = () => {
         updateRankingWeights(weights);
-        fetchMembers(); 
+        fetchMembers();
         toast.success("Ranking algorithm updated successfully!");
     };
 
@@ -51,7 +51,7 @@ export default function Page() {
                     <h1 className="text-2xl font-bold text-foreground">Settings</h1>
                 </div>
                 <p className="text-muted-foreground">
-                    Configure your GitWarden environment and ranking algorithms
+                    Configure your Kordian environment and ranking algorithms
                 </p>
             </div>
 
@@ -84,7 +84,7 @@ export default function Page() {
                                     <span className="text-sm font-mono text-primary">{weights.prs}x</span>
                                 </div>
                                 <Slider
-                                
+
                                     value={[weights.prs]}
                                     max={50}
                                     step={1}
@@ -178,7 +178,7 @@ export default function Page() {
                         <CardHeader>
                             <CardTitle>Interface Preferences</CardTitle>
                             <CardDescription>
-                                Customize how GitWarden looks on your screen.
+                                Customize how Kordian looks on your screen.
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-6">
@@ -187,16 +187,16 @@ export default function Page() {
                                     <Label className="text-base">Dark Mode</Label>
                                     <p className="text-sm text-muted-foreground">Enable dark mode for a more comfortable experience.</p>
                                 </div>
-                                <Switch 
-                                    checked={state.theme === 'dark'} 
+                                <Switch
+                                    checked={state.theme === 'dark'}
                                     onCheckedChange={(checked) => {
                                         const newTheme = checked ? 'dark' : 'light';
                                         setState(prev => ({ ...prev, theme: newTheme }));
-                                        localStorage.setItem('gitwarden_theme', newTheme);
+                                        localStorage.setItem('kordian_theme', newTheme);
                                     }}
                                 />
                             </div>
-                           
+
                         </CardContent>
                     </Card>
                 </TabsContent>

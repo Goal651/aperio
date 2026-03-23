@@ -17,7 +17,7 @@ export function useGitHubSettings(
 
   const selectOrg = useCallback((org: string, installationId: number, accountType?: 'User' | 'Organization') => {
     const finalAccountType = accountType || 'Organization';
-    
+
     setState(prev => ({
       ...prev,
       installed: true,
@@ -62,7 +62,7 @@ export function useGitHubSettings(
   }, [setState]);
 
   const updateDateRange = useCallback((range: DateRange) => {
-    console.log(`[GitWarden] Changing date range to: ${range.label}`, {
+    console.log(`[Kordian] Changing date range to: ${range.label}`, {
       from: range.from.toISOString(),
       to: range.to.toISOString()
     });
