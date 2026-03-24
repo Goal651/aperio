@@ -48,7 +48,7 @@ Security is at our core. kordian is **100% stateless**. We do not use a database
 
 1.  **Clone the repository**:
     ```bash
-    git clone [https://github.com/Goal651/kordian.git](https://github.com/Goal651/kordian.git)
+    git clone https://github.com/Goal651/kordian.git
     cd kordian
     ```
 
