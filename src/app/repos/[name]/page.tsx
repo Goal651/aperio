@@ -29,7 +29,7 @@ export default function RepoDetailView() {
     const backToDashboard =()=> router.back()
 
     return (
-        <div className="animate-fade-in">
+        <div className="animate-fade-in p-4">
             <div className="mb-8 flex items-center gap-4">
                 <Button variant="ghost" size="icon" onClick={backToDashboard} className="rounded-full">
                     <ArrowLeft className="h-5 w-5" />
