@@ -9,9 +9,12 @@ import {
     Package,
     ExternalLink,
     ChevronRight,
-    Clock
+    Clock,
+    Search,
+    Filter
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 import { useGitHubApp } from "@/hooks/useGitHubAuth";
 import { useEffect, useState } from "react";
@@ -24,6 +27,7 @@ export default function Page() {
     const { state, fetchSecurityAlerts, isLoading } = useGitHubApp();
     const router = useRouter();
     const [filter, setFilter] = useState<"all" | "critical" | "high" | "medium" | "low">("all");
+    const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
         if (!isLoading && !state.installed) {
@@ -37,9 +41,12 @@ export default function Page() {
     if (!state.installed) return null;
 
     const allAlerts = state.alerts || [];
-    const filteredAlerts = filter === "all"
-        ? allAlerts
-        : allAlerts.filter(a => a.severity === filter);
+    const filteredAlerts = allAlerts.filter(a => {
+        const matchesSeverity = filter === "all" ? true : a.severity === filter;
+        const matchesSearch = a.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                             a.repo.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesSeverity && matchesSearch;
+    });
 
     const alertStats = [
         { label: "Critical", count: state.alerts.filter(a => a.severity === "critical").length, color: "bg-destructive", value: "critical" },
@@ -58,53 +65,93 @@ export default function Page() {
     return (
         <DashboardLayout>
             {/* Header */}
-            <div className="mb-8">
-                <div className="flex items-center gap-3 mb-2">
-                    <Shield className="h-6 w-6 text-primary" />
-                    <h1 className="text-2xl font-bold text-foreground">Security Overview</h1>
+            <div className="mb-8 p-6 bg-gradient-to-r from-primary/10 via-background to-background rounded-2xl border border-primary/20 shadow-lg shadow-primary/5">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <div className="flex items-center gap-3 mb-2">
+                            <Shield className="h-7 w-7 text-primary" />
+                            <h1 className="text-3xl font-bold text-foreground">Security Overview</h1>
+                        </div>
+                        <p className="text-muted-foreground max-w-xl">
+                            Real-time security vulnerability tracking and vulnerability remediation across your entire organization.
+                        </p>
+                    </div>
+                    <Button variant="glow" size="lg" className="bg-primary text-primary-foreground font-semibold shadow-xl shadow-primary/20 hover:scale-105 transition-transform">
+                        Remediate Vulnerabilities
+                    </Button>
                 </div>
-                <p className="text-muted-foreground">
-                    Vulnerabilities and security alerts across your organization
-                </p>
+
+                {/* Filter and Search */}
+                <div className="flex flex-col lg:flex-row gap-4 pt-4 border-t border-border/50">
+                    <div className="relative flex-1">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                            placeholder="Search by vulnerability title or repository..."
+                            className="pl-10 h-10 bg-secondary/30 border-border focus:border-primary/50 transition-colors"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                        <Button
+                            variant={filter === "all" ? "secondary" : "ghost"}
+                            size="sm"
+                            onClick={() => setFilter("all")}
+                            className="h-10 px-4 flex items-center gap-2 hover:bg-secondary/50"
+                        >
+                            <Filter className="h-3.5 w-3.5" />
+                            All Severity
+                        </Button>
+                        {alertStats.map((stat) => (
+                            <Button
+                                key={stat.label}
+                                variant={filter === stat.value ? "secondary" : "ghost"}
+                                size="sm"
+                                onClick={() => setFilter(stat.value as any)}
+                                className={`h-10 px-4 flex items-center gap-2 hover:bg-secondary/50 ${filter === stat.value ? "bg-secondary/40 border border-primary/20" : ""}`}
+                            >
+                                <div className={`h-2.5 w-2.5 rounded-full ${stat.color} shadow-sm`} />
+                                <span className={filter === stat.value ? "text-foreground font-medium" : "text-muted-foreground"}>
+                                    {stat.label}
+                                </span>
+                                <span className="bg-secondary px-1.5 py-0.5 rounded text-[10px] font-mono">{stat.count}</span>
+                            </Button>
+                        ))}
+                    </div>
+                </div>
             </div>
 
             {/* Alert summary bar */}
-            <div className="glass-card p-6 mb-8 animate-fade-in">
+            <div className="glass-card p-6 mb-8 animate-fade-in group hover:border-primary/20 transition-all border-dashed border-2">
                 <div className="flex items-center justify-between mb-4">
-                    <h2 className="font-semibold text-foreground">Alert Summary</h2>
-                    <span className="text-sm text-muted-foreground">{totalAlertsCount} total alerts</span>
+                    <div className="flex flex-col gap-1">
+                        <h2 className="font-semibold text-foreground">Risk Exposure Bar</h2>
+                        <p className="text-[11px] text-muted-foreground uppercase tracking-widest font-bold">Severity Distribution Graph</p>
+                    </div>
+                    <span className="text-xl font-bold text-foreground font-mono">{totalAlertsCount} <span className="text-xs font-normal text-muted-foreground uppercase">Alerts Total</span></span>
                 </div>
-                <div className="flex gap-2 h-3 rounded-full overflow-hidden bg-secondary">
+                <div className="flex gap-1.5 h-4 rounded-full overflow-hidden bg-secondary items-center p-1">
                     {alertStats.map((stat) => (
                         <div
                             key={stat.label}
-                            className={`${stat.color} transition-all duration-500`}
-                            style={{ width: totalAlertsCount > 0 ? `${(stat.count / totalAlertsCount) * 100}%` : "0%" }}
+                            className={`${stat.color} h-2 rounded-full transition-all duration-700 ease-elastic`}
+                            style={{ 
+                                width: totalAlertsCount > 0 ? `${(stat.count / totalAlertsCount) * 100}%` : "0%",
+                                opacity: stat.count > 0 ? 1 : 0
+                            }}
                         />
                     ))}
                 </div>
-                <div className="flex flex-wrap gap-2 md:gap-6 mt-4">
-                    <Button
-                        variant={filter === "all" ? "secondary" : "ghost"}
-                        size="sm"
-                        onClick={() => setFilter("all")}
-                        className="h-auto p-0 px-2 hover:bg-secondary/50"
-                    >
-                        <span className="text-sm text-muted-foreground">All: <span className="font-mono text-foreground">{totalAlertsCount}</span></span>
-                    </Button>
-                    {alertStats.map((stat) => (
-                        <Button
-                            key={stat.label}
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => setFilter(stat.value as any)}
-                            className={`h-auto p-0 px-2 flex items-center gap-2 hover:bg-secondary/50 ${filter === stat.value ? "bg-secondary/50" : ""}`}
-                        >
-                            <div className={`h-2 w-2 rounded-full ${stat.color}`} />
-                            <span className="text-sm text-muted-foreground">
-                                {stat.label}: <span className="font-mono text-foreground">{stat.count}</span>
-                            </span>
-                        </Button>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                    {alertStats.map(stat => (
+                        <div key={stat.label} className="p-3 rounded-xl bg-secondary/40 border border-border/50 hover:bg-secondary/60 transition-colors">
+                            <div className="flex items-center gap-2 mb-1">
+                                <div className={`h-2 w-2 rounded-full ${stat.color}`} />
+                                <span className="text-xs text-muted-foreground font-medium">{stat.label} Priority</span>
+                            </div>
+                            <p className="text-xl font-bold font-mono text-foreground leading-none">{stat.count}</p>
+                            <p className="text-[10px] text-muted-foreground mt-1">{(totalAlertsCount > 0 ? (stat.count / totalAlertsCount) * 100 : 0).toFixed(1)}% of total risk</p>
+                        </div>
                     ))}
                 </div>
             </div>
@@ -155,53 +202,72 @@ export default function Page() {
                     </div>
                 </div>
 
-                <div className="space-y-3">
+                <div className="space-y-4">
                     {filteredAlerts.length === 0 ? (
-                        <p className="text-center text-muted-foreground py-8">No alerts found matching your criteria.</p>
+                        <div className="text-center py-16 bg-secondary/10 rounded-2xl border border-dashed border-border/50">
+                            <Shield className="h-12 w-12 text-muted-foreground mx-auto mb-4 opacity-20" />
+                            <p className="text-muted-foreground font-medium">No alerts found matching your criteria.</p>
+                            <p className="text-xs text-muted-foreground/60 mt-1">Try adjusting your filters or search query</p>
+                            <Button variant="link" size="sm" onClick={() => {setFilter("all"); setSearchQuery("");}} className="mt-4">
+                                Reset filters
+                            </Button>
+                        </div>
                     ) : (
-                        filteredAlerts.map((alert) => (
+                        filteredAlerts.map((alert, idx) => (
                             <div
                                 key={alert.id}
-                                className="flex items-center justify-between p-4 rounded-lg bg-secondary/30 border border-border hover:bg-secondary/50 transition-all group"
+                                className="flex flex-col md:flex-row md:items-center justify-between p-5 rounded-2xl bg-secondary/20 border border-border/50 hover:bg-secondary/40 hover:border-primary/30 transition-all group animate-fade-in"
+                                style={{ animationDelay: `${idx * 0.05}s` }}
                             >
-                                <div className="flex items-center gap-4">
-                                    <div className="h-10 w-10 rounded-lg bg-secondary flex items-center justify-center">
-                                        {alert.type === "Secret" && <Key className="h-5 w-5 text-destructive" />}
-                                        {alert.type === "Dependency" && <Package className="h-5 w-5 text-warning" />}
-                                        {alert.type === "Code" && <Bug className="h-5 w-5 text-primary" />}
+                                <div className="flex items-start gap-5">
+                                    <div className={`h-12 w-12 rounded-xl flex items-center justify-center shadow-inner ${
+                                        alert.severity === 'critical' ? 'bg-destructive/10 border border-destructive/20' : 
+                                        alert.severity === 'high' ? 'bg-warning/10 border border-warning/20' : 'bg-primary/10 border border-primary/20'
+                                    }`}>
+                                        {alert.type === "Secret" && <Key className={`h-6 w-6 ${alert.severity === 'critical' ? 'text-destructive' : 'text-warning'}`} />}
+                                        {alert.type === "Dependency" && <Package className="h-6 w-6 text-warning" />}
+                                        {alert.type === "Code" && <Bug className="h-6 w-6 text-primary" />}
                                     </div>
-                                    <div>
-                                        <div className="flex items-center gap-2 mb-1">
-                                            <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-secondary border border-border text-xs font-medium">
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex flex-wrap items-center gap-2 mb-2">
+                                            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-background/50 border border-border text-[11px] font-bold text-foreground/80 hover:text-primary transition-colors cursor-pointer" onClick={() => router.push(`/repos/${alert.repo}`)}>
                                                 <ExternalLink className="h-3 w-3" />
                                                 {alert.repo}
                                             </div>
-                                            <span className="text-xs text-muted-foreground">·</span>
-                                            <span className={`text-xs font-semibold px-2 py-0.5 rounded-full border ${alert.severity === "critical" ? "border-destructive/50 text-destructive bg-destructive/10" :
-                                                alert.severity === "high" ? "border-warning/50 text-warning bg-warning/10" :
-                                                    "border-primary/50 text-primary bg-primary/10"
-                                                }`}>
-                                                {alert.type}
-                                            </span>
+                                            <div className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-widest border ${
+                                                alert.severity === "critical" ? "border-destructive/30 text-destructive bg-destructive/5" :
+                                                alert.severity === "high" ? "border-warning/30 text-warning bg-warning/5" :
+                                                "border-primary/30 text-primary bg-primary/5"
+                                            }`}>
+                                                {alert.severity} Priority
+                                            </div>
+                                            <span className="text-[10px] text-muted-foreground/40 font-bold uppercase tracking-tighter">{alert.type} scanning</span>
                                         </div>
-                                        <p className="text-sm font-medium text-foreground">{alert.title}</p>
-                                        <p className="text-xs text-muted-foreground font-mono mt-0.5 truncate max-w-md">{alert.path}</p>
+                                        <h3 className="text-base font-bold text-foreground mb-1 group-hover:text-primary transition-colors">{alert.title}</h3>
+                                        <div className="flex items-center gap-2">
+                                            <p className="text-xs text-muted-foreground font-mono truncate max-w-[200px] md:max-w-md bg-secondary/40 px-2 py-0.5 rounded border border-border/50">
+                                                {alert.path || "Global scope"}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-4">
-                                    <div className="hidden md:flex items-center gap-2 text-xs text-muted-foreground">
-                                        <Clock className="h-3 w-3" />
-                                        {alert.detected}
+                                <div className="flex items-center gap-6 mt-4 md:mt-0 pt-4 md:pt-0 border-t md:border-0 border-border/50">
+                                    <div className="flex flex-col items-end gap-1">
+                                        <div className="flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground">
+                                            <Clock className="h-3 w-3" />
+                                            Detected {alert.detected}
+                                        </div>
+                                        {alert.fixed && <span className="text-[10px] text-success font-bold uppercase">Fixed recently</span>}
                                     </div>
                                     {alert.url && (
                                         <Button
                                             size="sm"
-                                            variant="ghost"
-                                            className="opacity-0 group-hover:opacity-100 transition-opacity gap-1"
+                                            variant="glow"
+                                            className="bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all gap-2 border border-primary/20"
                                             onClick={() => window.open(alert.url, '_blank')}
                                         >
-                                            View
-                                            <ExternalLink className="h-3 w-3" />
+                                            Remediate
+                                            <ChevronRight className="h-4 w-4" />
                                         </Button>
                                     )}
                                 </div>

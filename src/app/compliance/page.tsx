@@ -9,6 +9,7 @@ import {
     FileCode
 } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { Button } from "@/components/ui/button";
 
 import { useGitHubApp } from "@/hooks/useGitHubAuth";
 import { useEffect } from "react";
@@ -60,6 +61,17 @@ export default function Page() {
     // Calculate compliance percentage
     const percentage = totalRepos > 0 ? Math.round((healthyRepos / totalRepos) * 100) : 100;
 
+    // Calculate Grade
+    const getGrade = (score: number) => {
+        if (score >= 90) return { grade: "A", color: "text-success", bg: "bg-success/10 border-success/30", label: "Excellent" };
+        if (score >= 80) return { grade: "B", color: "text-primary", bg: "bg-primary/10 border-primary/30", label: "Good" };
+        if (score >= 60) return { grade: "C", color: "text-warning", bg: "bg-warning/10 border-warning/30", label: "Fair" };
+        if (score >= 40) return { grade: "D", color: "text-orange-500", bg: "bg-orange-500/10 border-orange-500/30", label: "Poor" };
+        return { grade: "F", color: "text-destructive", bg: "bg-destructive/10 border-destructive/30", label: "At Risk" };
+    };
+
+    const gradeInfo = getGrade(percentage);
+
     const complianceData = [
         { name: "Compliant", value: healthyRepos },
         { name: "Partial", value: warningRepos },
@@ -71,7 +83,6 @@ export default function Page() {
     const reposWithCodeScanning = new Set(state.alerts?.filter(a => a.type === "Code").map(a => a.repo)).size;
     const reposWithSecretScanning = new Set(state.alerts?.filter(a => a.type === "Secret").map(a => a.repo)).size;
 
-    // Use totalRepos for total, as these features "should" be enabled on all
     const checks = [
         {
             category: "Security Policies",
@@ -94,14 +105,29 @@ export default function Page() {
     return (
         <DashboardLayout>
             {/* Header */}
-            <div className="mb-8">
-                <div className="flex items-center gap-3 mb-2">
-                    <CheckCircle className="h-6 w-6 text-primary" />
-                    <h1 className="text-2xl font-bold text-foreground">Compliance Dashboard</h1>
+            <div className="mb-8 p-6 bg-secondary/20 rounded-2xl border border-border/50">
+                <div className="flex flex-col md:flex-row items-center gap-6 justify-between">
+                    <div className="flex items-center gap-4">
+                        <div className={`h-20 w-20 flex items-center justify-center text-3xl font-black rounded-2xl border-2 ${gradeInfo.bg} ${gradeInfo.color} shadow-lg shadow-black/10`}>
+                            {gradeInfo.grade}
+                        </div>
+                        <div>
+                            <div className="flex items-center gap-2 mb-1">
+                                <h1 className="text-2xl font-bold text-foreground">Compliance Guard</h1>
+                                <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest ${gradeInfo.bg} ${gradeInfo.color}`}>
+                                    {gradeInfo.label}
+                                </span>
+                            </div>
+                            <p className="text-muted-foreground text-sm max-w-md">
+                                Your organization scored <span className="text-foreground font-semibold">{percentage}%</span> on the security compliance audit for <span className="text-foreground font-semibold">{totalRepos}</span> repositories.
+                            </p>
+                        </div>
+                    </div>
+                    <div className="flex gap-3">
+                        <Button variant="outline" size="sm" className="bg-background">Download Report</Button>
+                        <Button variant="glow" size="sm">Audit Repositories</Button>
+                    </div>
                 </div>
-                <p className="text-muted-foreground">
-                    Best practices and policy compliance across your organization
-                </p>
             </div>
 
             {/* Overview cards */}

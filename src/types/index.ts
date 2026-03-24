@@ -48,6 +48,7 @@ export interface SecurityAlert {
   url: string;
   description?: string;
   remediation?: string;
+  fixed?: boolean;
 }
 
 export interface RankingWeights {
