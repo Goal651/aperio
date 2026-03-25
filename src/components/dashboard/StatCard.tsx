@@ -15,10 +15,10 @@ interface StatCardProps {
 }
 
 const iconColorClasses = {
-  primary: "text-primary bg-primary/10",
-  success: "text-success bg-success/10",
-  warning: "text-warning bg-warning/10",
-  destructive: "text-destructive bg-destructive/10",
+  primary: "text-primary bg-primary/10 border-primary/20 shadow-primary/5",
+  success: "text-success bg-success/10 border-success/20 shadow-success/5",
+  warning: "text-warning bg-warning/10 border-warning/20 shadow-warning/5",
+  destructive: "text-destructive bg-destructive/10 border-destructive/20 shadow-destructive/5",
 };
 
 export function StatCard({
@@ -32,42 +32,60 @@ export function StatCard({
   loading,
 }: StatCardProps) {
   const content = (
-    <div className={cn("stat-card cursor-pointer animate-fade-in transition-all", href && "hover:shadow-md hover:scale-[1.02] cursor-pointer")}>
-      <div className="flex items-start justify-between">
-        <div className="space-y-2 flex-1 min-w-0">
-          <p className="text-sm font-medium text-muted-foreground">{title}</p>
+    <div className={cn(
+      "glass-card p-6 transition-all duration-300 group relative overflow-hidden",
+      href && "hover:border-primary/40 hover:scale-[1.02] cursor-pointer"
+    )}>
+      <div className="absolute -right-4 -top-4 p-6 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity pointer-events-none">
+          <Icon className="h-24 w-24 rotate-12" />
+      </div>
+      
+      <div className="flex items-start justify-between relative z-10">
+        <div className="space-y-3 flex-1 min-w-0">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground opacity-70">{title}</p>
           {loading ? (
-            <>
-              <Skeleton className="h-9 w-20" />
-              <Skeleton className="h-3 w-32" />
-            </>
+            <div className="space-y-2">
+              <Skeleton className="h-10 w-24 rounded-lg" />
+              <Skeleton className="h-4 w-32 rounded-md" />
+            </div>
           ) : (
-            <>
-              <p className="text-3xl font-bold tracking-tight text-foreground">{value}</p>
+            <div className="space-y-1">
+              <p className="text-3xl font-black tracking-tight text-foreground leading-none">{value}</p>
               {change && (
-                <p
-                  className={cn(
-                    "text-xs font-medium",
-                    changeType === "positive" && "text-success",
-                    changeType === "negative" && "text-destructive",
-                    changeType === "neutral" && "text-muted-foreground"
-                  )}
-                >
-                  {change}
-                </p>
+                <div className="flex items-center gap-1.5 mt-2">
+                  <div className={cn(
+                    "h-1.5 w-1.5 rounded-full animate-pulse",
+                    changeType === "positive" && "bg-success",
+                    changeType === "negative" && "bg-destructive",
+                    changeType === "neutral" && "bg-muted-foreground"
+                  )} />
+                  <p
+                    className={cn(
+                      "text-[10px] font-black uppercase tracking-wider",
+                      changeType === "positive" && "text-success",
+                      changeType === "negative" && "text-destructive",
+                      changeType === "neutral" && "text-muted-foreground"
+                    )}
+                  >
+                    {change}
+                  </p>
+                </div>
               )}
-            </>
+            </div>
           )}
         </div>
-        <div className={cn("rounded-lg p-3 shrink-0", iconColorClasses[iconColor])}>
-          <Icon className="h-5 w-5" />
+        <div className={cn(
+            "rounded-2xl p-3.5 shrink-0 border transition-transform group-hover:scale-110 duration-500", 
+            iconColorClasses[iconColor]
+        )}>
+          <Icon className="h-6 w-6" />
         </div>
       </div>
     </div>
   );
 
   if (href) {
-    return <Link href={href}>{content}</Link>;
+    return <Link href={href} className="block">{content}</Link>;
   }
 
   return content;

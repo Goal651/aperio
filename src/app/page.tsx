@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { StatCard } from "@/components/dashboard/StatCard";
 import { SecurityAlertsCard } from "@/components/dashboard/SecurityAlertsCard";
@@ -17,11 +16,14 @@ import {
     AlertTriangle,
     RefreshCw,
     Calendar,
+    LayoutDashboard,
+    Zap,
+    TrendingUp,
+    ShieldCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useGitHubApp } from "@/hooks/useGitHubAuth";
-
 import { LoadingScreen } from "@/components/ui/LoadingScreen";
 
 export default function Page() {
@@ -44,59 +46,56 @@ export default function Page() {
         loadingStates.fetchingMembers ||
         loadingStates.fetchingAlerts ||
         loadingStates.fetchingPRs ||
-        loadingStates.fetchingOrgData
-
+        loadingStates.fetchingOrgData;
 
     return (
         <DashboardLayout>
-            {/* Header */}
-            <div className="mb-8 flex items-center justify-between w-full">
-                <div>
-                    <h1 className="text-2xl font-bold text-foreground">
-                        Organization Insights
-                    </h1>
-                    <div className="flex items-center gap-2 mt-1">
-                        <p className="text-muted-foreground">
-                            <span className="font-mono text-primary">{state.selectedOrg || "Loading..."}</span> · Last scanned just now
-                        </p>
-                        {state.dateRange && (
-                            <>
-                                <span className="text-muted-foreground">·</span>
-                                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                                    <Calendar className="h-3 w-3" />
-                                    <span>
-                                        {state.dateRange.from.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - {state.dateRange.to.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                                    </span>
+            {/* Page Header */}
+            <div className="mb-10 flex flex-col xl:flex-row xl:items-center justify-between gap-6">
+                <div className="space-y-1">
+                    <div className="flex items-center gap-4">
+                        <div className="p-3 bg-primary/10 rounded-2xl border border-primary/20 shadow-sm transition-transform hover:scale-110 duration-500">
+                            <LayoutDashboard className="h-7 w-7 text-primary" />
+                        </div>
+                        <div>
+                            <h1 className="text-3xl md:text-4xl font-black text-foreground tracking-tight">Organization Insights</h1>
+                            <div className="flex flex-wrap items-center gap-3 mt-1.5 px-0.5">
+                                <div className="flex items-center gap-2">
+                                    <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+                                    <span className="font-black font-mono text-xs text-primary uppercase tracking-widest">@{state.selectedOrg || "Loading..."}</span>
                                 </div>
-                            </>
-                        )}
+                                <span className="hidden sm:inline text-muted-foreground/40 font-bold">•</span>
+                                <p className="text-xs text-muted-foreground font-medium">Real-time infrastructure intelligence active</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div className="flex items-center gap-3">
-                    {/* Date Range Selector */}
-                    <DateRangeSelector onDateRangeChange={updateDateRange} orgCreatedAt={state.orgCreatedAt} />
 
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                    <div className="flex-1 sm:flex-none h-12">
+                        <DateRangeSelector onDateRangeChange={updateDateRange} orgCreatedAt={state.orgCreatedAt} />
+                    </div>
                     <Button
-                        variant="glow" className="gap-2 bg-black shadow text-white hover:bg-black/90" onClick={() => {
+                        variant="glow" 
+                        size="lg"
+                        className="h-12 px-8 gap-3 bg-primary text-primary-foreground font-black shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all rounded-2xl group" 
+                        onClick={() => {
                             fetchOrgData(true);
                             fetchMembers(true);
                             fetchSecurityAlerts(true);
                         }}>
-                        <RefreshCw className={`h-4 w-4
-                         ${isRefreshing
-                            && "animate-spin"}`}
-                        />
-                        Run Scan
+                        <RefreshCw className={`h-4 w-4 transition-transform group-hover:rotate-180 duration-500 ${isRefreshing && "animate-spin"}`} />
+                        <span className="uppercase tracking-widest text-[10px]">Initialize Scan</span>
                     </Button>
                 </div>
             </div>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 w-full">
+            {/* Top Row: Core Metrics */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-10 w-full animate-fade-in no-scrollbar overflow-x-auto pb-4">
                 <StatCard
-                    title="Total Repositories"
+                    title="Infrastructure Base"
                     value={state.totalRepos > 0 ? state.totalRepos.toString() : state.repos?.length?.toString() || "0"}
-                    change={state.repos?.length ? "Organization total" : "-"}
+                    change={state.repos?.length ? "Provisioned Assets" : "-"}
                     changeType="positive"
                     icon={GitBranch}
                     iconColor="primary"
@@ -104,9 +103,9 @@ export default function Page() {
                     loading={loadingStates.fetchingRepos}
                 />
                 <StatCard
-                    title="Team Members"
+                    title="Engineering Force"
                     value={state.totalMembers > 0 ? state.totalMembers.toString() : state.members?.length?.toString() || "0"}
-                    change={state.members?.length ? "Organization total" : "-"}
+                    change={state.members?.length ? "Active Contributors" : "-"}
                     changeType="neutral"
                     icon={Users}
                     iconColor="success"
@@ -114,18 +113,18 @@ export default function Page() {
                     loading={loadingStates.fetchingMembers}
                 />
                 <StatCard
-                    title="Activity (PRs)"
+                    title="Velocity Threshold"
                     value={totalPrs.toString()}
-                    change={`${totalCommits} aggregate commits`}
+                    change={`${totalCommits} aggregate events`}
                     changeType="positive"
                     icon={GitCommit}
                     iconColor="primary"
                     loading={loadingStates.fetchingMembers}
                 />
                 <StatCard
-                    title="Open Alerts"
+                    title="Risk Exposure"
                     value={state.alerts?.length?.toString() || "0"}
-                    change={state.alerts?.length ? `${state.alerts.filter(a => a.severity === "critical").length} critical` : "0 critical"}
+                    change={state.alerts?.length ? `${state.alerts.filter(a => a.severity === "critical").length} CRITICAL DETECTED` : "0 Vulnerabilities"}
                     changeType="negative"
                     icon={AlertTriangle}
                     iconColor="destructive"
@@ -134,20 +133,42 @@ export default function Page() {
                 />
             </div>
 
-            {/* Main Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8 w-full">
-                <div className="lg:col-span-2 w-full">
+            {/* Central Analysis Row */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-10 w-full animate-fade-in" style={{ animationDelay: "0.1s" }}>
+                <div className="lg:col-span-8 w-full group">
                     <ActivityChart loading={loadingStates.fetchingRepos} />
                 </div>
-                <RiskScoreCard loading={loadingStates.fetchingRepos} />
+                <div className="lg:col-span-4 group">
+                    <RiskScoreCard loading={loadingStates.fetchingRepos} />
+                </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                <SecurityAlertsCard loading={loadingStates.fetchingAlerts} />
-                <TopContributors loading={loadingStates.fetchingMembers} />
+            {/* Secondary Intelligence Row */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10 animate-fade-in" style={{ animationDelay: "0.2s" }}>
+                <div className="group">
+                    <SecurityAlertsCard loading={loadingStates.fetchingAlerts} />
+                </div>
+                <div className="group">
+                    <TopContributors loading={loadingStates.fetchingMembers} />
+                </div>
             </div>
 
-            <RepoHealthCard loading={loadingStates.fetchingRepos} />
+            {/* Deep Health Audit Row */}
+            <div className="animate-fade-in group" style={{ animationDelay: "0.3s" }}>
+                <RepoHealthCard loading={loadingStates.fetchingRepos} />
+            </div>
+
+            {/* Footer Polish */}
+            <div className="mt-20 pt-10 border-t border-border/20 text-center pb-12">
+                <div className="flex justify-center gap-8 mb-6 opacity-30 grayscale hover:grayscale-0 transition-all duration-700">
+                    <div className="flex items-center gap-2"><ShieldCheck className="h-4 w-4" /><span className="text-[10px] font-black uppercase tracking-widest">Git Guard Protocol</span></div>
+                    <div className="flex items-center gap-2"><Zap className="h-4 w-4" /><span className="text-[10px] font-black uppercase tracking-widest">Enterprise Ready</span></div>
+                    <div className="flex items-center gap-2"><TrendingUp className="h-4 w-4" /><span className="text-[10px] font-black uppercase tracking-widest">High Velocity</span></div>
+                </div>
+                <p className="text-[10px] text-muted-foreground font-black uppercase tracking-[0.3em] opacity-40">
+                    Git Guard Engine v4.2.1-stable • Provisioned for {state.selectedOrg}
+                </p>
+            </div>
         </DashboardLayout>
     );
 }
