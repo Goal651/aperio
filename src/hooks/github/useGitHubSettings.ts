@@ -62,11 +62,12 @@ export function useGitHubSettings(
   }, [setState]);
 
   const updateDateRange = useCallback((range: DateRange) => {
-    console.log(`[Kordian] Changing date range to: ${range.label}`, {
-      from: range.from.toISOString(),
-      to: range.to.toISOString()
-    });
     setState(prev => ({ ...prev, dateRange: range }));
+    localStorage.setItem('kordian_date_range', JSON.stringify({
+      from: range.from.toISOString(),
+      to: range.to.toISOString(),
+      label: range.label
+    }));
   }, [setState]);
 
   return {

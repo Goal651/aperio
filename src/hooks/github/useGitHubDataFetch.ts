@@ -31,15 +31,23 @@ export function useGitHubDataFetch(
   const saveToCache = useCallback((data: Partial<AppInstallationState>) => {
     const currentState = stateRef.current;
     const existing = localStorage.getItem(STORAGE_KEYS.CACHE);
-    let cacheObj = existing ? JSON.parse(existing) : { timestamp: Date.now(), org: currentState.selectedOrg };
+    let cacheObj = existing ? JSON.parse(existing) : { timestamps: {}, org: currentState.selectedOrg };
 
-    // Reset timestamp on new data or if org/dateRange changed
     const fromDate = currentState.dateRange?.from;
     const toDate = currentState.dateRange?.to;
 
     if (cacheObj.org !== currentState.selectedOrg) {
-      cacheObj = { timestamp: Date.now(), org: currentState.selectedOrg };
+      cacheObj = { timestamps: {}, org: currentState.selectedOrg };
     }
+
+    // Determine which type of data is being saved to update its specific timestamp
+    const dataTypes = Object.keys(data);
+    const newTimestamps = { ...(cacheObj.timestamps || {}) };
+    const now = Date.now();
+    
+    if (data.repos) newTimestamps.repos = now;
+    if (data.members) newTimestamps.members = now;
+    if (data.alerts) newTimestamps.alerts = now;
 
     const newCache = {
       ...cacheObj,
@@ -48,7 +56,7 @@ export function useGitHubDataFetch(
         from: fromDate?.toISOString(),
         to: toDate?.toISOString()
       },
-      timestamp: Date.now()
+      timestamps: newTimestamps
     };
     localStorage.setItem(STORAGE_KEYS.CACHE, JSON.stringify(newCache));
   }, []);
@@ -63,7 +71,8 @@ export function useGitHubDataFetch(
     if (!force) {
       const cached = localStorage.getItem(CACHE_KEY);
       if (cached) {
-        const { repos, timestamp, org, dateRange } = JSON.parse(cached);
+        const { repos, timestamps, org, dateRange } = JSON.parse(cached);
+        const timestamp = timestamps?.repos || 0;
         const dateMatch = dateRange && (dateRange.from === fromDate?.toISOString() && dateRange.to === toDate?.toISOString());
 
         if (org === currentState.selectedOrg && repos && repos.length > 0 && dateMatch && Date.now() - timestamp < CACHE_DURATION) {
@@ -304,7 +313,8 @@ export function useGitHubDataFetch(
     if (!force) {
       const cached = localStorage.getItem(CACHE_KEY);
       if (cached) {
-        const { members, timestamp, org, dateRange } = JSON.parse(cached);
+        const { members, timestamps, org, dateRange } = JSON.parse(cached);
+        const timestamp = timestamps?.members || 0;
         const dateMatch = dateRange && (dateRange.from === fromDate.toISOString() && dateRange.to === toDate.toISOString());
 
         if (org === currentState.selectedOrg && members && members.length > 0 && dateMatch && Date.now() - timestamp < CACHE_DURATION) {
@@ -505,7 +515,8 @@ export function useGitHubDataFetch(
     if (!force) {
       const cached = localStorage.getItem(CACHE_KEY);
       if (cached) {
-        const { alerts, timestamp, org } = JSON.parse(cached);
+        const { alerts, timestamps, org } = JSON.parse(cached);
+        const timestamp = timestamps?.alerts || 0;
         if (org === currentState.selectedOrg && alerts && alerts.length > 0 && Date.now() - timestamp < CACHE_DURATION) {
           // If we have cached alerts but the current state is empty, fill it
           if (currentState.alerts.length === 0) {

@@ -47,10 +47,14 @@ export function useGitHubAuthFlow(
       } else if (response.status === 401) {
         localStorage.removeItem(STORAGE_KEYS.USER_TOKEN);
         localStorage.removeItem(STORAGE_KEYS.INSTALLATIONS);
+        localStorage.removeItem(STORAGE_KEYS.INSTALLATION);
         setState(prev => ({
           ...prev,
           currentUserToken: null,
           installations: [],
+          installed: false,
+          selectedOrg: null,
+          installationId: null,
           installationStatus: 'not_installed'
         }));
       }
@@ -127,10 +131,14 @@ export function useGitHubAuthFlow(
       } else if (response.status === 401) {
         localStorage.removeItem(STORAGE_KEYS.USER_TOKEN);
         localStorage.removeItem(STORAGE_KEYS.INSTALLATIONS);
+        localStorage.removeItem(STORAGE_KEYS.INSTALLATION);
         setState(prev => ({
           ...prev,
           currentUserToken: null,
           installations: [],
+          installed: false,
+          selectedOrg: null,
+          installationId: null,
           installationStatus: 'not_installed'
         }));
         installApp();

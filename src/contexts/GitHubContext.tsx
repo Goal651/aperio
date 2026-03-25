@@ -43,7 +43,7 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
     currentUserToken: null,
     installations: [],
     installationStatus: 'not_installed',
-    rankingWeights: { prs: 1, reviews: 1, commits: 1 },
+    rankingWeights: { prs: 20, reviews: 15, commits: 2 },
     repos: [],
     members: [],
     alerts: [],
