@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { useGitHubApp } from "@/hooks/useGitHubAuth";
+import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LoadingScreen } from "@/components/ui/LoadingScreen";
@@ -46,8 +47,8 @@ export default function Page() {
     const allAlerts = state.alerts || [];
     const filteredAlerts = allAlerts.filter(a => {
         const matchesSeverity = filter === "all" ? true : a.severity === filter;
-        const matchesSearch = a.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                             a.repo.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesSearch = a.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            a.repo.toLowerCase().includes(searchQuery.toLowerCase());
         return matchesSeverity && matchesSearch;
     });
 
@@ -81,9 +82,9 @@ export default function Page() {
                             Real-time security vulnerability tracking and automated remediation across your entire organization's codebase.
                         </p>
                     </div>
-                    <Button 
-                        variant="glow" 
-                        size="lg" 
+                    <Button
+                        variant="glow"
+                        size="lg"
                         className="w-full lg:w-auto bg-primary text-primary-foreground font-bold shadow-2xl shadow-primary/30 hover:scale-[1.02] active:scale-95 transition-all h-12 md:h-14 px-8 text-base"
                         onClick={async () => {
                             setIsRemediating(true);
@@ -97,7 +98,7 @@ export default function Page() {
                         {isRemediating ? "Initializing Engine..." : "Remediate Vulnerabilities"}
                     </Button>
                 </div>
- 
+
                 {/* Filter and Search */}
                 <div className="flex flex-col xl:flex-row gap-4 pt-6 border-t border-border/40">
                     <div className="relative flex-1">
@@ -146,7 +147,7 @@ export default function Page() {
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-2">
                     <div className="flex flex-col gap-1">
                         <h2 className="font-bold text-lg text-foreground">Risk Exposure Profile</h2>
-                        <p className="text-[10px] text-muted-foreground uppercase tracking-[0.2em] font-black opacity-70">Severity Distribution Analysis</p>
+                        <p className="text-[10px] text-muted-foreground uppercase  font-black opacity-70">Severity Distribution Analysis</p>
                     </div>
                     <div className="flex items-baseline gap-2 bg-background/50 px-3 py-1 rounded-lg border border-border/50 self-start sm:self-auto">
                         <span className="text-2xl font-black text-foreground font-mono">{totalAlertsCount}</span>
@@ -158,7 +159,7 @@ export default function Page() {
                         <div
                             key={stat.label}
                             className={`${stat.color} h-full rounded-full transition-all duration-1000 ease-out shadow-sm`}
-                            style={{ 
+                            style={{
                                 width: totalAlertsCount > 0 ? `${(stat.count / totalAlertsCount) * 100}%` : "0%",
                                 opacity: stat.count > 0 ? 1 : 0
                             }}
@@ -169,8 +170,14 @@ export default function Page() {
                     {alertStats.map(stat => (
                         <div key={stat.label} className="p-4 rounded-2xl bg-secondary/20 border border-border/40 hover:bg-secondary/40 transition-all hover:scale-[1.02] group/stat">
                             <div className="flex items-center gap-2 mb-2">
-                                <div className={`h-2.5 w-2.5 rounded-full ${stat.color} shadow-[0_0_8px_rgba(var(--${stat.color}),0.5)]`} />
-                                <span className="text-xs text-muted-foreground font-bold uppercase tracking-wider">{stat.label}</span>
+                                <div className={cn(
+                                    "h-2.5 w-2.5 rounded-full shadow-sm",
+                                    stat.color,
+                                    stat.value === 'critical' ? 'shadow-destructive/40' :
+                                        stat.value === 'high' ? 'shadow-warning/40' :
+                                            stat.value === 'medium' ? 'shadow-primary/40' : 'shadow-muted-foreground/40'
+                                )} />
+                                <span className="text-xs text-muted-foreground font-bold uppercase ">{stat.label}</span>
                             </div>
                             <div className="flex items-baseline gap-2">
                                 <p className="text-2xl font-black font-mono text-foreground leading-none">{stat.count}</p>
@@ -180,7 +187,7 @@ export default function Page() {
                     ))}
                 </div>
             </div>
- 
+
             {/* Main grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8">
                 {/* Alert types */}
@@ -219,7 +226,7 @@ export default function Page() {
                             <span className="text-xs font-bold text-muted-foreground/60 uppercase tracking-tighter">Active Issues</span>
                         </div>
                         <div className="space-y-2">
-                            <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-muted-foreground/50">
+                            <div className="flex items-center justify-between text-[10px] font-black uppercase  text-muted-foreground/50">
                                 <span>Coverage</span>
                                 <span>{type.count} Total</span>
                             </div>
@@ -233,7 +240,7 @@ export default function Page() {
                     </div>
                 ))}
             </div>
- 
+
             {/* Alert List */}
             <div className="glass-card p-4 md:p-8 animate-fade-in" style={{ animationDelay: "0.4s" }}>
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
@@ -246,15 +253,14 @@ export default function Page() {
                         </h2>
                     </div>
                     <div className="flex items-center gap-2 self-start sm:self-auto">
-                        <span className={`text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-full border ${
-                            filter === "critical" ? "bg-destructive/10 border-destructive/20 text-destructive" : 
+                        <span className={`text-[10px] font-black uppercase  px-3 py-1.5 rounded-full border ${filter === "critical" ? "bg-destructive/10 border-destructive/20 text-destructive" :
                             "bg-secondary/50 border-border/50 text-muted-foreground"
-                        }`}>
+                            }`}>
                             {filteredAlerts.length} Critical Findings
                         </span>
                     </div>
                 </div>
- 
+
                 <div className="space-y-4">
                     {filteredAlerts.length === 0 ? (
                         <div className="text-center py-20 bg-secondary/5 rounded-3xl border border-dashed border-border/40 flex flex-col items-center">
@@ -263,7 +269,7 @@ export default function Page() {
                             </div>
                             <p className="text-lg font-bold text-foreground">Perfect Clean Slate</p>
                             <p className="text-sm text-muted-foreground/60 mt-1 max-w-xs mx-auto">No security alerts matching your current filters have been detected in the system.</p>
-                            <Button variant="outline" size="sm" onClick={() => {setFilter("all"); setSearchQuery("");}} className="mt-8 rounded-xl px-6 h-10 font-bold border-primary/20 hover:bg-primary/5 text-primary">
+                            <Button variant="outline" size="sm" onClick={() => { setFilter("all"); setSearchQuery(""); }} className="mt-8 rounded-xl px-6 h-10 font-bold border-primary/20 hover:bg-primary/5 text-primary">
                                 Reset Scan Filters
                             </Button>
                         </div>
@@ -276,25 +282,23 @@ export default function Page() {
                             >
                                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
                                     <div className="flex items-start gap-4 md:gap-6">
-                                        <div className={`h-12 w-12 md:h-14 md:w-14 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-xl transition-transform group-hover/alert:scale-110 ${
-                                            alert.severity === 'critical' ? 'bg-destructive/10 border border-destructive/20 shadow-destructive/5' : 
+                                        <div className={`h-12 w-12 md:h-14 md:w-14 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-xl transition-transform group-hover/alert:scale-110 ${alert.severity === 'critical' ? 'bg-destructive/10 border border-destructive/20 shadow-destructive/5' :
                                             alert.severity === 'high' ? 'bg-warning/10 border border-warning/20 shadow-warning/5' : 'bg-primary/10 border border-primary/20 shadow-primary/5'
-                                        }`}>
+                                            }`}>
                                             {alert.type === "Secret" && <Key className={`h-6 w-6 md:h-7 md:w-7 ${alert.severity === 'critical' ? 'text-destructive' : 'text-warning'}`} />}
                                             {alert.type === "Dependency" && <Package className="h-6 w-6 md:h-7 md:w-7 text-warning" />}
                                             {alert.type === "Code" && <Bug className="h-6 w-6 md:h-7 md:w-7 text-primary" />}
                                         </div>
                                         <div className="flex-1 min-w-0 space-y-2">
                                             <div className="flex flex-wrap items-center gap-2">
-                                                <button onClick={() => router.push(`/repos/${alert.repo}`)} className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-background/80 border border-border/50 text-[10px] font-black uppercase tracking-wider text-muted-foreground hover:text-primary hover:border-primary/30 transition-all backdrop-blur-sm">
+                                                <button onClick={() => router.push(`/repos/${alert.repo}`)} className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-background/80 border border-border/50 text-[10px] font-black uppercase  text-muted-foreground hover:text-primary hover:border-primary/30 transition-all backdrop-blur-sm">
                                                     <ExternalLink className="h-3 w-3" />
                                                     {alert.repo}
                                                 </button>
-                                                <div className={`text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-[0.15em] border shadow-sm ${
-                                                    alert.severity === "critical" ? "border-destructive/30 text-destructive bg-destructive/10" :
+                                                <div className={`text-[9px] font-black px-3 py-1 rounded-full uppercase  border shadow-sm ${alert.severity === "critical" ? "border-destructive/30 text-destructive bg-destructive/10" :
                                                     alert.severity === "high" ? "border-warning/30 text-warning bg-warning/10" :
-                                                    "border-primary/30 text-primary bg-primary/10"
-                                                }`}>
+                                                        "border-primary/30 text-primary bg-primary/10"
+                                                    }`}>
                                                     {alert.severity} Risk
                                                 </div>
                                             </div>
@@ -313,7 +317,7 @@ export default function Page() {
                                                 <Clock className="h-3 w-3" />
                                                 Detected {alert.detected}
                                             </div>
-                                            {alert.fixed && <div className="flex items-center gap-1 font-black text-[9px] text-success uppercase mt-1 tracking-widest"><CheckCircle className="h-2.5 w-2.5" />Auto-Patch Ready</div>}
+                                            {alert.fixed && <div className="flex items-center gap-1 font-black text-[9px] text-success uppercase mt-1 "><CheckCircle className="h-2.5 w-2.5" />Auto-Patch Ready</div>}
                                         </div>
                                         {alert.url && (
                                             <Button

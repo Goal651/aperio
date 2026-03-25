@@ -39,15 +39,15 @@ const CustomTooltip = ({ active, payload, label }: any) => {
                 <p className="font-bold text-foreground mb-2 border-b border-border/50 pb-1">{label}</p>
                 <div className="space-y-1.5">
                     <p className="flex items-center justify-between gap-4 font-mono text-xs">
-                        <span className="text-muted-foreground uppercase tracking-widest font-black">Commits</span>
+                        <span className="text-muted-foreground uppercase  font-black">Commits</span>
                         <span className="text-primary font-black">{payload[0].value}</span>
                     </p>
                     <p className="flex items-center justify-between gap-4 font-mono text-xs">
-                        <span className="text-muted-foreground uppercase tracking-widest font-black">PRs</span>
+                        <span className="text-muted-foreground uppercase  font-black">PRs</span>
                         <span className="text-success font-black">{payload[1].value}</span>
                     </p>
                     <p className="flex items-center justify-between gap-4 font-mono text-xs">
-                        <span className="text-muted-foreground uppercase tracking-widest font-black">Reviews</span>
+                        <span className="text-muted-foreground uppercase  font-black">Reviews</span>
                         <span className="text-warning font-black">{payload[2].value}</span>
                     </p>
                 </div>
@@ -110,7 +110,7 @@ export default function Page() {
                     </div>
                 </div>
             </div>
- 
+
             {/* Stats */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-8">
                 {loadingStates.fetchingMembers ? (
@@ -125,31 +125,31 @@ export default function Page() {
                 ) : (
                     <>
                         <div className="stat-card animate-fade-in p-4 md:p-6 bg-background/40">
-                            <p className="text-[10px] md:text-xs font-black uppercase tracking-widest text-muted-foreground mb-1 md:mb-2">Total</p>
+                            <p className="text-[10px] md:text-xs font-black uppercase  text-muted-foreground mb-1 md:mb-2">Total</p>
                             <p className="text-xl md:text-3xl font-black text-foreground font-mono">{members.length}</p>
                         </div>
                         <div className="stat-card animate-fade-in p-4 md:p-6 bg-background/40" style={{ animationDelay: "0.05s" }}>
-                            <p className="text-[10px] md:text-xs font-black uppercase tracking-widest text-muted-foreground mb-1 md:mb-2">Active</p>
+                            <p className="text-[10px] md:text-xs font-black uppercase  text-muted-foreground mb-1 md:mb-2">Active</p>
                             <p className="text-xl md:text-3xl font-black text-success font-mono">{members.filter(m => (m.prs || 0) > 0 || (m.commits || 0) > 0).length}</p>
                         </div>
                         <div className="stat-card animate-fade-in p-4 md:p-6 bg-background/40" style={{ animationDelay: "0.1s" }}>
-                            <p className="text-[10px] md:text-xs font-black uppercase tracking-widest text-muted-foreground mb-1 md:mb-2">Inert</p>
+                            <p className="text-[10px] md:text-xs font-black uppercase  text-muted-foreground mb-1 md:mb-2">Inert</p>
                             <p className="text-xl md:text-3xl font-black text-warning font-mono">{members.filter(m => (m.prs || 0) === 0 && (m.commits || 0) === 0).length}</p>
                         </div>
                         <div className="stat-card animate-fade-in p-4 md:p-6 bg-background/40" style={{ animationDelay: "0.15s" }}>
-                            <p className="text-[10px] md:text-xs font-black uppercase tracking-widest text-muted-foreground mb-1 md:mb-2">Pending</p>
+                            <p className="text-[10px] md:text-xs font-black uppercase  text-muted-foreground mb-1 md:mb-2">Pending</p>
                             <p className="text-xl md:text-3xl font-black text-muted-foreground/40 font-mono">0</p>
                         </div>
                     </>
                 )}
             </div>
- 
+
             {/* Chart */}
             <div className="glass-card-medium p-6 mb-8 animate-fade-in group hover:border-primary/20 transition-all" style={{ animationDelay: "0.2s" }}>
                 <div className="flex items-center justify-between mb-8">
                     <div className="flex flex-col gap-1">
                         <h2 className="font-bold text-foreground">Top Contributors</h2>
-                        <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-black opacity-60">Comparative Activity Pulse</p>
+                        <p className="text-[10px] text-muted-foreground uppercase  font-black opacity-60">Comparative Activity Pulse</p>
                     </div>
                 </div>
                 <div className="h-64 sm:h-80 w-full">
@@ -178,15 +178,15 @@ export default function Page() {
                 <div className="flex flex-wrap gap-4 md:gap-8 mt-6 pt-6 border-t border-border/40">
                     <div className="flex items-center gap-2">
                         <div className="h-2 w-2 rounded-full bg-primary shadow-[0_0_8px_hsl(var(--primary))]" />
-                        <span className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">Commits</span>
+                        <span className="text-[10px] font-black uppercase  text-muted-foreground">Commits</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <div className="h-2 w-2 rounded-full bg-success shadow-[0_0_8px_hsl(var(--success))]" />
-                        <span className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">PRs</span>
+                        <span className="text-[10px] font-black uppercase  text-muted-foreground">PRs</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <div className="h-2 w-2 rounded-full bg-warning shadow-[0_0_8px_hsl(var(--warning))]" />
-                        <span className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">Reviews</span>
+                        <span className="text-[10px] font-black uppercase  text-muted-foreground">Reviews</span>
                     </div>
                 </div>
             </div>
@@ -201,12 +201,12 @@ export default function Page() {
                         <h2 className="font-bold text-xl text-foreground tracking-tight">Organization Members</h2>
                     </div>
                     <div className="flex items-center gap-2 self-start sm:self-auto">
-                        <span className="text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-full border bg-secondary/50 border-border/50 text-muted-foreground">
+                        <span className="text-[10px] font-black uppercase  px-3 py-1.5 rounded-full border bg-secondary/50 border-border/50 text-muted-foreground">
                             {filteredMembers.length} Professional Contributors
                         </span>
                     </div>
                 </div>
- 
+
                 {/* Search and Sort (Mobile Optimized) */}
                 <div className="flex flex-col lg:flex-row gap-4 mb-6">
                     <div className="relative flex-1">
@@ -219,7 +219,7 @@ export default function Page() {
                         />
                     </div>
                     <div className="flex items-center gap-2">
-                         <select 
+                        <select
                             className="flex-1 lg:flex-none bg-secondary/20 border border-border/50 rounded-xl px-4 h-11 text-sm font-medium outline-none focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer"
                             value={sortBy}
                             onChange={(e) => setSortBy(e.target.value as any)}
@@ -231,18 +231,18 @@ export default function Page() {
                         </select>
                     </div>
                 </div>
- 
+
                 {/* Desktop Table */}
                 <div className="hidden md:block overflow-hidden rounded-2xl border border-border/50">
                     <Table>
                         <TableHeader className="bg-secondary/30">
                             <TableRow className="hover:bg-transparent border-border/50">
-                                <TableHead className="font-black text-[10px] uppercase tracking-widest py-4">Member</TableHead>
-                                <TableHead className="font-black text-[10px] uppercase tracking-widest py-4 text-center">Commits</TableHead>
-                                <TableHead className="font-black text-[10px] uppercase tracking-widest py-4 text-center">PRs</TableHead>
-                                <TableHead className="font-black text-[10px] uppercase tracking-widest py-4 text-center">Reviews</TableHead>
-                                <TableHead className="font-black text-[10px] uppercase tracking-widest py-4 text-center">Status</TableHead>
-                                <TableHead className="font-black text-[10px] uppercase tracking-widest py-4 text-right">Activity</TableHead>
+                                <TableHead className="font-black text-[10px] uppercase  py-4">Member</TableHead>
+                                <TableHead className="font-black text-[10px] uppercase  py-4 text-center">Commits</TableHead>
+                                <TableHead className="font-black text-[10px] uppercase  py-4 text-center">PRs</TableHead>
+                                <TableHead className="font-black text-[10px] uppercase  py-4 text-center">Reviews</TableHead>
+                                <TableHead className="font-black text-[10px] uppercase  py-4 text-center">Status</TableHead>
+                                <TableHead className="font-black text-[10px] uppercase  py-4 text-right">Activity</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -264,8 +264,8 @@ export default function Page() {
                                     </TableCell>
                                 </TableRow>
                             ) : filteredMembers.map((member, idx) => (
-                                <TableRow 
-                                    key={member.username} 
+                                <TableRow
+                                    key={member.username}
                                     className="hover:bg-primary/5 transition-colors border-border/40 group/row cursor-pointer"
                                     onClick={() => router.push(`/members/${member.username}`)}
                                 >
@@ -287,18 +287,17 @@ export default function Page() {
                                     <TableCell className="text-center font-mono font-bold text-success">{member.prs || 0}</TableCell>
                                     <TableCell className="text-center font-mono font-bold text-warning">{member.reviews || 0}</TableCell>
                                     <TableCell className="text-center">
-                                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest border ${
-                                            member.status === "active" ? "bg-success/10 border-success/20 text-success" : "bg-warning/10 border-warning/20 text-warning"
-                                        }`}>
+                                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-black uppercase  border ${member.status === "active" ? "bg-success/10 border-success/20 text-success" : "bg-warning/10 border-warning/20 text-warning"
+                                            }`}>
                                             {member.status}
                                         </span>
                                     </TableCell>
                                     <TableCell className="text-right">
                                         <div className="flex items-center justify-end gap-2">
                                             <div className="h-1.5 w-16 bg-secondary/50 rounded-full overflow-hidden">
-                                                <div 
-                                                    className="h-full bg-primary rounded-full transition-all duration-1000" 
-                                                    style={{ width: `${Math.min(((member.commits || 0) + (member.prs || 0) * 5) / 5, 100)}%` }} 
+                                                <div
+                                                    className="h-full bg-primary rounded-full transition-all duration-1000"
+                                                    style={{ width: `${Math.min(((member.commits || 0) + (member.prs || 0) * 5) / 5, 100)}%` }}
                                                 />
                                             </div>
                                             <ChevronRight className="h-4 w-4 text-muted-foreground group-hover/row:translate-x-1 transition-transform" />
@@ -309,7 +308,7 @@ export default function Page() {
                         </TableBody>
                     </Table>
                 </div>
- 
+
                 {/* Mobile Cards */}
                 <div className="md:hidden space-y-4">
                     {loadingStates.fetchingMembers ? (
@@ -353,7 +352,7 @@ export default function Page() {
                                             <span className="font-black text-foreground text-lg tracking-tight group-active:text-primary transition-colors">{member.name}</span>
                                             <div className="flex items-center gap-1.5 mt-0.5">
                                                 <div className={`h-1.5 w-1.5 rounded-full ${member.status === 'active' ? 'bg-success shadow-[0_0_4px_hsl(var(--success))]' : 'bg-warning shadow-[0_0_4px_hsl(var(--warning))]'}`} />
-                                                <span className="text-[10px] text-muted-foreground font-black uppercase tracking-widest opacity-60">{member.status} Contributor</span>
+                                                <span className="text-[10px] text-muted-foreground font-black uppercase  opacity-60">{member.status} Contributor</span>
                                             </div>
                                         </div>
                                     </div>
@@ -361,7 +360,7 @@ export default function Page() {
                                         <ChevronRight className="h-5 w-5 text-muted-foreground opacity-40 group-active:translate-x-1 transition-transform" />
                                     </div>
                                 </div>
-                                
+
                                 <div className="grid grid-cols-3 gap-3">
                                     <div className="p-3 rounded-2xl bg-background/40 border border-border/40 flex flex-col items-center gap-1 group-active:border-primary/20 transition-all">
                                         <span className="text-[10px] font-black uppercase tracking-tighter text-muted-foreground/50">Commits</span>

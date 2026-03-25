@@ -48,7 +48,7 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
 
       {/* Navigation */}
       <nav className="flex-1 space-y-1 p-4 overflow-y-auto">
-        <p className="mb-3 px-4 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+        <p className="mb-3 px-4 text-xs font-medium uppercase  text-muted-foreground">
           Navigation
         </p>
         {navItems.map((item) => {

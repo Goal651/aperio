@@ -11,7 +11,7 @@ export function RiskScoreCard({ loading = false }: { loading?: boolean }) {
   const totalRepo = state.repos?.length || 0;
 
   const score = totalRepo > 0 ? Math.round((healthyRepo.length / totalRepo) * 100) : 0;
-  
+
   const getScoreColor = () => {
     if (score >= 90) return "text-success";
     if (score >= 70) return "text-primary";
@@ -35,7 +35,7 @@ export function RiskScoreCard({ loading = false }: { loading?: boolean }) {
   return (
     <div className="glass-card p-6 md:p-8 animate-fade-in group relative overflow-hidden" style={{ animationDelay: "0.15s" }}>
       <div className="absolute -right-6 -top-6 p-10 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity pointer-events-none">
-          <ShieldCheck className="h-32 w-32 rotate-12" />
+        <ShieldCheck className="h-32 w-32 rotate-12" />
       </div>
 
       <div className="flex items-center justify-between mb-8 relative z-10">
@@ -45,11 +45,11 @@ export function RiskScoreCard({ loading = false }: { loading?: boolean }) {
           </div>
           <div>
             <h3 className="font-black text-foreground tracking-tight">Security Score</h3>
-            <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Aggregate Infrastructure Health</p>
+            <p className="text-[10px] font-black uppercase  text-muted-foreground opacity-60">Aggregate Infrastructure Health</p>
           </div>
         </div>
         <div className="p-2 bg-secondary/20 rounded-xl hover:bg-secondary/30 cursor-help transition-colors">
-            <Info className="h-4 w-4 text-muted-foreground" />
+          <Info className="h-4 w-4 text-muted-foreground" />
         </div>
       </div>
 
@@ -89,7 +89,7 @@ export function RiskScoreCard({ loading = false }: { loading?: boolean }) {
             </ResponsiveContainer>
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none group-hover/chart:scale-110 transition-transform duration-500">
               <span className={`text-5xl font-black tracking-tighter ${getScoreColor()}`}>{score}</span>
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground opacity-60 mt-1">{getScoreLabel()}</span>
+              <span className="text-[10px] font-black uppercase  text-muted-foreground opacity-60 mt-1">{getScoreLabel()}</span>
             </div>
           </div>
         </div>
@@ -99,14 +99,14 @@ export function RiskScoreCard({ loading = false }: { loading?: boolean }) {
         <div className="p-3 bg-secondary/10 rounded-2xl border border-border/40 hover:bg-secondary/20 transition-all">
           <div className="flex items-center gap-2 mb-1">
             <TrendingUp className="h-3 w-3 text-success" />
-            <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Status</span>
+            <span className="text-[9px] font-black uppercase  text-muted-foreground opacity-60">Status</span>
           </div>
           <p className="text-sm font-black text-foreground">{score}% Health</p>
         </div>
         <div className="p-3 bg-secondary/10 rounded-2xl border border-border/40 hover:bg-secondary/20 transition-all">
           <div className="flex items-center gap-2 mb-1">
             <Zap className="h-3 w-3 text-amber-400" />
-            <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Control</span>
+            <span className="text-[9px] font-black uppercase  text-muted-foreground opacity-60">Control</span>
           </div>
           <p className="text-sm font-black text-foreground">{12}/{15} Ops</p>
         </div>

@@ -1,24 +1,24 @@
 "use client";
 
-import { 
-    Github, 
-    Shield, 
-    Lock, 
-    Zap, 
-    ArrowRight, 
-    Loader2, 
-    CheckCircle, 
-    Plus, 
-    AlertCircle, 
-    RefreshCw, 
-    XCircle, 
-    Building2, 
-    Users, 
-    GitBranch, 
-    Award, 
-    PieChart, 
-    Target, 
-    Globe, 
+import {
+    Github,
+    Shield,
+    Lock,
+    Zap,
+    ArrowRight,
+    Loader2,
+    CheckCircle,
+    Plus,
+    AlertCircle,
+    RefreshCw,
+    XCircle,
+    Building2,
+    Users,
+    GitBranch,
+    Award,
+    PieChart,
+    Target,
+    Globe,
     Sparkles,
     BarChart3,
     Layers,
@@ -88,7 +88,7 @@ const getErrorDescription = (error: string) => {
         'access_denied': 'Access denied. Required: read:org, read:repo.',
         'default': 'System connection error. Please initialize again.'
     };
-    
+
     return errorMessages[error] || errorMessages.default;
 };
 
@@ -104,7 +104,7 @@ export default function Page() {
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         const error = urlParams.get('error');
-        
+
         if (error) {
             setAuthError(error);
             window.history.replaceState({}, '', window.location.pathname);
@@ -142,12 +142,12 @@ export default function Page() {
                         <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto relative z-10" />
                     </div>
                     <h2 className="text-2xl font-black text-foreground tracking-tight mb-3">
-                        {isConnecting ? 'Initializing Handshake' : 
-                         loadingStates.fetchingOrgData ? 'Synchronizing Data' : 
-                         'Verifying Identity'}
+                        {isConnecting ? 'Initializing Handshake' :
+                            loadingStates.fetchingOrgData ? 'Synchronizing Data' :
+                                'Verifying Identity'}
                     </h2>
                     <p className="text-muted-foreground text-sm font-medium leading-relaxed">
-                        {isConnecting 
+                        {isConnecting
                             ? 'Establishing secure connection with your GitHub infrastructure.'
                             : loadingStates.fetchingOrgData
                                 ? 'Parsing repository metadata and security audit logs.'
@@ -178,7 +178,7 @@ export default function Page() {
             <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[100px] animate-pulse pointer-events-none" style={{ animationDelay: '1s' }} />
 
             <div className="relative w-full max-w-5xl z-20 flex flex-col items-center">
-                
+
                 {/* Hero Section */}
                 <div className="text-center mb-16 animate-fade-in py-12 md:py-20 w-full">
                     <div className="inline-flex items-center justify-center h-20 w-20 rounded-[2.5rem] bg-black border-2 border-primary/20 mb-8 animate-glow shadow-2xl shadow-primary/10 relative group">
@@ -191,16 +191,16 @@ export default function Page() {
                     <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto font-medium leading-relaxed px-4">
                         Unified visualization of security, productivity, and health across your entire team infrastructure. Stateless by design.
                     </p>
-                    
+
                     {/* Compliance Badges */}
                     <div className="flex flex-wrap items-center justify-center gap-3 mt-10">
-                        <div className="flex items-center gap-2 px-4 py-2 bg-secondary/10 border border-primary/20 rounded-full text-[10px] font-black uppercase tracking-widest text-primary shadow-sm">
+                        <div className="flex items-center gap-2 px-4 py-2 bg-secondary/10 border border-primary/20 rounded-full text-[10px] font-black uppercase  text-primary shadow-sm">
                             <Shield className="h-3 w-3" /> SOC2 COMPLIANT
                         </div>
-                        <div className="flex items-center gap-2 px-4 py-2 bg-secondary/10 border border-blue-500/20 rounded-full text-[10px] font-black uppercase tracking-widest text-blue-400 shadow-sm">
+                        <div className="flex items-center gap-2 px-4 py-2 bg-secondary/10 border border-blue-500/20 rounded-full text-[10px] font-black uppercase  text-blue-400 shadow-sm">
                             <Globe className="h-3 w-3" /> GDPR READY
                         </div>
-                        <div className="flex items-center gap-2 px-4 py-2 bg-secondary/10 border border-purple-500/20 rounded-full text-[10px] font-black uppercase tracking-widest text-purple-400 shadow-sm">
+                        <div className="flex items-center gap-2 px-4 py-2 bg-secondary/10 border border-purple-500/20 rounded-full text-[10px] font-black uppercase  text-purple-400 shadow-sm">
                             <Lock className="h-3 w-3" /> ZERO RETENTION
                         </div>
                     </div>
@@ -221,17 +221,17 @@ export default function Page() {
                                     </div>
                                 </div>
                                 <div className="flex gap-3 shrink-0">
-                                    <Button 
-                                        variant="outline" 
-                                        size="sm" 
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
                                         onClick={() => handleConnect()}
                                         className="h-10 px-6 rounded-xl border-destructive/20 text-destructive hover:bg-destructive shadow-lg transition-all"
                                     >
                                         Reconnect
                                     </Button>
-                                    <Button 
-                                        variant="ghost" 
-                                        size="sm" 
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
                                         onClick={() => setAuthError(null)}
                                         className="h-10 px-4 text-muted-foreground"
                                     >
@@ -250,7 +250,7 @@ export default function Page() {
                             <div className="absolute -right-8 -top-8 p-12 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity pointer-events-none">
                                 <feature.icon className="h-40 w-40 rotate-12" />
                             </div>
-                            
+
                             <div className="flex items-start justify-between mb-8">
                                 <div className="flex items-center gap-4">
                                     <div className={`p-4 bg-secondary/20 rounded-2xl group-hover:scale-110 group-hover:bg-primary/10 transition-all border border-border/40 ${feature.color}`}>
@@ -258,18 +258,18 @@ export default function Page() {
                                     </div>
                                     <div>
                                         <h3 className="text-xl font-black text-foreground tracking-tight group-hover:text-primary transition-colors">{feature.title}</h3>
-                                        <span className="text-[9px] font-black uppercase tracking-[0.2em] opacity-40">Protocol Feature</span>
+                                        <span className="text-[9px] font-black uppercase  opacity-40">Protocol Feature</span>
                                     </div>
                                 </div>
-                                <Badge variant="secondary" className="px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest bg-primary/10 text-primary border border-primary/20 shadow-sm">
+                                <Badge variant="secondary" className="px-3 py-1 rounded-lg text-[9px] font-black uppercase  bg-primary/10 text-primary border border-primary/20 shadow-sm">
                                     {feature.badge}
                                 </Badge>
                             </div>
-                            
+
                             <p className="text-sm text-muted-foreground mb-8 leading-relaxed font-medium">
                                 {feature.description}
                             </p>
-                            
+
                             <div className="flex flex-wrap gap-2 pt-6 border-t border-border/20">
                                 {feature.metrics.map((metric, i) => (
                                     <span key={i} className="text-[10px] font-bold bg-secondary/20 px-3 py-1 rounded-lg text-foreground/60 border border-border/20 flex items-center gap-1.5">
@@ -284,10 +284,10 @@ export default function Page() {
 
                 {/* Main Action Call */}
                 <div className="w-full max-w-md text-center py-12 animate-fade-in" style={{ animationDelay: "0.4s" }}>
-                    <Button 
-                        onClick={handleConnect} 
-                        variant="glow" 
-                        size="lg" 
+                    <Button
+                        onClick={handleConnect}
+                        variant="glow"
+                        size="lg"
                         className="w-full h-20 text-xl font-black rounded-[2rem] bg-primary text-primary-foreground group mb-6 shadow-2xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all gap-4 relative overflow-hidden"
                         disabled={isConnecting || isLoading || loadingStates.fetchingOrgData}
                     >
@@ -299,20 +299,20 @@ export default function Page() {
                         ) : (
                             <>
                                 <Github className="h-7 w-7" />
-                                <span className="uppercase tracking-[0.1em]">Connect Infrastructure</span>
+                                <span className="uppercase ">Connect Infrastructure</span>
                                 <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-2" />
                             </>
                         )}
                         <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                     </Button>
-                    
+
                     <div className="space-y-4">
-                        <p className="text-[11px] text-muted-foreground font-black uppercase tracking-[0.2em] px-4 opacity-60">
-                            Enterprise read access only. No source code storage. 
+                        <p className="text-[11px] text-muted-foreground font-black uppercase  px-4 opacity-60">
+                            Enterprise read access only. No source code storage.
                         </p>
-                        <button 
+                        <button
                             onClick={() => setShowManualInput(!showManualInput)}
-                            className="text-primary hover:text-primary/80 font-black uppercase tracking-widest text-[10px] underline underline-offset-4 decoration-primary/30 transition-colors"
+                            className="text-primary hover:text-primary/80 font-black uppercase  text-[10px] underline underline-offset-4 decoration-primary/30 transition-colors"
                         >
                             Developer Manual Installation
                         </button>
@@ -326,7 +326,7 @@ export default function Page() {
                                     placeholder="GH_INSTALLATION_ID"
                                     value={manualId}
                                     onChange={(e) => setManualId(e.target.value)}
-                                    className="h-12 bg-secondary/10 border-border/40 focus:border-primary/50 rounded-2xl font-mono text-sm tracking-wider"
+                                    className="h-12 bg-secondary/10 border-border/40 focus:border-primary/50 rounded-2xl font-mono text-sm "
                                 />
                                 <Button onClick={handleManualConnect} variant="glow" className="h-12 w-12 rounded-2xl bg-primary shadow-lg shadow-primary/20 p-0">
                                     <ArrowRight className="h-5 w-5" />
@@ -339,7 +339,7 @@ export default function Page() {
                 {/* Footer Section */}
                 <div className="w-full text-center mt-12 pb-24 opacity-60 flex flex-col items-center gap-6 animate-fade-in" style={{ animationDelay: "0.5s" }}>
                     <div className="h-px w-32 bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
-                    <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground">
+                    <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-[9px] font-black uppercase  text-muted-foreground">
                         <span className="flex items-center gap-2"><Cpu className="h-3.5 w-3.5" /> Edge Validated</span>
                         <span className="flex items-center gap-2"><Container className="h-3.5 w-3.5" /> Isolated Runtime</span>
                         <span className="flex items-center gap-2"><ShieldCheck className="h-3.5 w-3.5" /> Tier 1 Encryption</span>

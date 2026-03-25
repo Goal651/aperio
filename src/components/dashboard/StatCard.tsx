@@ -37,12 +37,12 @@ export function StatCard({
       href && "hover:border-primary/40 hover:scale-[1.02] cursor-pointer"
     )}>
       <div className="absolute -right-4 -top-4 p-6 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity pointer-events-none">
-          <Icon className="h-24 w-24 rotate-12" />
+        <Icon className="h-24 w-24 rotate-12" />
       </div>
-      
+
       <div className="flex items-start justify-between relative z-10">
         <div className="space-y-3 flex-1 min-w-0">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground opacity-70">{title}</p>
+          <p className="text-[10px] font-black uppercase  text-muted-foreground opacity-70">{title}</p>
           {loading ? (
             <div className="space-y-2">
               <Skeleton className="h-10 w-24 rounded-lg" />
@@ -61,7 +61,7 @@ export function StatCard({
                   )} />
                   <p
                     className={cn(
-                      "text-[10px] font-black uppercase tracking-wider",
+                      "text-[10px] font-black uppercase ",
                       changeType === "positive" && "text-success",
                       changeType === "negative" && "text-destructive",
                       changeType === "neutral" && "text-muted-foreground"
@@ -75,8 +75,8 @@ export function StatCard({
           )}
         </div>
         <div className={cn(
-            "rounded-2xl p-3.5 shrink-0 border transition-transform group-hover:scale-110 duration-500", 
-            iconColorClasses[iconColor]
+          "rounded-2xl p-3.5 shrink-0 border transition-transform group-hover:scale-110 duration-500",
+          iconColorClasses[iconColor]
         )}>
           <Icon className="h-6 w-6" />
         </div>

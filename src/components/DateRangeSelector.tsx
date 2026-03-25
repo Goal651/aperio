@@ -93,7 +93,7 @@ function MonthYearPicker({
 
   return (
     <div className="space-y-3">
-      <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{label}</p>
+      <p className="text-xs font-medium text-muted-foreground uppercase ">{label}</p>
 
       {/* Year Selector */}
       <div className="flex items-center justify-between gap-2">
@@ -308,7 +308,7 @@ export function DateRangeSelector({ onDateRangeChange, className, orgCreatedAt }
         <div className="flex">
           {/* Preset Options */}
           <div className="border-r border-border/50 p-3 space-y-1 min-w-[180px]">
-            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2 px-2">
+            <p className="text-xs font-medium text-muted-foreground uppercase  mb-2 px-2">
               Time Range
             </p>
             {PRESETS.map((preset) => (
@@ -330,7 +330,7 @@ export function DateRangeSelector({ onDateRangeChange, className, orgCreatedAt }
               </button>
             ))}
 
-            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2 mt-4 px-2">
+            <p className="text-xs font-medium text-muted-foreground uppercase  mb-2 mt-4 px-2">
               Monthly Summary
             </p>
             <div className="max-h-[200px] overflow-y-auto space-y-1 pr-1">

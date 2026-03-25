@@ -175,7 +175,7 @@ export default function MemberDetailView() {
                             </p>
                         </div>
                         <div className="mt-6">
-                            <h3 className="text-xs font-semibold text-muted-foreground mb-3 uppercase tracking-wider">Activity Highlights</h3>
+                            <h3 className="text-xs font-semibold text-muted-foreground mb-3 uppercase ">Activity Highlights</h3>
                             <ul className="space-y-3 text-xs">
                                 <li className="flex items-start gap-2 text-foreground/80">
                                     <div className="h-1.5 w-1.5 rounded-full bg-success mt-1" />

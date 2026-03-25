@@ -62,7 +62,7 @@ export default function Page() {
                             <div className="flex flex-wrap items-center gap-3 mt-1.5 px-0.5">
                                 <div className="flex items-center gap-2">
                                     <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-                                    <span className="font-black font-mono text-xs text-primary uppercase tracking-widest">@{state.selectedOrg || "Loading..."}</span>
+                                    <span className="font-black font-mono text-xs text-primary uppercase ">@{state.selectedOrg || "Loading..."}</span>
                                 </div>
                                 <span className="hidden sm:inline text-muted-foreground/40 font-bold">•</span>
                                 <p className="text-xs text-muted-foreground font-medium">Real-time infrastructure intelligence active</p>
@@ -76,16 +76,16 @@ export default function Page() {
                         <DateRangeSelector onDateRangeChange={updateDateRange} orgCreatedAt={state.orgCreatedAt} />
                     </div>
                     <Button
-                        variant="glow" 
+                        variant="glow"
                         size="lg"
-                        className="h-12 px-8 gap-3 bg-primary text-primary-foreground font-black shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all rounded-2xl group" 
+                        className="h-12 px-8 gap-3 bg-primary text-primary-foreground font-black shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all rounded-2xl group"
                         onClick={() => {
                             fetchOrgData(true);
                             fetchMembers(true);
                             fetchSecurityAlerts(true);
                         }}>
                         <RefreshCw className={`h-4 w-4 transition-transform group-hover:rotate-180 duration-500 ${isRefreshing && "animate-spin"}`} />
-                        <span className="uppercase tracking-widest text-[10px]">Initialize Scan</span>
+                        <span className="uppercase  text-[10px]">Initialize Scan</span>
                     </Button>
                 </div>
             </div>
@@ -161,11 +161,11 @@ export default function Page() {
             {/* Footer Polish */}
             <div className="mt-20 pt-10 border-t border-border/20 text-center pb-12">
                 <div className="flex justify-center gap-8 mb-6 opacity-30 grayscale hover:grayscale-0 transition-all duration-700">
-                    <div className="flex items-center gap-2"><ShieldCheck className="h-4 w-4" /><span className="text-[10px] font-black uppercase tracking-widest">Git Guard Protocol</span></div>
-                    <div className="flex items-center gap-2"><Zap className="h-4 w-4" /><span className="text-[10px] font-black uppercase tracking-widest">Enterprise Ready</span></div>
-                    <div className="flex items-center gap-2"><TrendingUp className="h-4 w-4" /><span className="text-[10px] font-black uppercase tracking-widest">High Velocity</span></div>
+                    <div className="flex items-center gap-2"><ShieldCheck className="h-4 w-4" /><span className="text-[10px] font-black uppercase ">Git Guard Protocol</span></div>
+                    <div className="flex items-center gap-2"><Zap className="h-4 w-4" /><span className="text-[10px] font-black uppercase ">Enterprise Ready</span></div>
+                    <div className="flex items-center gap-2"><TrendingUp className="h-4 w-4" /><span className="text-[10px] font-black uppercase ">High Velocity</span></div>
                 </div>
-                <p className="text-[10px] text-muted-foreground font-black uppercase tracking-[0.3em] opacity-40">
+                <p className="text-[10px] text-muted-foreground font-black uppercase  opacity-40">
                     Git Guard Engine v4.2.1-stable • Provisioned for {state.selectedOrg}
                 </p>
             </div>

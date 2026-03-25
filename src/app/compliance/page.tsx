@@ -40,9 +40,8 @@ const StatusBar = ({ passed, total, label }: { passed: number; total: number; la
             </div>
             <div className="h-2.5 w-full rounded-full bg-secondary/30 overflow-hidden border border-border/20 p-[1px]">
                 <div
-                    className={`h-full rounded-full transition-all duration-1000 ease-out shadow-[0_0_8px_rgba(0,0,0,0.1)] ${
-                        percentage >= 80 ? "bg-success" : percentage >= 50 ? "bg-warning" : "bg-destructive"
-                    }`}
+                    className={`h-full rounded-full transition-all duration-1000 ease-out shadow-[0_0_8px_rgba(0,0,0,0.1)] ${percentage >= 80 ? "bg-success" : percentage >= 50 ? "bg-warning" : "bg-destructive"
+                        }`}
                     style={{ width: `${percentage}%` }}
                 />
             </div>
@@ -135,9 +134,9 @@ export default function Page() {
                     </div>
                 </div>
                 <div className="flex flex-wrap items-center gap-3">
-                    <Button 
-                        variant="outline" 
-                        size="sm" 
+                    <Button
+                        variant="outline"
+                        size="sm"
                         className="flex-1 md:flex-none h-12 px-6 gap-2 bg-secondary/10 border-border/40 hover:bg-secondary/20 rounded-2xl transition-all"
                         onClick={async () => {
                             setIsDownloading(true);
@@ -148,10 +147,10 @@ export default function Page() {
                         disabled={isDownloading}
                     >
                         {isDownloading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
-                        <span className="font-black uppercase tracking-widest text-[10px]">Export PDF</span>
+                        <span className="font-black uppercase  text-[10px]">Export PDF</span>
                     </Button>
-                    <Button 
-                        variant="glow" 
+                    <Button
+                        variant="glow"
                         size="sm"
                         className="flex-1 md:flex-none h-12 px-8 gap-2 bg-primary text-primary-foreground font-black shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all rounded-2xl"
                         onClick={async () => {
@@ -163,7 +162,7 @@ export default function Page() {
                         disabled={isAuditing}
                     >
                         {isAuditing ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCcw className="h-4 w-4" />}
-                        <span className="font-black uppercase tracking-widest text-[10px]">Re-scan Org</span>
+                        <span className="font-black uppercase  text-[10px]">Re-scan Org</span>
                     </Button>
                 </div>
             </div>
@@ -174,12 +173,12 @@ export default function Page() {
                     <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity pointer-events-none">
                         <Shield className="h-64 w-64 rotate-12" />
                     </div>
-                    
+
                     <div className="p-6 md:p-8 flex flex-col md:flex-row items-center gap-8 md:gap-12 relative z-10">
                         <div className="relative shrink-0">
                             <div className={`h-32 w-32 md:h-40 md:w-40 flex flex-col items-center justify-center rounded-[2.5rem] border-4 ${gradeInfo.bg} ${gradeInfo.color} ${gradeInfo.glow} shadow-2xl transition-transform group-hover:scale-105 duration-500`}>
                                 <span className="text-5xl md:text-6xl font-black tracking-tighter leading-none">{gradeInfo.grade}</span>
-                                <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] mt-2 opacity-80">{gradeInfo.label}</span>
+                                <span className="text-[10px] md:text-xs font-black uppercase  mt-2 opacity-80">{gradeInfo.label}</span>
                             </div>
                             <div className="absolute -bottom-2 -right-2 p-2 bg-background rounded-2xl border border-border shadow-xl">
                                 <Zap className="h-5 w-5 text-amber-400 fill-amber-400" />
@@ -191,14 +190,14 @@ export default function Page() {
                             <p className="text-muted-foreground text-sm md:text-base leading-relaxed max-w-xl">
                                 Your organization scored <span className="text-foreground font-black px-1.5 py-0.5 bg-primary/10 rounded-lg">{percentage}%</span> on the security compliance audit across <span className="text-foreground font-black underline decoration-primary/40 underline-offset-4">{totalRepos}</span> active codebase assets.
                             </p>
-                            
+
                             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div className="p-4 bg-secondary/20 rounded-2xl border border-border/40 hover:bg-secondary/30 transition-colors flex items-center gap-4">
                                     <div className="p-2 bg-success/10 rounded-xl">
                                         <CheckCircle className="h-5 w-5 text-success" />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Compliant</p>
+                                        <p className="text-[10px] font-black uppercase  text-muted-foreground opacity-60">Compliant</p>
                                         <p className="text-xl font-black text-foreground">{healthyRepos}</p>
                                     </div>
                                 </div>
@@ -207,7 +206,7 @@ export default function Page() {
                                         <AlertCircle className="h-5 w-5 text-destructive" />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">At Risk</p>
+                                        <p className="text-[10px] font-black uppercase  text-muted-foreground opacity-60">At Risk</p>
                                         <p className="text-xl font-black text-foreground">{criticalRepos + warningRepos}</p>
                                     </div>
                                 </div>
@@ -221,7 +220,7 @@ export default function Page() {
                         <h3 className="text-lg font-black text-foreground mb-1 tracking-tight">Compliance Health</h3>
                         <p className="text-xs text-muted-foreground mb-6">Distribution of asset compliance status</p>
                     </div>
-                    
+
                     <div className="h-48 relative">
                         {loadingStates.fetchingRepos ? (
                             <div className="absolute inset-0 flex items-center justify-center">
@@ -246,7 +245,7 @@ export default function Page() {
                                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} className="hover:opacity-80 transition-opacity cursor-pointer" />
                                         ))}
                                     </Pie>
-                                    <Tooltip 
+                                    <Tooltip
                                         contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold' }}
                                         itemStyle={{ color: 'hsl(var(--foreground))' }}
                                     />
@@ -255,7 +254,7 @@ export default function Page() {
                         )}
                         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                             <span className="text-2xl font-black text-foreground">{percentage}%</span>
-                            <span className="text-[8px] font-black uppercase tracking-widest opacity-40">Healthy</span>
+                            <span className="text-[8px] font-black uppercase  opacity-40">Healthy</span>
                         </div>
                     </div>
 
@@ -263,7 +262,7 @@ export default function Page() {
                         {complianceData.map((item, index) => (
                             <div key={item.name} className="flex items-center gap-2">
                                 <div className="h-2 w-2 rounded-full shadow-[0_0_4px_rgba(0,0,0,0.2)]" style={{ backgroundColor: COLORS[index] }} />
-                                <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{item.name}</span>
+                                <span className="text-[10px] font-black uppercase  text-muted-foreground">{item.name}</span>
                                 <span className="text-[10px] font-mono font-black text-foreground ml-1">{item.value}</span>
                             </div>
                         ))}
@@ -277,7 +276,7 @@ export default function Page() {
                     <TrendingUp className="h-5 w-5 text-primary" />
                     <h2 className="text-xl font-black text-foreground tracking-tight">Security Control Matrix</h2>
                 </div>
-                
+
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {checks.map((category, catIndex) => (
                         <div
@@ -286,7 +285,7 @@ export default function Page() {
                             style={{ animationDelay: `${0.1 + catIndex * 0.1}s` }}
                         >
                             <div className="absolute -right-4 -top-4 h-24 w-24 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors" />
-                            
+
                             <div className="flex items-start gap-5 mb-8 relative z-10">
                                 <div className="p-3.5 bg-secondary/30 rounded-2xl border border-border/50 group-hover:bg-primary/10 transition-colors group-hover:scale-110 duration-500">
                                     <category.icon className="h-6 w-6 text-primary" />
@@ -296,7 +295,7 @@ export default function Page() {
                                     <p className="text-xs text-muted-foreground mt-1 font-medium">{category.description}</p>
                                 </div>
                             </div>
-                            
+
                             <div className="space-y-6 relative z-10">
                                 {category.items.map((item) => (
                                     <StatusBar key={item.name} label={item.name} passed={item.passed} total={item.total} />
@@ -304,7 +303,7 @@ export default function Page() {
                             </div>
 
                             <div className="mt-8 flex items-center justify-end">
-                                <Button variant="ghost" size="sm" className="h-8 px-3 gap-1.5 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-all">
+                                <Button variant="ghost" size="sm" className="h-8 px-3 gap-1.5 text-[10px] font-black uppercase  text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-all">
                                     Analyze Policies
                                     <ChevronRight className="h-3 w-3" />
                                 </Button>
@@ -318,11 +317,11 @@ export default function Page() {
             <div className="py-12 border-t border-border/20 text-center">
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary/10 rounded-full border border-border/40 mb-4 cursor-default">
                     <Lock className="h-3 w-3 text-muted-foreground" />
-                    <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Next full audit scheduled for Sunday, 00:00 UTC</span>
+                    <span className="text-[10px] font-black uppercase  text-muted-foreground opacity-60">Next full audit scheduled for Sunday, 00:00 UTC</span>
                 </div>
                 <p className="text-xs text-muted-foreground font-medium flex items-center justify-center gap-2">
-                    All audits are performed according to 
-                    <a href="#" className="text-primary hover:underline font-black uppercase tracking-widest text-[10px]">Git Guard Protcol v4.2</a>
+                    All audits are performed according to
+                    <a href="#" className="text-primary hover:underline font-black uppercase  text-[10px]">Git Guard Protcol v4.2</a>
                 </p>
             </div>
         </DashboardLayout>

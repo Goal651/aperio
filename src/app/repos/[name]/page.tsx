@@ -50,15 +50,15 @@ export default function RepoDetailView() {
                     </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-8">
-                    {[0,1,2,3,4,5].map(i => <StatCard key={i} title="" value="" icon={Shield} loading={true} />)}
+                    {[0, 1, 2, 3, 4, 5].map(i => <StatCard key={i} title="" value="" icon={Shield} loading={true} />)}
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div className="lg:col-span-2 glass-card p-6 space-y-4">
-                        {[0,1,2].map(i => <Skeleton key={i} className="h-32 w-full rounded-xl" />)}
+                        {[0, 1, 2].map(i => <Skeleton key={i} className="h-32 w-full rounded-xl" />)}
                     </div>
                     <div className="space-y-6">
                         <div className="glass-card p-6 space-y-4">
-                             {[0,1,2,3].map(i => <Skeleton key={i} className="h-6 w-full" />)}
+                            {[0, 1, 2, 3].map(i => <Skeleton key={i} className="h-6 w-full" />)}
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,7 @@ export default function RepoDetailView() {
         </div>
     );
 
-    const backToDashboard =()=> router.back()
+    const backToDashboard = () => router.back()
 
     return (
         <div className="animate-fade-in p-4">
@@ -84,12 +84,12 @@ export default function RepoDetailView() {
                 <div>
                     <div className="flex items-center gap-3">
                         <h1 className="text-2xl font-bold text-foreground">{repo.name}</h1>
-                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${repo.visibility === 'public' ? 'bg-success/10 text-success' : 'bg-warning/10 text-warning'
+                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase  ${repo.visibility === 'public' ? 'bg-success/10 text-success' : 'bg-warning/10 text-warning'
                             }`}>
                             {repo.visibility}
                         </span>
                         {repo.license && (
-                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-secondary text-muted-foreground">
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase  bg-secondary text-muted-foreground">
                                 {repo.license}
                             </span>
                         )}

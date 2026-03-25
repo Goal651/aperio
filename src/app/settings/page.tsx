@@ -92,13 +92,13 @@ export default function Page() {
             <Tabs defaultValue="ranking" className="space-y-8">
                 <div className="overflow-x-auto pb-2 no-scrollbar">
                     <TabsList className="bg-secondary/10 p-1.5 rounded-2xl border border-border/40 w-full sm:w-auto h-14 items-stretch">
-                        <TabsTrigger value="ranking" className="flex-1 sm:flex-none gap-2 px-6 rounded-xl data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-lg transition-all font-black uppercase tracking-widest text-[10px]">
+                        <TabsTrigger value="ranking" className="flex-1 sm:flex-none gap-2 px-6 rounded-xl data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-lg transition-all font-black uppercase  text-[10px]">
                             <Sliders className="h-3.5 w-3.5" /> Ranking Logic
                         </TabsTrigger>
-                        <TabsTrigger value="organization" className="flex-1 sm:flex-none gap-2 px-6 rounded-xl data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-lg transition-all font-black uppercase tracking-widest text-[10px]">
+                        <TabsTrigger value="organization" className="flex-1 sm:flex-none gap-2 px-6 rounded-xl data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-lg transition-all font-black uppercase  text-[10px]">
                             <Building2 className="h-3.5 w-3.5" /> Infrastructure
                         </TabsTrigger>
-                        <TabsTrigger value="appearance" className="flex-1 sm:flex-none gap-2 px-6 rounded-xl data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-lg transition-all font-black uppercase tracking-widest text-[10px]">
+                        <TabsTrigger value="appearance" className="flex-1 sm:flex-none gap-2 px-6 rounded-xl data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-lg transition-all font-black uppercase  text-[10px]">
                             <Palette className="h-3.5 w-3.5" /> Visual Style
                         </TabsTrigger>
                     </TabsList>
@@ -107,17 +107,17 @@ export default function Page() {
                 {/* Ranking System */}
                 <TabsContent value="ranking" className="animate-fade-in space-y-6 outline-none">
                     <div className="glass-card p-6 md:p-10 relative overflow-hidden group">
-                         <div className="absolute -right-10 -top-10 p-8 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity pointer-events-none">
+                        <div className="absolute -right-10 -top-10 p-8 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity pointer-events-none">
                             <Cpu className="h-64 w-64 rotate-12" />
                         </div>
-                        
+
                         <div className="max-w-3xl relative z-10">
                             <h2 className="text-2xl font-black text-foreground mb-2 flex items-center gap-3 tracking-tight">
                                 Ranking Engine
-                                <span className="p-1 px-2 bg-primary/10 rounded font-black text-[10px] uppercase tracking-widest text-primary border border-primary/20 shadow-sm">v2.0 Active</span>
+                                <span className="p-1 px-2 bg-primary/10 rounded font-black text-[10px] uppercase  text-primary border border-primary/20 shadow-sm">v2.0 Active</span>
                             </h2>
                             <p className="text-muted-foreground text-sm mb-10 leading-relaxed font-medium">
-                                Fine-tune the weights for each contribution type. These variables directly influence the 
+                                Fine-tune the weights for each contribution type. These variables directly influence the
                                 <span className="text-foreground font-bold px-1.5">Fair Ranking</span> score calculated for every team member.
                             </p>
 
@@ -175,17 +175,17 @@ export default function Page() {
                             </div>
 
                             <div className="flex flex-col sm:flex-row gap-4 pt-12 mt-4 border-t border-border/40">
-                                <Button 
-                                    onClick={handleSaveWeights} 
+                                <Button
+                                    onClick={handleSaveWeights}
                                     className="h-12 px-8 gap-2 bg-primary text-primary-foreground font-black shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all rounded-2xl"
                                     disabled={isSaving}
                                 >
                                     {isSaving ? <RefreshCw className="h-4 w-4 animate-spin" /> : <CheckCircle2 className="h-4 w-4" />}
-                                    <span className="uppercase tracking-widest text-[10px]">Save & Recalculate</span>
+                                    <span className="uppercase  text-[10px]">Save & Recalculate</span>
                                 </Button>
-                                <Button 
-                                    variant="outline" 
-                                    className="h-12 px-8 rounded-2xl font-black uppercase tracking-widest text-[10px] bg-secondary/10 border-border/40 hover:bg-secondary/20 transition-all" 
+                                <Button
+                                    variant="outline"
+                                    className="h-12 px-8 rounded-2xl font-black uppercase  text-[10px] bg-secondary/10 border-border/40 hover:bg-secondary/20 transition-all"
                                     onClick={() => setWeights({ prs: 20, reviews: 15, commits: 2 })}
                                     disabled={isSaving}
                                 >
@@ -209,14 +209,14 @@ export default function Page() {
                                 <div className="p-6 rounded-3xl bg-secondary/10 border border-border/40 group-hover:bg-secondary/20 transition-all">
                                     <div className="flex items-center gap-3 mb-4 opacity-60">
                                         <Building2 className="h-4 w-4" />
-                                        <span className="text-[10px] font-black uppercase tracking-widest">Connected Org</span>
+                                        <span className="text-[10px] font-black uppercase ">Connected Org</span>
                                     </div>
                                     <p className="font-black text-2xl text-primary tracking-tight">@{state.selectedOrg || "None"}</p>
                                 </div>
                                 <div className="p-6 rounded-3xl bg-secondary/10 border border-border/40 group-hover:bg-secondary/20 transition-all">
                                     <div className="flex items-center gap-3 mb-4 opacity-60">
                                         <Cloud className="h-4 w-4" />
-                                        <span className="text-[10px] font-black uppercase tracking-widest">Installation ID</span>
+                                        <span className="text-[10px] font-black uppercase ">Installation ID</span>
                                     </div>
                                     <p className="font-mono text-2xl text-foreground font-black tracking-tight">{state.installationId || "N/A"}</p>
                                 </div>
@@ -237,9 +237,9 @@ export default function Page() {
                                     <p className="text-base font-black text-foreground tracking-tight">External Connection</p>
                                     <p className="text-xs text-muted-foreground font-medium">The GitHub App currently has elevated privileges for code and member endpoints.</p>
                                 </div>
-                                <Button 
-                                    variant="destructive" 
-                                    className="h-12 px-8 rounded-2xl font-black uppercase tracking-widest text-[10px] shadow-lg shadow-destructive/20 hover:scale-[1.02] active:scale-95 transition-all gap-2" 
+                                <Button
+                                    variant="destructive"
+                                    className="h-12 px-8 rounded-2xl font-black uppercase  text-[10px] shadow-lg shadow-destructive/20 hover:scale-[1.02] active:scale-95 transition-all gap-2"
                                     onClick={handleDisconnect}
                                     disabled={isDisconnecting}
                                 >
@@ -287,7 +287,7 @@ export default function Page() {
                                         <Monitor className="h-4 w-4" />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Coming Soon</p>
+                                        <p className="text-[10px] font-black uppercase  text-muted-foreground">Coming Soon</p>
                                         <p className="text-sm font-black text-foreground">Compact Layout</p>
                                     </div>
                                 </div>
@@ -296,7 +296,7 @@ export default function Page() {
                                         <Bell className="h-4 w-4" />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Coming Soon</p>
+                                        <p className="text-[10px] font-black uppercase  text-muted-foreground">Coming Soon</p>
                                         <p className="text-sm font-black text-foreground">Accent Colors</p>
                                     </div>
                                 </div>
