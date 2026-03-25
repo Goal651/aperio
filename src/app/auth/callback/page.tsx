@@ -4,6 +4,7 @@ import { useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useGitHubApp } from "@/hooks/useGitHubAuth";
 import { CheckCircle, AlertCircle } from "lucide-react";
+import { LoadingScreen } from "@/components/ui/LoadingScreen";
 
 function AuthCallbackContent() {
     const router = useRouter();
@@ -101,7 +102,7 @@ function AuthCallbackContent() {
 
 export default function Page() {
     return (
-        <Suspense fallback={<div className="min-h-screen bg-background flex items-center justify-center">Loading...</div>}>
+        <Suspense fallback={<LoadingScreen />}>
             <AuthCallbackContent />
         </Suspense>
     );

@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useGitHubApp } from "@/hooks/useGitHubAuth";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const StatusIcon = ({ status }: { status: string }) => {
     if (status === "healthy") return <CheckCircle2 className="h-4 w-4 text-success" />;
@@ -33,7 +34,7 @@ import {
 } from "@/components/ui/hover-card";
 
 export default function Page() {
-    const { state, setState, fetchOrgData, isLoading } = useGitHubApp();
+    const { state, setState, fetchOrgData, isLoading, loadingStates } = useGitHubApp();
     const router = useRouter();
     const [filter, setFilter] = useState<"all" | "healthy" | "warning" | "critical">("all");
     const [searchQuery, setSearchQuery] = useState("");
@@ -125,7 +126,29 @@ export default function Page() {
 
             {/* Repository cards */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                {filteredRepos.length === 0 ? (
+                {loadingStates.fetchingRepos ? (
+                    // Skeleton cards while repos load
+                    <>
+                        {[0, 1, 2, 3, 4, 5].map(i => (
+                            <div key={i} className="glass-card p-6 animate-fade-in">
+                                <div className="flex items-start justify-between mb-3">
+                                    <div className="flex items-center gap-3">
+                                        <Skeleton className="h-4 w-4 rounded-full" />
+                                        <Skeleton className="h-5 w-40" />
+                                    </div>
+                                    <Skeleton className="h-8 w-24 rounded-md" />
+                                </div>
+                                <Skeleton className="h-4 w-full mb-4" />
+                                <div className="flex gap-4">
+                                    <Skeleton className="h-3 w-16" />
+                                    <Skeleton className="h-3 w-10" />
+                                    <Skeleton className="h-3 w-10" />
+                                    <Skeleton className="h-3 w-20" />
+                                </div>
+                            </div>
+                        ))}
+                    </>
+                ) : filteredRepos.length === 0 ? (
                     <p className="text-center text-muted-foreground">No repositories found.</p>
                 ) : (
                     filteredRepos.map((repo, index) => (

@@ -7,21 +7,67 @@ import { StatCard } from "@/components/dashboard/StatCard";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Member } from "@/types";
+import { LoadingScreen } from "@/components/ui/LoadingScreen";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function MemberDetailView() {
     const router = useRouter()
     const params = useParams();
-    const { state, setState } = useGitHubApp();
+    const { state, setState, isLoading, loadingStates } = useGitHubApp();
     const [member, setMember] = useState<Member | null>(null);
 
     useEffect(() => {
-        const member = state.members.find(m => m.username === params.id);
-        if (member) {
-            setMember(member);
+        if (!isLoading && !state.installed) {
+            router.push("/connect");
+            return;
         }
-    }, [params]);
+        const found = state.members.find(m => m.username === params.id);
+        if (found) setMember(found);
+    }, [params, state.members, isLoading, state.installed, router]);
 
-    if (!member) return null;
+    if (isLoading) return <LoadingScreen />;
+    if (!state.installed) return null;
+
+    // Members still fetching — show skeleton
+    if (!member && loadingStates.fetchingMembers) {
+        return (
+            <div className="animate-fade-in p-4">
+                <div className="mb-8 flex items-center gap-4">
+                    <Button variant="ghost" size="icon" onClick={() => router.back()} className="rounded-full">
+                        <ArrowLeft className="h-5 w-5" />
+                    </Button>
+                    <div className="flex items-center gap-4">
+                        <Skeleton className="h-12 w-12 rounded-full" />
+                        <div className="space-y-2">
+                            <Skeleton className="h-6 w-40" />
+                            <Skeleton className="h-4 w-28" />
+                        </div>
+                    </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    {[0, 1, 2].map(i => <StatCard key={i} title="" value="" icon={GitCommit} loading={true} />)}
+                </div>
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div className="lg:col-span-2 glass-card p-6 space-y-4">
+                        {[0, 1, 2].map(i => <Skeleton key={i} className="h-14 w-full rounded-xl" />)}
+                    </div>
+                    <div className="glass-card p-6 space-y-3">
+                        {[0, 1, 2].map(i => <Skeleton key={i} className="h-6 w-full" />)}
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    // Member not found even after load
+    if (!member) return (
+        <div className="p-4 text-center text-muted-foreground">
+            <p>Member not found.</p>
+            <Button variant="ghost" size="sm" onClick={() => router.back()} className="mt-4">
+                <ArrowLeft className="h-4 w-4 mr-2" /> Go back
+            </Button>
+        </div>
+    );
 
     const backToDashboard = () => router.back()
 

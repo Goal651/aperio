@@ -17,7 +17,7 @@ import { useEffect } from "react";
 const COLORS = ["hsl(152, 76%, 45%)", "hsl(38, 95%, 55%)", "hsl(0, 84%, 60%)"];
 
 const StatusBar = ({ passed, total }: { passed: number; total: number }) => {
-    const percentage = (passed / total) * 100;
+    const percentage = total > 0 ? (passed / total) * 100 : 0;
     return (
         <div className="flex items-center gap-3 flex-1">
             <div className="h-2 flex-1 rounded-full bg-secondary overflow-hidden">
@@ -36,9 +36,10 @@ const StatusBar = ({ passed, total }: { passed: number; total: number }) => {
 
 import { LoadingScreen } from "@/components/ui/LoadingScreen";
 import { useRouter } from "next/navigation";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Page() {
-    const { state, fetchOrgData, fetchSecurityAlerts, isLoading } = useGitHubApp();
+    const { state, fetchOrgData, fetchSecurityAlerts, isLoading, loadingStates } = useGitHubApp();
     const router = useRouter();
 
     useEffect(() => {
@@ -136,29 +137,39 @@ export default function Page() {
                 <div className="glass-card p-6 animate-fade-in">
                     <h2 className="font-semibold text-foreground mb-4">Compliance Score</h2>
                     <div className="flex items-center justify-center">
-                        <div className="relative h-40 w-40">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <PieChart>
-                                    <Pie
-                                        data={complianceData}
-                                        cx="50%"
-                                        cy="50%"
-                                        innerRadius={50}
-                                        outerRadius={70}
-                                        dataKey="value"
-                                        strokeWidth={0}
-                                    >
-                                        {complianceData.map((_, index) => (
-                                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                        ))}
-                                    </Pie>
-                                </PieChart>
-                            </ResponsiveContainer>
-                            <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                <span className="text-3xl font-bold text-success">{percentage}%</span>
-                                <span className="text-xs text-muted-foreground">Compliant</span>
+                        {loadingStates.fetchingRepos ? (
+                            <div className="relative h-40 w-40 flex items-center justify-center">
+                                <div className="h-40 w-40 rounded-full border-[20px] border-muted animate-pulse" />
+                                <div className="absolute inset-0 flex flex-col items-center justify-center gap-1">
+                                    <Skeleton className="h-8 w-12" />
+                                    <Skeleton className="h-3 w-16" />
+                                </div>
                             </div>
-                        </div>
+                        ) : (
+                            <div className="relative h-40 w-40">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <PieChart>
+                                        <Pie
+                                            data={complianceData}
+                                            cx="50%"
+                                            cy="50%"
+                                            innerRadius={50}
+                                            outerRadius={70}
+                                            dataKey="value"
+                                            strokeWidth={0}
+                                        >
+                                            {complianceData.map((_, index) => (
+                                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                            ))}
+                                        </Pie>
+                                    </PieChart>
+                                </ResponsiveContainer>
+                                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                                    <span className="text-3xl font-bold text-success">{percentage}%</span>
+                                    <span className="text-xs text-muted-foreground">Compliant</span>
+                                </div>
+                            </div>
+                        )}
                     </div>
                     <div className="flex justify-center gap-4 mt-4">
                         {complianceData.map((item, index) => (
@@ -173,30 +184,43 @@ export default function Page() {
 
                 {/* Quick stats */}
                 <div className="lg:col-span-2 grid grid-cols-2 gap-4">
-                    <div className="stat-card animate-fade-in" style={{ animationDelay: "0.1s" }}>
-                        <div className="flex items-center gap-2 mb-2">
-                            <CheckCircle className="h-4 w-4 text-success" />
-                            <span className="text-sm text-muted-foreground">Fully Compliant</span>
-                        </div>
-                        <p className="text-3xl font-bold text-success">{healthyRepos}</p>
-                        <p className="text-xs text-muted-foreground mt-1">repositories</p>
-                    </div>
-                    <div className="stat-card animate-fade-in" style={{ animationDelay: "0.15s" }}>
-                        <div className="flex items-center gap-2 mb-2">
-                            <AlertCircle className="h-4 w-4 text-warning" />
-                            <span className="text-sm text-muted-foreground">Partial</span>
-                        </div>
-                        <p className="text-3xl font-bold text-warning">{warningRepos}</p>
-                        <p className="text-xs text-muted-foreground mt-1">repositories</p>
-                    </div>
-                    <div className="stat-card animate-fade-in" style={{ animationDelay: "0.2s" }}>
-                        <div className="flex items-center gap-2 mb-2">
-                            <XCircle className="h-4 w-4 text-destructive" />
-                            <span className="text-sm text-muted-foreground">Non-compliant</span>
-                        </div>
-                        <p className="text-3xl font-bold text-destructive">{criticalRepos}</p>
-                        <p className="text-xs text-muted-foreground mt-1">repositories</p>
-                    </div>
+                    {loadingStates.fetchingRepos ? (
+                        <>
+                            {[0, 1, 2].map(i => (
+                                <div key={i} className="stat-card animate-fade-in">
+                                    <Skeleton className="h-4 w-24 mb-2" />
+                                    <Skeleton className="h-9 w-12" />
+                                </div>
+                            ))}
+                        </>
+                    ) : (
+                        <>
+                            <div className="stat-card animate-fade-in" style={{ animationDelay: "0.1s" }}>
+                                <div className="flex items-center gap-2 mb-2">
+                                    <CheckCircle className="h-4 w-4 text-success" />
+                                    <span className="text-sm text-muted-foreground">Fully Compliant</span>
+                                </div>
+                                <p className="text-3xl font-bold text-success">{healthyRepos}</p>
+                                <p className="text-xs text-muted-foreground mt-1">repositories</p>
+                            </div>
+                            <div className="stat-card animate-fade-in" style={{ animationDelay: "0.15s" }}>
+                                <div className="flex items-center gap-2 mb-2">
+                                    <AlertCircle className="h-4 w-4 text-warning" />
+                                    <span className="text-sm text-muted-foreground">Partial</span>
+                                </div>
+                                <p className="text-3xl font-bold text-warning">{warningRepos}</p>
+                                <p className="text-xs text-muted-foreground mt-1">repositories</p>
+                            </div>
+                            <div className="stat-card animate-fade-in" style={{ animationDelay: "0.2s" }}>
+                                <div className="flex items-center gap-2 mb-2">
+                                    <XCircle className="h-4 w-4 text-destructive" />
+                                    <span className="text-sm text-muted-foreground">Non-compliant</span>
+                                </div>
+                                <p className="text-3xl font-bold text-destructive">{criticalRepos}</p>
+                                <p className="text-xs text-muted-foreground mt-1">repositories</p>
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
 

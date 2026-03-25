@@ -20,6 +20,7 @@ import { useEffect, useState } from "react";
 
 import { LoadingScreen } from "@/components/ui/LoadingScreen";
 import { Member } from "@/types";
+import { Skeleton } from "@/components/ui/skeleton";
 
 // Custom tooltip with better styling
 const CustomTooltip = ({ active, payload, label }: any) => {
@@ -43,7 +44,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 };
 
 export default function Page() {
-    const { state, setState, fetchMembers, isLoading } = useGitHubApp();
+    const { state, setState, fetchMembers, isLoading, loadingStates } = useGitHubApp();
     const router = useRouter();
 
     const [searchQuery, setSearchQuery] = useState("");
@@ -94,22 +95,35 @@ export default function Page() {
 
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-                <div className="stat-card animate-fade-in">
-                    <p className="text-sm text-muted-foreground mb-1">Total Members</p>
-                    <p className="text-2xl font-bold text-foreground">{members.length}</p>
-                </div>
-                <div className="stat-card animate-fade-in" style={{ animationDelay: "0.05s" }}>
-                    <p className="text-sm text-muted-foreground mb-1">Active (30d)</p>
-                    <p className="text-2xl font-bold text-success">{members.filter(m => (m.prs || 0) > 0 || (m.commits || 0) > 0).length}</p>
-                </div>
-                <div className="stat-card animate-fade-in" style={{ animationDelay: "0.1s" }}>
-                    <p className="text-sm text-muted-foreground mb-1">Inactive</p>
-                    <p className="text-2xl font-bold text-warning">{members.filter(m => (m.prs || 0) === 0 && (m.commits || 0) === 0).length}</p>
-                </div>
-                <div className="stat-card animate-fade-in" style={{ animationDelay: "0.15s" }}>
-                    <p className="text-sm text-muted-foreground mb-1">Pending Invites</p>
-                    <p className="text-2xl font-bold text-muted-foreground">0</p>
-                </div>
+                {loadingStates.fetchingMembers ? (
+                    <>
+                        {[0, 1, 2, 3].map(i => (
+                            <div key={i} className="stat-card animate-fade-in">
+                                <Skeleton className="h-4 w-24 mb-2" />
+                                <Skeleton className="h-8 w-12" />
+                            </div>
+                        ))}
+                    </>
+                ) : (
+                    <>
+                        <div className="stat-card animate-fade-in">
+                            <p className="text-sm text-muted-foreground mb-1">Total Members</p>
+                            <p className="text-2xl font-bold text-foreground">{members.length}</p>
+                        </div>
+                        <div className="stat-card animate-fade-in" style={{ animationDelay: "0.05s" }}>
+                            <p className="text-sm text-muted-foreground mb-1">Active (30d)</p>
+                            <p className="text-2xl font-bold text-success">{members.filter(m => (m.prs || 0) > 0 || (m.commits || 0) > 0).length}</p>
+                        </div>
+                        <div className="stat-card animate-fade-in" style={{ animationDelay: "0.1s" }}>
+                            <p className="text-sm text-muted-foreground mb-1">Inactive</p>
+                            <p className="text-2xl font-bold text-warning">{members.filter(m => (m.prs || 0) === 0 && (m.commits || 0) === 0).length}</p>
+                        </div>
+                        <div className="stat-card animate-fade-in" style={{ animationDelay: "0.15s" }}>
+                            <p className="text-sm text-muted-foreground mb-1">Pending Invites</p>
+                            <p className="text-2xl font-bold text-muted-foreground">0</p>
+                        </div>
+                    </>
+                )}
             </div>
 
             {/* Chart */}
@@ -196,37 +210,59 @@ export default function Page() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-border/50">
-                            {filteredMembers.map((member) => (
-                                <tr
-                                    key={member.username}
-                                    onClick={() => router.push(`/members/${member.username}`)}
-                                    className="hover:bg-secondary/30 transition-colors cursor-pointer group"
-                                >
-                                    <td className="py-4">
-                                        <div className="flex items-center gap-3">
-                                            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/20 overflow-hidden text-xs font-semibold text-primary">
-                                                {member.avatar?.startsWith("http") ? (
-                                                    <img src={member.avatar} alt={member.username} className="h-full w-full object-cover" />
-                                                ) : (
-                                                    member.avatar
-                                                )}
+                            {loadingStates.fetchingMembers ? (
+                                <>
+                                    {[0, 1, 2, 3, 4, 5].map(i => (
+                                        <tr key={i}>
+                                            <td className="py-4">
+                                                <div className="flex items-center gap-3">
+                                                    <Skeleton className="h-9 w-9 rounded-full shrink-0" />
+                                                    <div className="space-y-1.5">
+                                                        <Skeleton className="h-4 w-28" />
+                                                        <Skeleton className="h-3 w-20" />
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="py-4 text-center"><Skeleton className="h-4 w-8 mx-auto" /></td>
+                                            <td className="py-4 text-center"><Skeleton className="h-4 w-8 mx-auto" /></td>
+                                            <td className="py-4 text-center"><Skeleton className="h-4 w-8 mx-auto" /></td>
+                                            <td className="py-4 text-center"><Skeleton className="h-5 w-16 mx-auto rounded-full" /></td>
+                                        </tr>
+                                    ))}
+                                </>
+                            ) : (
+                                filteredMembers.map((member) => (
+                                    <tr
+                                        key={member.username}
+                                        onClick={() => router.push(`/members/${member.username}`)}
+                                        className="hover:bg-secondary/30 transition-colors cursor-pointer group"
+                                    >
+                                        <td className="py-4">
+                                            <div className="flex items-center gap-3">
+                                                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/20 overflow-hidden text-xs font-semibold text-primary">
+                                                    {member.avatar?.startsWith("http") ? (
+                                                        <img src={member.avatar} alt={member.username} className="h-full w-full object-cover" />
+                                                    ) : (
+                                                        member.avatar
+                                                    )}
+                                                </div>
+                                                <div>
+                                                    <p className="font-medium text-foreground">{member.name}</p>
+                                                    <p className="text-xs text-muted-foreground font-mono">@{member.username}</p>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <p className="font-medium text-foreground">{member.name}</p>
-                                                <p className="text-xs text-muted-foreground font-mono">@{member.username}</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td className="py-4 text-center font-mono text-foreground">{member.commits}</td>
-                                    <td className="py-4 text-center font-mono text-foreground">{member.prs}</td>
-                                    <td className="py-4 text-center font-mono text-foreground">{member.reviews}</td>
-                                    <td className="py-4 text-center">
-                                        <span className={member.status === "active" ? "badge-success" : "badge-warning"}>
-                                            {member.status}
-                                        </span>
-                                    </td>
-                                </tr>
-                            ))}
+                                        </td>
+                                        <td className="py-4 text-center font-mono text-foreground">{member.commits}</td>
+                                        <td className="py-4 text-center font-mono text-foreground">{member.prs}</td>
+                                        <td className="py-4 text-center font-mono text-foreground">{member.reviews}</td>
+                                        <td className="py-4 text-center">
+                                            <span className={member.status === "active" ? "badge-success" : "badge-warning"}>
+                                                {member.status}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
                         </tbody>
                     </table>
                 </div>

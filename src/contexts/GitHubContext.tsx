@@ -144,7 +144,13 @@ export function GitHubAppProvider({ children }: { children: ReactNode }) {
       const code = urlParams.get('code');
 
       if (code) {
-        await authFlow.handleInstallationCallback(code);
+        try {
+          await authFlow.handleInstallationCallback(code);
+        } catch (e) {
+          console.error('[Kordian] OAuth callback failed:', e);
+        } finally {
+          setIsLoading(false);
+        }
         window.history.replaceState({}, '', window.location.pathname);
         return;
       }

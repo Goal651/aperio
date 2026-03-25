@@ -76,7 +76,7 @@ export function useGitHubDataFetch(
       }
     }
 
-    setLoadingStates(prev => ({ ...prev, fetchingRepos: true }));
+    setLoadingStates(prev => ({ ...prev, fetchingRepos: true, fetchingOrgData: true }));
 
     try {
       const tokenRes = await fetch("/api/github/token", {
@@ -290,7 +290,7 @@ export function useGitHubDataFetch(
     } catch (err: any) {
       console.error("Failed to fetch repos:", err.message);
     } finally {
-      setLoadingStates(prev => ({ ...prev, fetchingRepos: false }));
+      setLoadingStates(prev => ({ ...prev, fetchingRepos: false, fetchingOrgData: false }));
     }
   }, [setState, setLoadingStates, saveToCache]);
 

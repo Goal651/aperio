@@ -18,13 +18,12 @@ import { Input } from "@/components/ui/input";
 
 import { useGitHubApp } from "@/hooks/useGitHubAuth";
 import { useEffect, useState } from "react";
-
 import { useRouter } from "next/navigation";
-
 import { LoadingScreen } from "@/components/ui/LoadingScreen";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Page() {
-    const { state, fetchSecurityAlerts, isLoading } = useGitHubApp();
+    const { state, fetchSecurityAlerts, isLoading, loadingStates } = useGitHubApp();
     const router = useRouter();
     const [filter, setFilter] = useState<"all" | "critical" | "high" | "medium" | "low">("all");
     const [searchQuery, setSearchQuery] = useState("");
@@ -159,7 +158,22 @@ export default function Page() {
             {/* Main grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
                 {/* Alert types */}
-                {alertTypes.map((type, index) => (
+                {loadingStates.fetchingAlerts ? (
+                    <>
+                        {[0, 1, 2].map(i => (
+                            <div key={i} className="glass-card p-6 animate-fade-in">
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="flex items-center gap-3">
+                                        <Skeleton className="h-9 w-9 rounded-lg" />
+                                        <Skeleton className="h-4 w-28" />
+                                    </div>
+                                </div>
+                                <Skeleton className="h-9 w-16 mb-2" />
+                                <Skeleton className="h-2 w-full rounded-full" />
+                            </div>
+                        ))}
+                    </>
+                ) : alertTypes.map((type, index) => (
                     <div
                         key={type.label}
                         className="glass-card p-6 animate-fade-in"
