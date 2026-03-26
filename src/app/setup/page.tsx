@@ -9,22 +9,28 @@ function SetupContent() {
     const router = useRouter();
     const { selectOrg } = useGitHubApp();
 
-    useEffect(() => {
-        if (!searchParams) return;
-        const installationId = searchParams.get('installation_id');
-        const setupAction = searchParams.get('setup_action');
+  useEffect(() => {
+    if (!searchParams) return;
+    const installationId = searchParams.get('installation_id');
+    const setupAction = searchParams.get('setup_action');
 
-        if (installationId && setupAction === 'install') {
-            // Save installation info in context/storage
-            selectOrg('default-org', Number(installationId));
-
-            // Redirect to home/dashboard
+    if (installationId && setupAction === 'install') {
+        // Fetch real org name first
+        fetch('/api/github/token', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ installationId: Number(installationId) })
+        })
+        .then(res => res.json())
+        .then(({ org, accountType }) => {
+            selectOrg(org || 'default-org', Number(installationId), accountType);
             router.push('/');
-        } else {
-            // If missing parameters, fallback to connect page
-            router.push('/connect');
-        }
-    }, [searchParams, selectOrg, router]);
+        })
+        .catch(() => router.push('/connect'));
+    } else {
+        router.push('/connect');
+    }
+}, [searchParams, selectOrg, router]);
 
     return (
         <div className="min-h-screen flex items-center justify-center">

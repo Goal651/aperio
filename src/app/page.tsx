@@ -26,6 +26,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useGitHubApp } from "@/hooks/useGitHubAuth";
 import { LoadingScreen } from "@/components/ui/LoadingScreen";
+import { toast } from "sonner";
 
 export default function Page() {
     const { state, fetchOrgData, fetchMembers, fetchSecurityAlerts, updateDateRange, isLoading, loadingStates } = useGitHubApp();
@@ -81,8 +82,10 @@ export default function Page() {
                         size="lg"
                         className="h-12 px-6 gap-3 bg-secondary/10 border-border/40 hover:bg-secondary/20 hover:border-primary/30 transition-all rounded-2xl group text-muted-foreground hover:text-primary shrink-0"
                         onClick={() => {
-                            // Professional report generation logic placeholder
-                            console.log("Generating infrastructure report...");
+                            toast.info("Compiling organization report... Prepare to save as PDF.");
+                            setTimeout(() => {
+                                window.print();
+                            }, 500);
                         }}>
                         <FileText className="h-4 w-4 transition-transform group-hover:scale-110" />
                         <span className="uppercase font-black text-[10px] tracking-widest">Generate Report</span>

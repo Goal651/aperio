@@ -89,8 +89,10 @@ export default function Page() {
                             size="lg"
                             className="flex-1 sm:flex-none h-12 md:h-14 px-8 gap-3 bg-secondary/10 border-border/40 hover:bg-secondary/20 transition-all rounded-2xl group text-muted-foreground hover:text-primary"
                             onClick={() => {
-                                console.log("Generating security report...");
-                                toast.info("Compiling security findings...");
+                                toast.info("Compiling security report... Prepare to save as PDF.");
+                                setTimeout(() => {
+                                    window.print();
+                                }, 500);
                             }}
                         >
                             <ShieldCheck className="h-5 w-5 transition-transform group-hover:scale-110" />

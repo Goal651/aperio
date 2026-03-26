@@ -139,15 +139,14 @@ export default function Page() {
                         variant="outline"
                         size="sm"
                         className="flex-1 md:flex-none h-12 px-6 gap-2 bg-secondary/10 border-border/40 hover:bg-secondary/20 rounded-2xl transition-all group text-muted-foreground hover:text-primary"
-                        onClick={async () => {
-                            setIsDownloading(true);
-                            await new Promise(r => setTimeout(r, 1200));
-                            setIsDownloading(false);
-                            toast.success("Compliance report generated!");
+                        onClick={() => {
+                            toast.info("Compiling compliance report... Prepare to save as PDF.");
+                            setTimeout(() => {
+                                window.print();
+                            }, 500);
                         }}
-                        disabled={isDownloading}
                     >
-                        {isDownloading ? <Loader2 className="h-4 w-4 animate-spin" /> : <FileText className="h-4 w-4 transition-transform group-hover:scale-110" />}
+                        <FileText className="h-4 w-4 transition-transform group-hover:scale-110" />
                         <span className="font-black uppercase  text-[10px]">Generate Compliance Report</span>
                     </Button>
                     <Button
