@@ -110,7 +110,7 @@ export default function Page() {
             </div>
 
             {/* Top Row: Core Metrics */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-10 w-full animate-fade-in no-scrollbar overflow-x-auto pb-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-10 w-full animate-fade-in no-scrollbar overflow-auto pb-4">
                 <StatCard
                     title="Infrastructure Base"
                     value={state.totalRepos > 0 ? state.totalRepos.toString() : state.repos?.length?.toString() || "0"}
