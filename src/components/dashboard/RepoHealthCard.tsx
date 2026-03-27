@@ -38,7 +38,7 @@ export function RepoHealthCard({ loading = false }: { loading?: boolean }) {
 
       <div className="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
         <div className="flex items-center gap-4">
-          <div className="rounded-2xl bg-primary/10 p-3 border border-primary/20 shadow-sm group-hover:scale-110 transition-transform duration-500">
+          <div className="rounded-lg bg-primary/10 p-3 border border-primary/20 shadow-sm group-hover:scale-110 transition-transform duration-500">
             <Shield className="h-6 w-6 text-primary" />
           </div>
           <div>
@@ -60,7 +60,7 @@ export function RepoHealthCard({ loading = false }: { loading?: boolean }) {
         {loading ? (
           <>
             {[0, 1, 2, 3].map((i) => (
-              <div key={i} className="flex items-center justify-between p-4 rounded-2xl bg-secondary/10 border border-border/40">
+              <div key={i} className="flex items-center justify-between p-4 rounded-lg bg-secondary/10 border border-border/40">
                 <div className="flex items-center gap-4">
                   <Skeleton className="h-5 w-5 rounded-md" />
                   <Skeleton className="h-4 w-32 rounded-md" />
@@ -93,7 +93,7 @@ export function RepoHealthCard({ loading = false }: { loading?: boolean }) {
             {unhealthyRepos.map((repo) => (
               <div
                 key={repo.name}
-                className="group/item grid grid-cols-1 md:grid-cols-12 gap-4 items-center p-5 rounded-2xl bg-secondary/10 border border-border/40 hover:bg-secondary/20 hover:border-primary/20 transition-all cursor-pointer relative overflow-hidden"
+                className="group/item grid grid-cols-1 md:grid-cols-12 gap-4 items-center p-5 rounded-lg bg-secondary/10 border border-border/40 hover:bg-secondary/20 hover:border-primary/20 transition-all cursor-pointer relative overflow-hidden"
                 onClick={() => setState(prev => ({ ...prev, selectedRepoName: repo.name }))}
               >
                 <div className="col-span-6 flex items-center gap-4 relative z-10">
@@ -134,7 +134,7 @@ export function RepoHealthCard({ loading = false }: { loading?: boolean }) {
 
       {hasIssues && (
         <div className="mt-8 flex justify-end relative z-10">
-          <Button variant="ghost" size="sm" className="h-10 px-4 rounded-xl gap-2 text-[10px] font-black uppercase  text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all">
+          <Button variant="ghost" size="sm" className="h-10 px-4 rounded-lg gap-2 text-[10px] font-black uppercase  text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all">
             View Full Inventory
             <ChevronRight className="h-4 w-4" />
           </Button>

@@ -55,7 +55,7 @@ export function OrganizationSelector() {
     return (
       <div className="w-full max-w-2xl mx-auto glass-card p-1 md:p-1 relative overflow-hidden group border-destructive/20 bg-destructive/5">
         <div className="p-8 md:p-10 text-center">
-          <div className="h-16 w-16 bg-destructive/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <div className="h-16 w-16 bg-destructive/10 rounded-lg flex items-center justify-center mx-auto mb-6">
             <AlertCircle className="h-8 w-8 text-destructive" />
           </div>
           <h2 className="text-2xl font-black text-foreground tracking-tight mb-2">Connection Interrupted</h2>
@@ -65,7 +65,7 @@ export function OrganizationSelector() {
           <Button
             onClick={checkExistingInstallations}
             variant="destructive"
-            className="h-12 px-8 rounded-2xl font-black uppercase  text-[10px] shadow-lg shadow-destructive/20 transition-all hover:scale-105 active:scale-95"
+            className="h-12 px-8 rounded-lg font-black uppercase  text-[10px] shadow-lg shadow-destructive/20 transition-all hover:scale-105 active:scale-95"
           >
             Retry Connection Protocol
           </Button>
@@ -79,7 +79,7 @@ export function OrganizationSelector() {
       <div className="w-full max-w-3xl mx-auto glass-card p-1 relative overflow-hidden group">
         <div className="p-6 md:p-10">
           <div className="flex items-center gap-4 mb-8">
-            <div className="p-3 bg-primary/10 rounded-2xl border border-primary/20 shadow-sm">
+            <div className="p-3 bg-primary/10 rounded-lg border border-primary/20 shadow-sm">
               <Building2 className="h-6 w-6 text-primary" />
             </div>
             <div>
@@ -100,12 +100,12 @@ export function OrganizationSelector() {
               >
                 <div className="flex items-center gap-5 relative z-10">
                   <div className="relative">
-                    <Avatar className="h-14 w-14 rounded-2xl border-2 border-background shadow-md">
+                    <Avatar className="h-14 w-14 rounded-lg border-2 border-background shadow-md">
                       <AvatarImage
                         src={`https://github.com/${installation.organizationLogin}.png`}
                         alt={installation.organizationLogin}
                       />
-                      <AvatarFallback className="bg-primary/20 text-primary font-black rounded-2xl">
+                      <AvatarFallback className="bg-primary/20 text-primary font-black rounded-lg">
                         {installation.organizationLogin.slice(0, 2).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
@@ -125,12 +125,12 @@ export function OrganizationSelector() {
 
                 <div className="flex items-center gap-3 relative z-10">
                   {state.installationId === installation.installationId && (
-                    <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-success/10 border border-success/20 rounded-xl">
+                    <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-success/10 border border-success/20 rounded-lg">
                       <span className="h-1.5 w-1.5 bg-success rounded-full animate-pulse" />
                       <span className="text-[10px] font-black uppercase  text-success">Current Target</span>
                     </div>
                   )}
-                  <div className="p-3 rounded-xl bg-background/50 border border-border/40 group-hover/item:bg-primary group-hover/item:text-primary-foreground group-hover/item:border-primary transition-all">
+                  <div className="p-3 rounded-lg bg-background/50 border border-border/40 group-hover/item:bg-primary group-hover/item:text-primary-foreground group-hover/item:border-primary transition-all">
                     {isSwitching === installation.installationId ? (
                       <Loader2 className="h-4 w-4 animate-spin text-primary" />
                     ) : (

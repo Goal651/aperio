@@ -122,7 +122,7 @@ export default function Page() {
             <div className="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div className="space-y-1">
                     <div className="flex items-center gap-4">
-                        <div className="p-3 bg-primary/10 rounded-2xl border border-primary/20 shadow-sm">
+                        <div className="p-3 bg-primary/10 rounded-lg border border-primary/20 shadow-sm">
                             <ShieldCheck className="h-7 w-7 text-primary" />
                         </div>
                         <div>
@@ -138,7 +138,7 @@ export default function Page() {
                     <Button
                         variant="outline"
                         size="sm"
-                        className="flex-1 md:flex-none h-12 px-6 gap-2 bg-secondary/10 border-border/40 hover:bg-secondary/20 rounded-2xl transition-all group text-muted-foreground hover:text-primary"
+                        className="flex-1 md:flex-none h-12 px-6 gap-2 bg-secondary/10 border-border/40 hover:bg-secondary/20 rounded-lg transition-all group text-muted-foreground hover:text-primary"
                         onClick={() => {
                             toast.info("Compiling compliance report... Prepare to save as PDF.");
                             setTimeout(() => {
@@ -152,7 +152,7 @@ export default function Page() {
                     <Button
                         variant="glow"
                         size="sm"
-                        className="flex-1 md:flex-none h-12 px-8 gap-2 bg-primary text-primary-foreground font-black shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all rounded-2xl"
+                        className="flex-1 md:flex-none h-12 px-8 gap-2 bg-primary text-primary-foreground font-black shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all rounded-lg"
                         onClick={async () => {
                             setIsAuditing(true);
                             await fetchOrgData(true);
@@ -180,7 +180,7 @@ export default function Page() {
                                 <span className="text-5xl md:text-6xl font-black tracking-tighter leading-none">{gradeInfo.grade}</span>
                                 <span className="text-[10px] md:text-xs font-black uppercase  mt-2 opacity-80">{gradeInfo.label}</span>
                             </div>
-                            <div className="absolute -bottom-2 -right-2 p-2 bg-background rounded-2xl border border-border shadow-xl">
+                            <div className="absolute -bottom-2 -right-2 p-2 bg-background rounded-lg border border-border shadow-xl">
                                 <Zap className="h-5 w-5 text-amber-400 fill-amber-400" />
                             </div>
                         </div>
@@ -192,8 +192,8 @@ export default function Page() {
                             </p>
 
                             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div className="p-4 bg-secondary/20 rounded-2xl border border-border/40 hover:bg-secondary/30 transition-colors flex items-center gap-4">
-                                    <div className="p-2 bg-success/10 rounded-xl">
+                                <div className="p-4 bg-secondary/20 rounded-lg border border-border/40 hover:bg-secondary/30 transition-colors flex items-center gap-4">
+                                    <div className="p-2 bg-success/10 rounded-lg">
                                         <CheckCircle className="h-5 w-5 text-success" />
                                     </div>
                                     <div>
@@ -201,8 +201,8 @@ export default function Page() {
                                         <p className="text-xl font-black text-foreground">{healthyRepos}</p>
                                     </div>
                                 </div>
-                                <div className="p-4 bg-secondary/20 rounded-2xl border border-border/40 hover:bg-secondary/30 transition-colors flex items-center gap-4">
-                                    <div className="p-2 bg-destructive/10 rounded-xl">
+                                <div className="p-4 bg-secondary/20 rounded-lg border border-border/40 hover:bg-secondary/30 transition-colors flex items-center gap-4">
+                                    <div className="p-2 bg-destructive/10 rounded-lg">
                                         <AlertCircle className="h-5 w-5 text-destructive" />
                                     </div>
                                     <div>
@@ -287,7 +287,7 @@ export default function Page() {
                             <div className="absolute -right-4 -top-4 h-24 w-24 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors" />
 
                             <div className="flex items-start gap-5 mb-8 relative z-10">
-                                <div className="p-3.5 bg-secondary/30 rounded-2xl border border-border/50 group-hover:bg-primary/10 transition-colors group-hover:scale-110 duration-500">
+                                <div className="p-3.5 bg-secondary/30 rounded-lg border border-border/50 group-hover:bg-primary/10 transition-colors group-hover:scale-110 duration-500">
                                     <category.icon className="h-6 w-6 text-primary" />
                                 </div>
                                 <div>
@@ -303,7 +303,7 @@ export default function Page() {
                             </div>
 
                             <div className="mt-8 flex items-center justify-end">
-                                <Button variant="ghost" size="sm" className="h-8 px-3 gap-1.5 text-[10px] font-black uppercase  text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-all">
+                                <Button variant="ghost" size="sm" className="h-8 px-3 gap-1.5 text-[10px] font-black uppercase  text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-lg transition-all">
                                     Analyze Policies
                                     <ChevronRight className="h-3 w-3" />
                                 </Button>

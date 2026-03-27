@@ -97,9 +97,9 @@ export default function Page() {
     return (
         <DashboardLayout>
             {/* Header */}
-            <div className="mb-8 p-4 md:p-0 bg-secondary/5 md:bg-transparent rounded-2xl border md:border-0 border-border/40">
+            <div className="mb-8 p-4 md:p-0 bg-secondary/5 md:bg-transparent rounded-lg border md:border-0 border-border/40">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-2">
-                    <div className="p-2 bg-primary/10 rounded-xl w-fit">
+                    <div className="p-2 bg-primary/10 rounded-lg w-fit">
                         <Users className="h-6 w-6 text-primary" />
                     </div>
                     <div>
@@ -213,14 +213,14 @@ export default function Page() {
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/60" />
                         <Input
                             placeholder="Search members..."
-                            className="pl-10 h-11 bg-secondary/20 border-border/50 focus:border-primary/40 rounded-xl"
+                            className="pl-10 h-11 bg-secondary/20 border-border/50 focus:border-primary/40 rounded-lg"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
                     </div>
                     <div className="flex items-center gap-2">
                         <select
-                            className="flex-1 lg:flex-none bg-secondary/20 border border-border/50 rounded-xl px-4 h-11 text-sm font-medium outline-none focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer"
+                            className="flex-1 lg:flex-none bg-secondary/20 border border-border/50 rounded-lg px-4 h-11 text-sm font-medium outline-none focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer"
                             value={sortBy}
                             onChange={(e) => setSortBy(e.target.value as any)}
                         >
@@ -233,7 +233,7 @@ export default function Page() {
                 </div>
 
                 {/* Desktop Table */}
-                <div className="hidden md:block overflow-hidden rounded-2xl border border-border/50">
+                <div className="hidden md:block overflow-hidden rounded-lg border border-border/50">
                     <Table>
                         <TableHeader className="bg-secondary/30">
                             <TableRow className="hover:bg-transparent border-border/50">
@@ -313,7 +313,7 @@ export default function Page() {
                 <div className="md:hidden space-y-4">
                     {loadingStates.fetchingMembers ? (
                         [0, 1, 2].map(i => (
-                            <div key={i} className="p-4 rounded-2xl bg-secondary/10 border border-border/40 space-y-4">
+                            <div key={i} className="p-4 rounded-lg bg-secondary/10 border border-border/40 space-y-4">
                                 <div className="flex items-center gap-3">
                                     <Skeleton className="h-12 w-12 rounded-full" />
                                     <div className="space-y-2">
@@ -329,7 +329,7 @@ export default function Page() {
                             </div>
                         ))
                     ) : filteredMembers.length === 0 ? (
-                        <div className="py-12 text-center text-muted-foreground text-sm font-medium bg-secondary/5 rounded-2xl border border-dashed border-border/50">
+                        <div className="py-12 text-center text-muted-foreground text-sm font-medium bg-secondary/5 rounded-lg border border-dashed border-border/50">
                             No members found.
                         </div>
                     ) : (
@@ -356,21 +356,21 @@ export default function Page() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="p-2 bg-background/50 rounded-xl border border-border/40">
+                                    <div className="p-2 bg-background/50 rounded-lg border border-border/40">
                                         <ChevronRight className="h-5 w-5 text-muted-foreground opacity-40 group-active:translate-x-1 transition-transform" />
                                     </div>
                                 </div>
 
                                 <div className="grid grid-cols-3 gap-3">
-                                    <div className="p-3 rounded-2xl bg-background/40 border border-border/40 flex flex-col items-center gap-1 group-active:border-primary/20 transition-all">
+                                    <div className="p-3 rounded-lg bg-background/40 border border-border/40 flex flex-col items-center gap-1 group-active:border-primary/20 transition-all">
                                         <span className="text-[10px] font-black uppercase tracking-tighter text-muted-foreground/50">Commits</span>
                                         <span className="font-mono font-black text-foreground text-lg">{member.commits || 0}</span>
                                     </div>
-                                    <div className="p-3 rounded-2xl bg-background/40 border border-border/40 flex flex-col items-center gap-1 group-active:border-success/20 transition-all">
+                                    <div className="p-3 rounded-lg bg-background/40 border border-border/40 flex flex-col items-center gap-1 group-active:border-success/20 transition-all">
                                         <span className="text-[10px] font-black uppercase tracking-tighter text-muted-foreground/50">PRs</span>
                                         <span className="font-mono font-black text-success text-lg">{member.prs || 0}</span>
                                     </div>
-                                    <div className="p-3 rounded-2xl bg-background/40 border border-border/40 flex flex-col items-center gap-1 group-active:border-warning/20 transition-all">
+                                    <div className="p-3 rounded-lg bg-background/40 border border-border/40 flex flex-col items-center gap-1 group-active:border-warning/20 transition-all">
                                         <span className="text-[10px] font-black uppercase tracking-tighter text-muted-foreground/50">Reviews</span>
                                         <span className="font-mono font-black text-warning text-lg">{member.reviews || 0}</span>
                                     </div>

@@ -75,7 +75,7 @@ export function StatCard({
           )}
         </div>
         <div className={cn(
-          "rounded-2xl p-3.5 shrink-0 border transition-transform group-hover:scale-110 duration-500",
+          "rounded-lg p-3.5 shrink-0 border transition-transform group-hover:scale-110 duration-500",
           iconColorClasses[iconColor]
         )}>
           <Icon className="h-6 w-6" />

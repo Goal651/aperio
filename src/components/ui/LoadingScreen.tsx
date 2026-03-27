@@ -6,7 +6,7 @@ export function LoadingScreen() {
             <div className="flex flex-col items-center gap-4">
                 <div className="relative">
                     <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full" />
-                    <div className="h-16 w-16 rounded-xl bg-gradient-to-br from-primary to-primary/50 flex items-center justify-center shadow-2xl relative z-10">
+                    <div className="h-16 w-16 rounded-lg bg-gradient-to-br from-primary to-primary/50 flex items-center justify-center shadow-2xl relative z-10">
                         <Loader2 className="h-8 w-8 text-white animate-spin" />
                     </div>
                 </div>

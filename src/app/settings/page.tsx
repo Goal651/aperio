@@ -75,7 +75,7 @@ export default function Page() {
             <div className="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div className="space-y-1">
                     <div className="flex items-center gap-4">
-                        <div className="p-3 bg-primary/10 rounded-2xl border border-primary/20 shadow-sm">
+                        <div className="p-3 bg-primary/10 rounded-lg border border-primary/20 shadow-sm">
                             <Settings className="h-7 w-7 text-primary" />
                         </div>
                         <div>
@@ -91,14 +91,14 @@ export default function Page() {
 
             <Tabs defaultValue="ranking" className="space-y-8">
                 <div className="overflow-x-auto pb-2 no-scrollbar">
-                    <TabsList className="bg-secondary/10 p-1.5 rounded-2xl border border-border/40 w-full sm:w-auto h-14 items-stretch">
-                        <TabsTrigger value="ranking" className="flex-1 sm:flex-none gap-2 px-6 rounded-xl data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-lg transition-all font-black uppercase  text-[10px]">
+                    <TabsList className="bg-secondary/10 p-1.5 rounded-lg border border-border/40 w-full sm:w-auto h-14 items-stretch">
+                        <TabsTrigger value="ranking" className="flex-1 sm:flex-none gap-2 px-6 rounded-lg data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-lg transition-all font-black uppercase  text-[10px]">
                             <Sliders className="h-3.5 w-3.5" /> Ranking Logic
                         </TabsTrigger>
-                        <TabsTrigger value="organization" className="flex-1 sm:flex-none gap-2 px-6 rounded-xl data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-lg transition-all font-black uppercase  text-[10px]">
+                        <TabsTrigger value="organization" className="flex-1 sm:flex-none gap-2 px-6 rounded-lg data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-lg transition-all font-black uppercase  text-[10px]">
                             <Building2 className="h-3.5 w-3.5" /> Infrastructure
                         </TabsTrigger>
-                        <TabsTrigger value="appearance" className="flex-1 sm:flex-none gap-2 px-6 rounded-xl data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-lg transition-all font-black uppercase  text-[10px]">
+                        <TabsTrigger value="appearance" className="flex-1 sm:flex-none gap-2 px-6 rounded-lg data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-lg transition-all font-black uppercase  text-[10px]">
                             <Palette className="h-3.5 w-3.5" /> Visual Style
                         </TabsTrigger>
                     </TabsList>
@@ -128,7 +128,7 @@ export default function Page() {
                                             <Label className="text-base font-black text-foreground tracking-tight">Pull Requests Weight</Label>
                                             <p className="text-xs text-muted-foreground">Rewards integration of new logic and features.</p>
                                         </div>
-                                        <span className="text-lg font-black font-mono text-primary bg-primary/10 px-4 py-1.5 rounded-xl border border-primary/20 min-w-[3.5rem] text-center">{weights.prs}x</span>
+                                        <span className="text-lg font-black font-mono text-primary bg-primary/10 px-4 py-1.5 rounded-lg border border-primary/20 min-w-[3.5rem] text-center">{weights.prs}x</span>
                                     </div>
                                     <Slider
                                         value={[weights.prs]}
@@ -145,7 +145,7 @@ export default function Page() {
                                             <Label className="text-base font-black text-foreground tracking-tight">Review Contributions</Label>
                                             <p className="text-xs text-muted-foreground">Rewards mentoring and code quality maintenance.</p>
                                         </div>
-                                        <span className="text-lg font-black font-mono text-success bg-success/10 px-4 py-1.5 rounded-xl border border-success/20 min-w-[3.5rem] text-center">{weights.reviews}x</span>
+                                        <span className="text-lg font-black font-mono text-success bg-success/10 px-4 py-1.5 rounded-lg border border-success/20 min-w-[3.5rem] text-center">{weights.reviews}x</span>
                                     </div>
                                     <Slider
                                         value={[weights.reviews]}
@@ -162,7 +162,7 @@ export default function Page() {
                                             <Label className="text-base font-black text-foreground tracking-tight">Raw Commit Frequency</Label>
                                             <p className="text-xs text-muted-foreground">Baseline weight for development pulse.</p>
                                         </div>
-                                        <span className="text-lg font-black font-mono text-warning bg-warning/10 px-4 py-1.5 rounded-xl border border-warning/20 min-w-[3.5rem] text-center">{weights.commits}x</span>
+                                        <span className="text-lg font-black font-mono text-warning bg-warning/10 px-4 py-1.5 rounded-lg border border-warning/20 min-w-[3.5rem] text-center">{weights.commits}x</span>
                                     </div>
                                     <Slider
                                         value={[weights.commits]}
@@ -177,7 +177,7 @@ export default function Page() {
                             <div className="flex flex-col sm:flex-row gap-4 pt-12 mt-4 border-t border-border/40">
                                 <Button
                                     onClick={handleSaveWeights}
-                                    className="h-12 px-8 gap-2 bg-primary text-primary-foreground font-black shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all rounded-2xl"
+                                    className="h-12 px-8 gap-2 bg-primary text-primary-foreground font-black shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all rounded-lg"
                                     disabled={isSaving}
                                 >
                                     {isSaving ? <RefreshCw className="h-4 w-4 animate-spin" /> : <CheckCircle2 className="h-4 w-4" />}
@@ -185,7 +185,7 @@ export default function Page() {
                                 </Button>
                                 <Button
                                     variant="outline"
-                                    className="h-12 px-8 rounded-2xl font-black uppercase  text-[10px] bg-secondary/10 border-border/40 hover:bg-secondary/20 transition-all"
+                                    className="h-12 px-8 rounded-lg font-black uppercase  text-[10px] bg-secondary/10 border-border/40 hover:bg-secondary/20 transition-all"
                                     onClick={() => setWeights({ prs: 20, reviews: 15, commits: 2 })}
                                     disabled={isSaving}
                                 >
@@ -222,8 +222,8 @@ export default function Page() {
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-4 p-5 rounded-2xl bg-primary/5 border border-primary/10 text-primary group/info">
-                                <div className="p-2 bg-primary/10 rounded-xl group-hover/info:scale-110 transition-transform">
+                            <div className="flex items-center gap-4 p-5 rounded-lg bg-primary/5 border border-primary/10 text-primary group/info">
+                                <div className="p-2 bg-primary/10 rounded-lg group-hover/info:scale-110 transition-transform">
                                     <Lock className="h-5 w-5" />
                                 </div>
                                 <div>
@@ -239,7 +239,7 @@ export default function Page() {
                                 </div>
                                 <Button
                                     variant="destructive"
-                                    className="h-12 px-8 rounded-2xl font-black uppercase  text-[10px] shadow-lg shadow-destructive/20 hover:scale-[1.02] active:scale-95 transition-all gap-2"
+                                    className="h-12 px-8 rounded-lg font-black uppercase  text-[10px] shadow-lg shadow-destructive/20 hover:scale-[1.02] active:scale-95 transition-all gap-2"
                                     onClick={handleDisconnect}
                                     disabled={isDisconnecting}
                                 >
@@ -263,7 +263,7 @@ export default function Page() {
                             <div className="flex items-center justify-between p-6 rounded-3xl bg-secondary/10 border border-border/40 hover:bg-secondary/20 transition-all group/switch">
                                 <div className="space-y-1">
                                     <div className="flex items-center gap-3">
-                                        <div className="p-2 bg-background rounded-xl shadow-sm border border-border/20 group-hover/switch:scale-110 transition-transform">
+                                        <div className="p-2 bg-background rounded-lg shadow-sm border border-border/20 group-hover/switch:scale-110 transition-transform">
                                             <Moon className="h-4 w-4 text-primary" />
                                         </div>
                                         <Label className="text-base font-black text-foreground tracking-tight">Stealth Mode (Dark)</Label>
@@ -282,8 +282,8 @@ export default function Page() {
                             </div>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div className="p-5 rounded-2xl border border-border/40 bg-secondary/5 opacity-50 flex items-center gap-4 cursor-not-allowed group/item">
-                                    <div className="p-2 bg-background rounded-xl border border-border/20">
+                                <div className="p-5 rounded-lg border border-border/40 bg-secondary/5 opacity-50 flex items-center gap-4 cursor-not-allowed group/item">
+                                    <div className="p-2 bg-background rounded-lg border border-border/20">
                                         <Monitor className="h-4 w-4" />
                                     </div>
                                     <div>
@@ -291,8 +291,8 @@ export default function Page() {
                                         <p className="text-sm font-black text-foreground">Compact Layout</p>
                                     </div>
                                 </div>
-                                <div className="p-5 rounded-2xl border border-border/40 bg-secondary/5 opacity-50 flex items-center gap-4 cursor-not-allowed">
-                                    <div className="p-2 bg-background rounded-xl border border-border/20">
+                                <div className="p-5 rounded-lg border border-border/40 bg-secondary/5 opacity-50 flex items-center gap-4 cursor-not-allowed">
+                                    <div className="p-2 bg-background rounded-lg border border-border/20">
                                         <Bell className="h-4 w-4" />
                                     </div>
                                     <div>

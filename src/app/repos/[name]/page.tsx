@@ -54,7 +54,7 @@ export default function RepoDetailView() {
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div className="lg:col-span-2 glass-card p-6 space-y-4">
-                        {[0, 1, 2].map(i => <Skeleton key={i} className="h-32 w-full rounded-xl" />)}
+                        {[0, 1, 2].map(i => <Skeleton key={i} className="h-32 w-full rounded-lg" />)}
                     </div>
                     <div className="space-y-6">
                         <div className="glass-card p-6 space-y-4">
@@ -123,7 +123,7 @@ export default function RepoDetailView() {
                         {loadingStates.fetchingAlerts ? (
                             <div className="space-y-4">
                                 {[0, 1, 2].map(i => (
-                                    <div key={i} className="p-4 rounded-xl bg-secondary/20 border border-border/50">
+                                    <div key={i} className="p-4 rounded-lg bg-secondary/20 border border-border/50">
                                         <div className="flex items-center justify-between mb-4">
                                             <Skeleton className="h-4 w-20 rounded-full" />
                                             <Skeleton className="h-3 w-24" />
@@ -140,7 +140,7 @@ export default function RepoDetailView() {
                         ) : alerts.length > 0 ? (
                             <div className="space-y-4">
                                 {alerts.map(alert => (
-                                    <div key={alert.id} className="p-4 rounded-xl bg-secondary/20 border border-border/50 hover:border-primary/30 transition-all">
+                                    <div key={alert.id} className="p-4 rounded-lg bg-secondary/20 border border-border/50 hover:border-primary/30 transition-all">
                                         <div className="flex items-center justify-between mb-2">
                                             <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${alert.severity === 'critical' ? 'bg-destructive/20 text-destructive' : 'bg-warning/20 text-warning'
                                                 }`}>

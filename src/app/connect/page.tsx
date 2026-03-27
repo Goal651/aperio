@@ -212,7 +212,7 @@ export default function Page() {
                         <Alert className="border-destructive/30 bg-destructive/5 backdrop-blur-xl rounded-3xl p-6">
                             <div className="flex flex-col sm:flex-row items-center gap-6 justify-between w-full">
                                 <div className="flex items-center gap-4 text-center sm:text-left">
-                                    <div className="p-3 bg-destructive/10 rounded-2xl">
+                                    <div className="p-3 bg-destructive/10 rounded-lg">
                                         <XCircle className="h-6 w-6 text-destructive" />
                                     </div>
                                     <div>
@@ -225,7 +225,7 @@ export default function Page() {
                                         variant="outline"
                                         size="sm"
                                         onClick={() => handleConnect()}
-                                        className="h-10 px-6 rounded-xl border-destructive/20 text-destructive hover:bg-destructive shadow-lg transition-all"
+                                        className="h-10 px-6 rounded-lg border-destructive/20 text-destructive hover:bg-destructive shadow-lg transition-all"
                                     >
                                         Reconnect
                                     </Button>
@@ -253,7 +253,7 @@ export default function Page() {
 
                             <div className="flex items-start justify-between mb-8">
                                 <div className="flex items-center gap-4">
-                                    <div className={`p-4 bg-secondary/20 rounded-2xl group-hover:scale-110 group-hover:bg-primary/10 transition-all border border-border/40 ${feature.color}`}>
+                                    <div className={`p-4 bg-secondary/20 rounded-lg group-hover:scale-110 group-hover:bg-primary/10 transition-all border border-border/40 ${feature.color}`}>
                                         <feature.icon className="h-6 w-6" />
                                     </div>
                                     <div>
@@ -326,9 +326,9 @@ export default function Page() {
                                     placeholder="GH_INSTALLATION_ID"
                                     value={manualId}
                                     onChange={(e) => setManualId(e.target.value)}
-                                    className="h-12 bg-secondary/10 border-border/40 focus:border-primary/50 rounded-2xl font-mono text-sm "
+                                    className="h-12 bg-secondary/10 border-border/40 focus:border-primary/50 rounded-lg font-mono text-sm "
                                 />
-                                <Button onClick={handleManualConnect} variant="glow" className="h-12 w-12 rounded-2xl bg-primary shadow-lg shadow-primary/20 p-0">
+                                <Button onClick={handleManualConnect} variant="glow" className="h-12 w-12 rounded-lg bg-primary shadow-lg shadow-primary/20 p-0">
                                     <ArrowRight className="h-5 w-5" />
                                 </Button>
                             </div>

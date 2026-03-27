@@ -27,6 +27,7 @@ import { useRouter } from "next/navigation";
 import { useGitHubApp } from "@/hooks/useGitHubAuth";
 import { LoadingScreen } from "@/components/ui/LoadingScreen";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 export default function Page() {
     const { state, fetchOrgData, fetchMembers, fetchSecurityAlerts, updateDateRange, isLoading, loadingStates } = useGitHubApp();
@@ -56,7 +57,7 @@ export default function Page() {
             <div className="mb-10 flex flex-col xl:flex-row xl:items-center justify-between gap-6">
                 <div className="space-y-1">
                     <div className="flex items-center gap-4">
-                        <div className="p-3 bg-primary/10 rounded-2xl border border-primary/20 shadow-sm transition-transform hover:scale-110 duration-500">
+                        <div className="p-3 bg-primary/10 rounded-lg border border-primary/20 shadow-sm transition-transform hover:scale-110 duration-500">
                             <LayoutDashboard className="h-7 w-7 text-primary" />
                         </div>
                         <div>
@@ -80,7 +81,11 @@ export default function Page() {
                     <Button
                         variant="ghost"
                         size="lg"
-                        className="h-12 px-6 gap-3 bg-secondary/10 border-border/40 hover:bg-secondary/20 hover:border-primary/30 transition-all rounded-2xl group text-muted-foreground hover:text-primary shrink-0"
+                        className={cn(
+                            "glass-card-medium border-border/50 hover:border-primary/30",
+                            "transition-all duration-300 gap-2 font-normal",
+                            "hover:shadow-lg hover:scale-[1.02]"
+                        )}
                         onClick={() => {
                             toast.info("Compiling organization report... Prepare to save as PDF.");
                             setTimeout(() => {
@@ -88,12 +93,12 @@ export default function Page() {
                             }, 500);
                         }}>
                         <FileText className="h-4 w-4 transition-transform group-hover:scale-110" />
-                        <span className="uppercase font-black text-[10px] tracking-widest">Generate Report</span>
+                        <span className="uppercase font-semibold text-xs ">Generate Report</span>
                     </Button>
                     <Button
                         variant="glow"
                         size="lg"
-                        className="h-12 px-8 gap-3 bg-primary text-primary-foreground font-black shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all rounded-2xl group shrink-0"
+                        className="h-12 px-8 gap-3 bg-primary text-primary-foreground font-black shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all rounded-lg group shrink-0"
                         onClick={() => {
                             fetchOrgData(true);
                             fetchMembers(true);

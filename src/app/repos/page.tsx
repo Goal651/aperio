@@ -85,7 +85,7 @@ export default function Page() {
             <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div className="space-y-1">
                     <div className="flex items-center gap-4">
-                        <div className="p-3 bg-primary/10 rounded-2xl border border-primary/20 shadow-sm">
+                        <div className="p-3 bg-primary/10 rounded-lg border border-primary/20 shadow-sm">
                             <Library className="h-7 w-7 text-primary" />
                         </div>
                         <div>
@@ -101,7 +101,7 @@ export default function Page() {
                     <Button
                         variant="glow"
                         size="sm"
-                        className="flex-1 md:flex-none h-12 px-8 gap-2 bg-primary text-primary-foreground font-black shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all rounded-2xl"
+                        className="flex-1 md:flex-none h-12 px-8 gap-2 bg-primary text-primary-foreground font-black shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all rounded-lg"
                         onClick={() => fetchOrgData(true)}
                     >
                         <RefreshCw className={`h-4 w-4 ${loadingStates.fetchingRepos ? "animate-spin" : ""}`} />
@@ -117,7 +117,7 @@ export default function Page() {
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                         <Input
                             placeholder="Find an asset..."
-                            className="w-full pl-12 h-14 bg-secondary/20 border-border/40 focus:border-primary/50 focus:ring-primary/20 transition-all rounded-2xl text-base font-medium"
+                            className="w-full pl-12 h-14 bg-secondary/20 border-border/40 focus:border-primary/50 focus:ring-primary/20 transition-all rounded-lg text-base font-medium"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
@@ -132,7 +132,7 @@ export default function Page() {
                     </div>
 
                     <div className="flex items-center gap-3 overflow-x-auto pb-2 lg:pb-0 no-scrollbar">
-                        <div className="flex items-center h-14 bg-secondary/20 p-1.5 rounded-2xl border border-border/40 shrink-0">
+                        <div className="flex items-center h-14 bg-secondary/20 p-1.5 rounded-lg border border-border/40 shrink-0">
                             {[
                                 { id: "pushed", label: "Pushed", icon: Clock },
                                 { id: "stars", label: "Stars", icon: Star },
@@ -142,7 +142,7 @@ export default function Page() {
                                 <button
                                     key={option.id}
                                     onClick={() => setSortBy(option.id as any)}
-                                    className={`flex items-center gap-2 px-4 h-full rounded-xl text-xs font-black uppercase  transition-all ${sortBy === option.id
+                                    className={`flex items-center gap-2 px-4 h-full rounded-lg text-xs font-black uppercase  transition-all ${sortBy === option.id
                                         ? "bg-background text-primary shadow-sm"
                                         : "text-muted-foreground hover:text-foreground hover:bg-background/40"
                                         }`}
@@ -153,10 +153,10 @@ export default function Page() {
                             ))}
                         </div>
 
-                        <div className="flex items-center h-14 bg-secondary/20 p-1.5 rounded-2xl border border-border/40 shrink-0">
+                        <div className="flex items-center h-14 bg-secondary/20 p-1.5 rounded-lg border border-border/40 shrink-0">
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <button className="flex items-center gap-2 px-6 h-full rounded-xl text-xs font-black uppercase  text-muted-foreground hover:text-foreground transition-all">
+                                    <button className="flex items-center gap-2 px-6 h-full rounded-lg text-xs font-black uppercase  text-muted-foreground hover:text-foreground transition-all">
                                         <Filter className="h-3.5 w-3.5" />
                                         <span>{languageFilter === 'all' ? 'All Languages' : languageFilter}</span>
                                         <ChevronDown className="h-3.5 w-3.5 opacity-50" />
@@ -183,7 +183,7 @@ export default function Page() {
                         variant={filter === "all" ? "secondary" : "ghost"}
                         size="sm"
                         onClick={() => setFilter("all")}
-                        className={`h-9 px-5 rounded-xl text-[10px] font-black uppercase  transition-all shrink-0 ${filter === "all" ? "bg-primary/20 text-primary border border-primary/30" : "text-muted-foreground hover:bg-secondary/40"}`}
+                        className={`h-9 px-5 rounded-lg text-[10px] font-black uppercase  transition-all shrink-0 ${filter === "all" ? "bg-primary/20 text-primary border border-primary/30" : "text-muted-foreground hover:bg-secondary/40"}`}
                     >
                         All Assets
                     </Button>
@@ -197,7 +197,7 @@ export default function Page() {
                             variant={filter === f.id ? "secondary" : "ghost"}
                             size="sm"
                             onClick={() => setFilter(f.id as any)}
-                            className={`h-9 px-5 rounded-xl text-[10px] font-black uppercase  transition-all shrink-0 flex items-center gap-2 ${filter === f.id
+                            className={`h-9 px-5 rounded-lg text-[10px] font-black uppercase  transition-all shrink-0 flex items-center gap-2 ${filter === f.id
                                 ? `bg-${f.color}/10 border border-${f.color}/20 text-${f.color}`
                                 : "text-muted-foreground hover:bg-secondary/40"
                                 }`}
@@ -217,7 +217,7 @@ export default function Page() {
                         <div key={i} className="glass-card p-6 animate-pulse border-border/20">
                             <div className="flex items-start justify-between mb-6">
                                 <div className="flex items-center gap-4">
-                                    <Skeleton className="h-10 w-10 rounded-xl" />
+                                    <Skeleton className="h-10 w-10 rounded-lg" />
                                     <div className="space-y-2">
                                         <Skeleton className="h-5 w-48 rounded-lg" />
                                         <Skeleton className="h-3 w-24 rounded-lg" />
@@ -242,7 +242,7 @@ export default function Page() {
                             </div>
                             <p className="text-foreground font-black uppercase  text-sm">No match found</p>
                             <p className="text-muted-foreground text-sm">We couldn't find any repositories matching your current search and filters. Try adjusting them.</p>
-                            <Button variant="outline" size="sm" onClick={() => { setSearchQuery(""); setLanguageFilter("all"); setFilter("all"); }} className="mt-2 rounded-xl">Clear All Filters</Button>
+                            <Button variant="outline" size="sm" onClick={() => { setSearchQuery(""); setLanguageFilter("all"); setFilter("all"); }} className="mt-2 rounded-lg">Clear All Filters</Button>
                         </div>
                     </div>
                 ) : (
@@ -259,7 +259,7 @@ export default function Page() {
                             <div className="flex flex-col h-full relative z-10">
                                 <div className="flex items-start justify-between mb-6 gap-4">
                                     <div className="flex items-start gap-4 flex-1 min-w-0">
-                                        <div className="p-3 bg-secondary/30 rounded-2xl group-hover:bg-primary/10 transition-colors border border-border/50 shrink-0">
+                                        <div className="p-3 bg-secondary/30 rounded-lg group-hover:bg-primary/10 transition-colors border border-border/50 shrink-0">
                                             <GitBranch className="h-6 w-6 text-primary group-hover:scale-110 transition-transform" />
                                         </div>
                                         <div className="min-w-0 flex-1">
@@ -286,7 +286,7 @@ export default function Page() {
                                         </div>
                                     </div>
                                     {repo.alerts > 0 && (
-                                        <div className={`shrink-0 px-3 py-1.5 rounded-xl border font-black text-[10px] uppercase  flex items-center gap-2 shadow-sm ${repo.status === "critical" ? "bg-destructive/10 border-destructive/20 text-destructive" : "bg-warning/10 border-warning/20 text-warning"
+                                        <div className={`shrink-0 px-3 py-1.5 rounded-lg border font-black text-[10px] uppercase  flex items-center gap-2 shadow-sm ${repo.status === "critical" ? "bg-destructive/10 border-destructive/20 text-destructive" : "bg-warning/10 border-warning/20 text-warning"
                                             }`}>
                                             <AlertTriangle className="h-3 w-3" />
                                             {repo.alerts}
@@ -300,7 +300,7 @@ export default function Page() {
 
                                 <div className="mt-auto flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-border/40">
                                     <div className="flex flex-wrap items-center gap-5">
-                                        <div className="flex items-center gap-2 px-3 py-1.5 bg-secondary/30 rounded-xl border border-border/40 group-hover:bg-secondary/50 transition-colors">
+                                        <div className="flex items-center gap-2 px-3 py-1.5 bg-secondary/30 rounded-lg border border-border/40 group-hover:bg-secondary/50 transition-colors">
                                             <span className="h-2 w-2 rounded-full" style={{ backgroundColor: repo.languageColor || '#71717a' }} />
                                             <span className="text-xs font-bold text-foreground/80">{repo.language || 'Unknown'}</span>
                                         </div>
@@ -331,7 +331,7 @@ export default function Page() {
                                                         <HoverCardContent className="w-80 bg-background/95 backdrop-blur-xl border-border/50 shadow-2xl">
                                                             <div className="flex justify-between space-x-4">
                                                                 <div className="flex items-center gap-4">
-                                                                    <div className="rounded-2xl overflow-hidden h-12 w-12 border-2 border-primary/20 shadow-lg">
+                                                                    <div className="rounded-lg overflow-hidden h-12 w-12 border-2 border-primary/20 shadow-lg">
                                                                         <img src={c.avatar} alt={c.login} className="h-full w-full object-cover" />
                                                                     </div>
                                                                     <div className="space-y-1">

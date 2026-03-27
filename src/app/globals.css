@@ -201,7 +201,7 @@
 
     /* Base glass card - Subtle frosted glass effect */
     .glass-card {
-        @apply relative rounded-xl overflow-hidden border;
+        @apply relative rounded-lg overflow-hidden border;
 
         background: hsl(var(--glass-bg)/0.05);
 
@@ -281,7 +281,7 @@
 
     .glow-border::before {
         content: '';
-        @apply absolute inset-0 rounded-xl opacity-0 pointer-events-none;
+        @apply absolute inset-0 rounded-lg opacity-0 pointer-events-none;
         background: linear-gradient(135deg,
                 hsl(var(--primary) / 0.3),
                 hsl(var(--accent) / 0.2),

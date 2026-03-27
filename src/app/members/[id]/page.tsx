@@ -49,7 +49,7 @@ export default function MemberDetailView() {
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div className="lg:col-span-2 glass-card p-6 space-y-4">
-                        {[0, 1, 2].map(i => <Skeleton key={i} className="h-14 w-full rounded-xl" />)}
+                        {[0, 1, 2].map(i => <Skeleton key={i} className="h-14 w-full rounded-lg" />)}
                     </div>
                     <div className="glass-card p-6 space-y-3">
                         {[0, 1, 2].map(i => <Skeleton key={i} className="h-6 w-full" />)}
@@ -117,7 +117,7 @@ export default function MemberDetailView() {
                         <div className="space-y-4">
                             {member.contributedRepos.length > 0 ? (
                                 member.contributedRepos.map(repoName => (
-                                    <div key={repoName} className="flex items-center justify-between p-4 rounded-xl bg-secondary/20 border border-border/50 hover:border-primary/30 transition-all group">
+                                    <div key={repoName} className="flex items-center justify-between p-4 rounded-lg bg-secondary/20 border border-border/50 hover:border-primary/30 transition-all group">
                                         <div>
                                             <span className="font-semibold text-foreground group-hover:text-primary transition-colors">{repoName}</span>
                                             <p className="text-xs text-muted-foreground mt-1">Core contributor this month</p>
@@ -168,7 +168,7 @@ export default function MemberDetailView() {
                             <Shield className="h-5 w-5 text-success" />
                             Security Posture
                         </h2>
-                        <div className="p-4 rounded-xl bg-success/5 border border-success/20">
+                        <div className="p-4 rounded-lg bg-success/5 border border-success/20">
                             <p className="text-xs text-muted-foreground leading-relaxed">
                                 {member.name} has no pending security reviews or blocked merges for this month.
                                 All contributions are aligned with organization security policies.
