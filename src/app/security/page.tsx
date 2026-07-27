@@ -239,7 +239,7 @@ export default function Page() {
                             <ExternalLink className="h-4 w-4 text-muted-foreground/40 cursor-pointer hover:text-primary transition-all hover:scale-110" />
                         </div>
                         <div className="flex items-baseline gap-2 mb-4">
-                            <span className="text-3xl md:text-4xl font-black text-foreground font-mono">{type.active}</span>
+                            <span className="text-xl md:text-xl font-black text-foreground font-mono">{type.active}</span>
                             <span className="text-xs font-bold text-muted-foreground/60 uppercase tracking-tighter">Active Issues</span>
                         </div>
                         <div className="space-y-2">
@@ -312,14 +312,14 @@ export default function Page() {
                                                     <ExternalLink className="h-3 w-3" />
                                                     {alert.repo}
                                                 </button>
-                                                <div className={`text-[9px] font-black px-3 py-1 rounded-full uppercase  border shadow-sm ${alert.severity === "critical" ? "border-destructive/30 text-destructive bg-destructive/10" :
+                                                <div className={`text-xs font-semibold px-3 py-1 rounded-full uppercase  border shadow-sm ${alert.severity === "critical" ? "border-destructive/30 text-destructive bg-destructive/10" :
                                                     alert.severity === "high" ? "border-warning/30 text-warning bg-warning/10" :
                                                         "border-primary/30 text-primary bg-primary/10"
                                                     }`}>
                                                     {alert.severity} Risk
                                                 </div>
                                             </div>
-                                            <h3 className="text-lg md:text-xl font-black text-foreground leading-tight group-hover/alert:text-primary transition-colors">{alert.title}</h3>
+                                            <h3 className="text-md md:text-lg font-semibold text-foreground leading-tight group-hover/alert:text-primary transition-colors">{alert.title}</h3>
                                             <div className="flex items-center gap-2">
                                                 <div className="flex items-center gap-2 text-[11px] font-mono text-muted-foreground/70 bg-secondary/30 px-3 py-1 rounded-lg border border-border/30">
                                                     <span className="opacity-40 select-none">PATH:</span>

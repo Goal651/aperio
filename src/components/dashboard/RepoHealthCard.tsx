@@ -32,9 +32,6 @@ export function RepoHealthCard({ loading = false }: { loading?: boolean }) {
 
   return (
     <div className="glass-card p-6 md:p-8 animate-fade-in group relative overflow-hidden" style={{ animationDelay: "0.4s" }}>
-      <div className="absolute -right-6 -top-6 p-10 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity pointer-events-none">
-        <Activity className="h-32 w-32 rotate-12" />
-      </div>
 
       <div className="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
         <div className="flex items-center gap-4">

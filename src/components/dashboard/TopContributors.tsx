@@ -9,9 +9,6 @@ export function TopContributors({ loading }: { loading: boolean }) {
 
   return (
     <div className="glass-card p-6 md:p-8 animate-fade-in group relative overflow-hidden h-full flex flex-col" style={{ animationDelay: "0.3s" }}>
-      <div className="absolute -right-6 -top-6 p-10 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity pointer-events-none">
-        <Users className="h-32 w-32 rotate-12" />
-      </div>
 
       <div className="flex items-center justify-between mb-8 relative z-10">
         <div className="flex items-center gap-4">

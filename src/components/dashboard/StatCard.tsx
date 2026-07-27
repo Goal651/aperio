@@ -33,13 +33,9 @@ export function StatCard({
 }: StatCardProps) {
   const content = (
     <div className={cn(
-      "glass-card p-6 transition-all duration-300 group relative overflow-hidden",
+      "glass-card p-6 transition-all duration-300 group relative overflow-hidden ",
       href && "hover:border-primary/40 hover:scale-[1.02] cursor-pointer"
     )}>
-      <div className="absolute -right-4 -top-4 p-6 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity pointer-events-none">
-        <Icon className="h-24 w-24 rotate-12" />
-      </div>
-
       <div className="flex items-start justify-between relative z-10">
         <div className="space-y-3 flex-1 min-w-0">
           <p className="text-[10px] font-black uppercase  text-muted-foreground opacity-70">{title}</p>
