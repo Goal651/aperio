@@ -77,7 +77,7 @@ export default function Page() {
                             <div className="p-2 bg-primary/10 rounded">
                                 <Shield className="h-6 w-6 md:h-8 md:w-8 text-primary" />
                             </div>
-                            <h1 className="text-md md:text-4xl font-bold text-foreground tracking-tight">Security Overview</h1>
+                            <h1 className="text-xl md:text-4xl font-bold text-foreground tracking-tight">Security Overview</h1>
                         </div>
                         <p className="text-sm md:text-base text-muted-foreground max-w-2xl leading-relaxed">
                             Real-time security vulnerability tracking and automated remediation across your entire organization's codebase.
@@ -167,7 +167,7 @@ export default function Page() {
                         <p className="text-[10px] text-muted-foreground uppercase  font-semibold opacity-70">Severity Distribution Analysis</p>
                     </div>
                     <div className="flex items-baseline gap-2 bg-background/50 px-3 py-1 rounded border border-border/50 self-start sm:self-auto">
-                        <span className="text-md font-semibold text-foreground font-mono">{totalAlertsCount}</span>
+                        <span className="text-xl font-semibold text-foreground font-mono">{totalAlertsCount}</span>
                         <span className="text-[10px] font-bold text-muted-foreground uppercase opacity-60">Total Alerts</span>
                     </div>
                 </div>
@@ -197,7 +197,7 @@ export default function Page() {
                                 <span className="text-xs text-muted-foreground font-bold uppercase ">{stat.label}</span>
                             </div>
                             <div className="flex items-baseline gap-2">
-                                <p className="text-md font-semibold font-mono text-foreground leading-none">{stat.count}</p>
+                                <p className="text-xl font-semibold font-mono text-foreground leading-none">{stat.count}</p>
                                 <p className="text-[10px] text-muted-foreground/60 font-bold">{(totalAlertsCount > 0 ? (stat.count / totalAlertsCount) * 100 : 0).toFixed(0)}%</p>
                             </div>
                         </div>
@@ -239,7 +239,7 @@ export default function Page() {
                             <ExternalLink className="h-4 w-4 text-muted-foreground/40 cursor-pointer hover:text-primary transition-all hover:scale-110" />
                         </div>
                         <div className="flex items-baseline gap-2 mb-4">
-                            <span className="text-md md:text-md font-semibold text-foreground font-mono">{type.active}</span>
+                            <span className="text-xl md:text-xl font-semibold text-foreground font-mono">{type.active}</span>
                             <span className="text-xs font-bold text-muted-foreground/60 uppercase tracking-tighter">Active Issues</span>
                         </div>
                         <div className="space-y-2">
@@ -265,7 +265,7 @@ export default function Page() {
                         <div className="p-2 bg-destructive/10 rounded">
                             <AlertTriangle className="h-5 w-5 text-destructive" />
                         </div>
-                        <h2 className="font-bold text-md text-foreground tracking-tight">
+                        <h2 className="font-bold text-xl text-foreground tracking-tight">
                             {filter === "all" ? "Security Vulnerabilities" : `${filter.charAt(0).toUpperCase() + filter.slice(1)} Priority Detected`}
                         </h2>
                     </div>
@@ -302,9 +302,9 @@ export default function Page() {
                                         <div className={`h-12 w-12 md:h-14 md:w-14 rounded flex items-center justify-center flex-shrink-0 shadow-xl transition-transform group-hover/alert:scale-110 ${alert.severity === 'critical' ? 'bg-destructive/10 border border-destructive/20 shadow-destructive/5' :
                                             alert.severity === 'high' ? 'bg-warning/10 border border-warning/20 shadow-warning/5' : 'bg-primary/10 border border-primary/20 shadow-primary/5'
                                             }`}>
-                                            {alert.type === "Secret" && <Key className={`h-6 w-6 md:h-7 md:w-7 ${alert.severity === 'critical' ? 'text-destructive' : 'text-warning'}`} />}
-                                            {alert.type === "Dependency" && <Package className="h-6 w-6 md:h-7 md:w-7 text-warning" />}
-                                            {alert.type === "Code" && <Bug className="h-6 w-6 md:h-7 md:w-7 text-primary" />}
+                                            {alert.type === "Secret" && <Key className={`h-6 w-6 md:h-7 md:w-7 ${alert.severity === 'critical' ? 'text-destructive' : alert.severity === 'medium' ? 'text-primary' : 'text-warning'}`} />}
+                                            {alert.type === "Dependency" && <Package className={`h-6 w-6 md:h-7 md:w-7 ${alert.severity === 'critical' ? 'text-destructive' : alert.severity === 'medium' ? 'text-primary' : 'text-warning'}`} />}
+                                            {alert.type === "Code" && <Bug className={`h-6 w-6 md:h-7 md:w-7 ${alert.severity === 'critical' ? 'text-destructive' : 'text-warning'}`} />}
                                         </div>
                                         <div className="flex-1 min-w-0 space-y-2">
                                             <div className="flex flex-wrap items-center gap-2">

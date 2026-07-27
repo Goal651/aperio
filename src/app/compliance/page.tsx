@@ -170,7 +170,7 @@ export default function Page() {
             {/* Score Overview Card */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-10">
                 <div className="lg:col-span-8 glass-card p-1 relative overflow-hidden group">
-                  
+
 
                     <div className="p-6 md:p-8 flex flex-col md:flex-row items-center gap-8 md:gap-12 relative z-10">
                         <div className="relative shrink-0">
@@ -178,7 +178,7 @@ export default function Page() {
                                 <span className="text-5xl md:text-6xl font-semibold tracking-tighter leading-none">{gradeInfo.grade}</span>
                                 <span className="text-[10px] md:text-xs font-semibold uppercase  mt-2 opacity-80">{gradeInfo.label}</span>
                             </div>
-                           
+
                         </div>
 
                         <div className="flex-1 text-center md:text-left">

@@ -200,7 +200,7 @@ export default function Page() {
                 <Button
                     onClick={handleConnect}
                     disabled={isConnecting || isLoading}
-                    className="h-9 px-5 text-xs font-semibold uppercase tracking-wider bg-cyan-500 hover:bg-cyan-400 text-black rounded transition-all hover:scale-105 active:scale-95 gap-2 shadow-lg shadow-cyan-500/20"
+                    className="h-9 px-5 text-xs font-semibold uppercase  bg-cyan-500 hover:bg-cyan-400 text-black rounded transition-all hover:scale-105 active:scale-95 gap-2 shadow-lg shadow-cyan-500/20"
                 >
                     {isConnecting ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Github className="h-3.5 w-3.5" />}
                     Connect
@@ -242,7 +242,7 @@ export default function Page() {
                     <Button
                         onClick={handleConnect}
                         disabled={isConnecting || isLoading || loadingStates.fetchingOrgData}
-                        className="w-full h-16 text-base font-semibold uppercase tracking-wider rounded bg-cyan-500 hover:bg-cyan-400 text-black transition-all hover:scale-[1.02] active:scale-95 gap-3 shadow-2xl shadow-cyan-500/25 group relative overflow-hidden"
+                        className="w-full h-16 text-base font-semibold uppercase  rounded bg-cyan-500 hover:bg-cyan-400 text-black transition-all hover:scale-[1.02] active:scale-95 gap-3 shadow-2xl shadow-cyan-500/25 group relative overflow-hidden"
                     >
                         <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/0 via-white/10 to-cyan-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
                         {isConnecting ? (
@@ -362,7 +362,7 @@ export default function Page() {
                         <Button
                             onClick={handleConnect}
                             disabled={isConnecting || isLoading || loadingStates.fetchingOrgData}
-                            className="h-14 px-10 text-sm font-semibold uppercase tracking-wider rounded bg-cyan-500 hover:bg-cyan-400 text-black transition-all hover:scale-105 active:scale-95 gap-3 shadow-xl shadow-cyan-500/20 group"
+                            className="h-14 px-10 text-sm font-semibold  rounded bg-cyan-500 hover:bg-cyan-400 text-black transition-all hover:scale-105 active:scale-95 gap-3 shadow-xl shadow-cyan-500/20 group"
                         >
                             {isConnecting ? (
                                 <><Loader2 className="h-4 w-4 animate-spin" /> Connecting...</>
