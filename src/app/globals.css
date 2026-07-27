@@ -201,7 +201,7 @@
 
     /* Base glass card - Subtle frosted glass effect */
     .glass-card {
-        @apply relative rounded-lg overflow-hidden border;
+        @apply relative rounded overflow-hidden border;
 
         background: hsl(var(--glass-bg)/0.05);
 
@@ -281,7 +281,7 @@
 
     .glow-border::before {
         content: '';
-        @apply absolute inset-0 rounded-lg opacity-0 pointer-events-none;
+        @apply absolute inset-0 rounded opacity-0 pointer-events-none;
         background: linear-gradient(135deg,
                 hsl(var(--primary) / 0.3),
                 hsl(var(--accent) / 0.2),
@@ -377,7 +377,7 @@
        ---------------------------------------------------------------------- */
 
     .nav-link {
-        @apply flex items-center gap-3 px-4 py-2.5 rounded-lg;
+        @apply flex items-center gap-3 px-4 py-2.5 rounded;
         @apply text-muted-foreground transition-all duration-200;
         @apply hover:text-foreground hover:bg-primary-foreground;
         /* background: hsl(var(--glass-bg) /0.1); */

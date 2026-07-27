@@ -41,7 +41,7 @@ export function StatCard({
           <p className="text-[10px] font-black uppercase  text-muted-foreground opacity-70">{title}</p>
           {loading ? (
             <div className="space-y-2">
-              <Skeleton className="h-10 w-24 rounded-lg" />
+              <Skeleton className="h-10 w-24 rounded" />
               <Skeleton className="h-4 w-32 rounded-md" />
             </div>
           ) : (
@@ -71,7 +71,7 @@ export function StatCard({
           )}
         </div>
         <div className={cn(
-          "rounded-lg p-3.5 shrink-0 border transition-transform group-hover:scale-110 duration-500",
+          "rounded p-3.5 shrink-0 border transition-transform group-hover:scale-110 duration-500",
           iconColorClasses[iconColor]
         )}>
           <Icon className="h-6 w-6" />

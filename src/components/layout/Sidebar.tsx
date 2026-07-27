@@ -37,7 +37,7 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
     <aside className={cn("fixed left-0 top-0 z-40 h-screen w-64 border-r border-border bg-sidebar flex flex-col", className)}>
       {/* Logo */}
       <div className="flex h-16 items-center gap-3 border-b border-border px-6 flex-shrink-0">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 overflow-hidden">
+        <div className="flex h-9 w-9 items-center justify-center rounded bg-primary/10 overflow-hidden">
           <img src="/icon.png" alt="Kordian Logo" className="h-full w-full object-cover" />
         </div>
         <div>

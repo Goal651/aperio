@@ -57,7 +57,7 @@ export default function Page() {
             <div className="mb-10 flex flex-col xl:flex-row xl:items-center justify-between gap-6">
                 <div className="space-y-1">
                     <div className="flex items-center gap-4">
-                        <div className="p-3 bg-primary/10 rounded-lg border border-primary/20 shadow-sm transition-transform hover:scale-110 duration-500">
+                        <div className="p-3 bg-primary/10 rounded border border-primary/20 shadow-sm transition-transform hover:scale-110 duration-500">
                             <LayoutDashboard className="h-7 w-7 text-primary" />
                         </div>
                         <div>
@@ -97,7 +97,7 @@ export default function Page() {
                     </Button>
                     <Button
                         variant="default"
-                        className="h-12 px-8 gap-3 bg-primary text-primary-foreground font-semibold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all rounded-lg group shrink-0"
+                        className="h-12 px-8 gap-3 bg-primary text-primary-foreground font-semibold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all rounded group shrink-0"
                         onClick={() => {
                             fetchOrgData(true);
                             fetchMembers(true);

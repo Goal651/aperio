@@ -38,7 +38,7 @@ export function RiskScoreCard({ loading = false }: { loading?: boolean }) {
 
       <div className="flex items-center justify-between mb-8 relative z-10">
         <div className="flex items-center gap-4">
-          <div className="rounded-lg bg-primary/10 p-3 border border-primary/20 shadow-sm group-hover:scale-110 transition-transform duration-500">
+          <div className="rounded bg-primary/10 p-3 border border-primary/20 shadow-sm group-hover:scale-110 transition-transform duration-500">
             <ShieldCheck className="h-6 w-6 text-primary" />
           </div>
           <div>
@@ -46,7 +46,7 @@ export function RiskScoreCard({ loading = false }: { loading?: boolean }) {
             <p className="text-[10px] font-black uppercase  text-muted-foreground opacity-60">Aggregate Infrastructure Health</p>
           </div>
         </div>
-        <div className="p-2 bg-secondary/20 rounded-lg hover:bg-secondary/30 cursor-help transition-colors">
+        <div className="p-2 bg-secondary/20 rounded hover:bg-secondary/30 cursor-help transition-colors">
           <Info className="h-4 w-4 text-muted-foreground" />
         </div>
       </div>
@@ -56,7 +56,7 @@ export function RiskScoreCard({ loading = false }: { loading?: boolean }) {
           <div className="relative h-44 w-44 flex items-center justify-center">
             <div className="h-44 w-44 rounded-full border-[12px] border-secondary/20 animate-pulse border-t-primary/40" />
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-              <Skeleton className="h-10 w-16 rounded-lg" />
+              <Skeleton className="h-10 w-16 rounded" />
               <Skeleton className="h-4 w-20 rounded-md" />
             </div>
           </div>
@@ -94,14 +94,14 @@ export function RiskScoreCard({ loading = false }: { loading?: boolean }) {
       )}
 
       <div className="mt-8 pt-6 border-t border-border/40 grid grid-cols-2 gap-4 relative z-10">
-        <div className="p-3 bg-secondary/10 rounded-lg border border-border/40 hover:bg-secondary/20 transition-all">
+        <div className="p-3 bg-secondary/10 rounded border border-border/40 hover:bg-secondary/20 transition-all">
           <div className="flex items-center gap-2 mb-1">
             <TrendingUp className="h-3 w-3 text-success" />
             <span className="text-[9px] font-black uppercase  text-muted-foreground opacity-60">Status</span>
           </div>
           <p className="text-sm font-black text-foreground">{score}% Health</p>
         </div>
-        <div className="p-3 bg-secondary/10 rounded-lg border border-border/40 hover:bg-secondary/20 transition-all">
+        <div className="p-3 bg-secondary/10 rounded border border-border/40 hover:bg-secondary/20 transition-all">
           <div className="flex items-center gap-2 mb-1">
             <Zap className="h-3 w-3 text-amber-400" />
             <span className="text-[9px] font-black uppercase  text-muted-foreground opacity-60">Control</span>

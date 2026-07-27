@@ -70,11 +70,11 @@ export default function Page() {
     return (
         <DashboardLayout>
             {/* Header */}
-            <div className="mb-6 p-4 md:p-8 bg-gradient-to-br from-primary/10 via-background to-background rounded-lg border border-primary/20 shadow-xl shadow-primary/5">
+            <div className="mb-6 p-4 md:p-8 bg-gradient-to-br from-primary/10 via-background to-background rounded border border-primary/20 shadow-xl shadow-primary/5">
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8">
                     <div className="space-y-2">
                         <div className="flex items-center gap-3">
-                            <div className="p-2 bg-primary/10 rounded-lg">
+                            <div className="p-2 bg-primary/10 rounded">
                                 <Shield className="h-6 w-6 md:h-8 md:w-8 text-primary" />
                             </div>
                             <h1 className="text-2xl md:text-4xl font-bold text-foreground tracking-tight">Security Overview</h1>
@@ -87,7 +87,7 @@ export default function Page() {
                         <Button
                             variant="outline"
                             size="lg"
-                            className="flex-1 sm:flex-none h-12 md:h-14 px-8 gap-3 bg-secondary/10 border-border/40 hover:bg-secondary/20 transition-all rounded-lg group text-muted-foreground hover:text-primary"
+                            className="flex-1 sm:flex-none h-12 md:h-14 px-8 gap-3 bg-secondary/10 border-border/40 hover:bg-secondary/20 transition-all rounded group text-muted-foreground hover:text-primary"
                             onClick={() => {
                                 toast.info("Compiling security report... Prepare to save as PDF.");
                                 setTimeout(() => {
@@ -101,7 +101,7 @@ export default function Page() {
                         <Button
                             variant="glow"
                             size="lg"
-                            className="flex-1 sm:flex-none bg-primary text-primary-foreground font-black shadow-2xl shadow-primary/30 hover:scale-[1.02] active:scale-95 transition-all h-12 md:h-14 px-8 text-base rounded-lg"
+                            className="flex-1 sm:flex-none bg-primary text-primary-foreground font-black shadow-2xl shadow-primary/30 hover:scale-[1.02] active:scale-95 transition-all h-12 md:h-14 px-8 text-base rounded"
                             onClick={async () => {
                                 setIsRemediating(true);
                                 await new Promise(r => setTimeout(r, 1500));
@@ -122,7 +122,7 @@ export default function Page() {
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/60" />
                         <Input
                             placeholder="Search by vulnerability, CVE, or repository..."
-                            className="pl-11 h-11 md:h-12 bg-secondary/20 border-border/50 focus:border-primary/40 focus:bg-secondary/40 transition-all rounded-lg placeholder:text-muted-foreground/50"
+                            className="pl-11 h-11 md:h-12 bg-secondary/20 border-border/50 focus:border-primary/40 focus:bg-secondary/40 transition-all rounded placeholder:text-muted-foreground/50"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
@@ -132,7 +132,7 @@ export default function Page() {
                             variant={filter === "all" ? "secondary" : "ghost"}
                             size="sm"
                             onClick={() => setFilter("all")}
-                            className={`h-11 px-4 flex items-center gap-2 rounded-lg transition-all ${filter === "all" ? "bg-secondary shadow-sm" : "hover:bg-secondary/40"}`}
+                            className={`h-11 px-4 flex items-center gap-2 rounded transition-all ${filter === "all" ? "bg-secondary shadow-sm" : "hover:bg-secondary/40"}`}
                         >
                             <Filter className="h-3.5 w-3.5" />
                             <span className="font-medium">All Alerts</span>
@@ -144,13 +144,13 @@ export default function Page() {
                                 variant={filter === stat.value ? "secondary" : "ghost"}
                                 size="sm"
                                 onClick={() => setFilter(stat.value as any)}
-                                className={`h-11 px-4 flex items-center gap-2 rounded-lg transition-all ${filter === stat.value ? "bg-secondary border border-primary/20 shadow-sm" : "hover:bg-secondary/40"}`}
+                                className={`h-11 px-4 flex items-center gap-2 rounded transition-all ${filter === stat.value ? "bg-secondary border border-primary/20 shadow-sm" : "hover:bg-secondary/40"}`}
                             >
                                 <div className={`h-2.5 w-2.5 rounded-full ${stat.color} shadow-sm ring-2 ring-background`} />
                                 <span className={`text-sm ${filter === stat.value ? "text-foreground font-semibold" : "text-muted-foreground font-medium"}`}>
                                     {stat.label}
                                 </span>
-                                <span className="bg-background/80 px-2 py-0.5 rounded-lg text-[10px] font-bold font-mono border border-border/50 text-muted-foreground">
+                                <span className="bg-background/80 px-2 py-0.5 rounded text-[10px] font-bold font-mono border border-border/50 text-muted-foreground">
                                     {stat.count}
                                 </span>
                             </Button>
@@ -166,7 +166,7 @@ export default function Page() {
                         <h2 className="font-bold text-lg text-foreground">Risk Exposure Profile</h2>
                         <p className="text-[10px] text-muted-foreground uppercase  font-black opacity-70">Severity Distribution Analysis</p>
                     </div>
-                    <div className="flex items-baseline gap-2 bg-background/50 px-3 py-1 rounded-lg border border-border/50 self-start sm:self-auto">
+                    <div className="flex items-baseline gap-2 bg-background/50 px-3 py-1 rounded border border-border/50 self-start sm:self-auto">
                         <span className="text-2xl font-black text-foreground font-mono">{totalAlertsCount}</span>
                         <span className="text-[10px] font-bold text-muted-foreground uppercase opacity-60">Total Alerts</span>
                     </div>
@@ -185,7 +185,7 @@ export default function Page() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
                     {alertStats.map(stat => (
-                        <div key={stat.label} className="p-4 rounded-lg bg-secondary/20 border border-border/40 hover:bg-secondary/40 transition-all hover:scale-[1.02] group/stat">
+                        <div key={stat.label} className="p-4 rounded bg-secondary/20 border border-border/40 hover:bg-secondary/40 transition-all hover:scale-[1.02] group/stat">
                             <div className="flex items-center gap-2 mb-2">
                                 <div className={cn(
                                     "h-2.5 w-2.5 rounded-full shadow-sm",
@@ -214,7 +214,7 @@ export default function Page() {
                             <div key={i} className="glass-card p-6 animate-fade-in">
                                 <div className="flex items-center justify-between mb-4">
                                     <div className="flex items-center gap-3">
-                                        <Skeleton className="h-10 w-10 rounded-lg" />
+                                        <Skeleton className="h-10 w-10 rounded" />
                                         <Skeleton className="h-5 w-28" />
                                     </div>
                                 </div>
@@ -231,7 +231,7 @@ export default function Page() {
                     >
                         <div className="flex items-center justify-between mb-5">
                             <div className="flex items-center gap-3">
-                                <div className="rounded-lg bg-primary/5 p-2.5 group-hover:bg-primary/10 transition-colors">
+                                <div className="rounded bg-primary/5 p-2.5 group-hover:bg-primary/10 transition-colors">
                                     <type.icon className="h-5 w-5 md:h-6 md:w-6 text-primary" />
                                 </div>
                                 <span className="font-bold text-foreground text-sm md:text-base">{type.label}</span>
@@ -262,7 +262,7 @@ export default function Page() {
             <div className="glass-card p-4 md:p-8 animate-fade-in" style={{ animationDelay: "0.4s" }}>
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
                     <div className="flex items-center gap-3">
-                        <div className="p-2 bg-destructive/10 rounded-lg">
+                        <div className="p-2 bg-destructive/10 rounded">
                             <AlertTriangle className="h-5 w-5 text-destructive" />
                         </div>
                         <h2 className="font-bold text-xl text-foreground tracking-tight">
@@ -280,13 +280,13 @@ export default function Page() {
 
                 <div className="space-y-4">
                     {filteredAlerts.length === 0 ? (
-                        <div className="text-center py-20 bg-secondary/5 rounded-3xl border border-dashed border-border/40 flex flex-col items-center">
+                        <div className="text-center py-20 bg-secondary/5 rounded border border-dashed border-border/40 flex flex-col items-center">
                             <div className="h-20 w-20 bg-secondary/20 rounded-full flex items-center justify-center mb-6">
                                 <Shield className="h-10 w-10 text-muted-foreground/30" />
                             </div>
                             <p className="text-lg font-bold text-foreground">Perfect Clean Slate</p>
                             <p className="text-sm text-muted-foreground/60 mt-1 max-w-xs mx-auto">No security alerts matching your current filters have been detected in the system.</p>
-                            <Button variant="outline" size="sm" onClick={() => { setFilter("all"); setSearchQuery(""); }} className="mt-8 rounded-lg px-6 h-10 font-bold border-primary/20 hover:bg-primary/5 text-primary">
+                            <Button variant="outline" size="sm" onClick={() => { setFilter("all"); setSearchQuery(""); }} className="mt-8 rounded px-6 h-10 font-bold border-primary/20 hover:bg-primary/5 text-primary">
                                 Reset Scan Filters
                             </Button>
                         </div>
@@ -294,12 +294,12 @@ export default function Page() {
                         filteredAlerts.map((alert, idx) => (
                             <div
                                 key={idx}
-                                className="group/alert relative flex flex-col p-5 md:p-6 rounded-3xl bg-secondary/10 border border-border/40 hover:bg-secondary/20 hover:border-primary/20 transition-all animate-fade-in"
+                                className="group/alert relative flex flex-col p-5 md:p-6 rounded bg-secondary/10 border border-border/40 hover:bg-secondary/20 hover:border-primary/20 transition-all animate-fade-in"
                                 style={{ animationDelay: `${idx * 0.05}s` }}
                             >
                                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
                                     <div className="flex items-start gap-4 md:gap-6">
-                                        <div className={`h-12 w-12 md:h-14 md:w-14 rounded-lg flex items-center justify-center flex-shrink-0 shadow-xl transition-transform group-hover/alert:scale-110 ${alert.severity === 'critical' ? 'bg-destructive/10 border border-destructive/20 shadow-destructive/5' :
+                                        <div className={`h-12 w-12 md:h-14 md:w-14 rounded flex items-center justify-center flex-shrink-0 shadow-xl transition-transform group-hover/alert:scale-110 ${alert.severity === 'critical' ? 'bg-destructive/10 border border-destructive/20 shadow-destructive/5' :
                                             alert.severity === 'high' ? 'bg-warning/10 border border-warning/20 shadow-warning/5' : 'bg-primary/10 border border-primary/20 shadow-primary/5'
                                             }`}>
                                             {alert.type === "Secret" && <Key className={`h-6 w-6 md:h-7 md:w-7 ${alert.severity === 'critical' ? 'text-destructive' : 'text-warning'}`} />}
@@ -321,7 +321,7 @@ export default function Page() {
                                             </div>
                                             <h3 className="text-md md:text-lg font-semibold text-foreground leading-tight group-hover/alert:text-primary transition-colors">{alert.title}</h3>
                                             <div className="flex items-center gap-2">
-                                                <div className="flex items-center gap-2 text-[11px] font-mono text-muted-foreground/70 bg-secondary/30 px-3 py-1 rounded-lg border border-border/30">
+                                                <div className="flex items-center gap-2 text-[11px] font-mono text-muted-foreground/70 bg-secondary/30 px-3 py-1 rounded border border-border/30">
                                                     <span className="opacity-40 select-none">PATH:</span>
                                                     <span className="truncate max-w-[150px] sm:max-w-md">{alert.path || "Repository Global Scope"}</span>
                                                 </div>
@@ -340,7 +340,7 @@ export default function Page() {
                                             <Button
                                                 size="sm"
                                                 variant="glow"
-                                                className="h-10 px-5 rounded-lg bg-primary/5 text-primary hover:bg-primary hover:text-primary-foreground font-bold transition-all border border-primary/20 shadow-lg shadow-primary/5 active:scale-95 group/btn"
+                                                className="h-10 px-5 rounded bg-primary/5 text-primary hover:bg-primary hover:text-primary-foreground font-bold transition-all border border-primary/20 shadow-lg shadow-primary/5 active:scale-95 group/btn"
                                                 onClick={() => window.open(alert.url, '_blank')}
                                             >
                                                 <span className="mr-2">Remediate</span>

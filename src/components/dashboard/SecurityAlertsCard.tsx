@@ -52,7 +52,7 @@ export function SecurityAlertsCard({ loading }: { loading: boolean }) {
 
       <div className="flex items-center justify-between mb-8 relative z-10">
         <div className="flex items-center gap-4">
-          <div className="rounded-lg bg-destructive/10 p-3 border border-destructive/20 shadow-sm group-hover:scale-110 transition-transform duration-500">
+          <div className="rounded bg-destructive/10 p-3 border border-destructive/20 shadow-sm group-hover:scale-110 transition-transform duration-500">
             <AlertTriangle className="h-6 w-6 text-destructive" />
           </div>
           <div>
@@ -66,25 +66,25 @@ export function SecurityAlertsCard({ loading }: { loading: boolean }) {
         {loading ? (
           <>
             {[0, 1, 2].map((i) => (
-              <div key={i} className="flex items-center justify-between rounded-lg bg-secondary/10 p-5 border border-border/40">
+              <div key={i} className="flex items-center justify-between rounded bg-secondary/10 p-5 border border-border/40">
                 <div className="flex items-center gap-4">
-                  <Skeleton className="h-10 w-10 rounded-lg" />
+                  <Skeleton className="h-10 w-10 rounded" />
                   <div className="space-y-2">
                     <Skeleton className="h-4 w-24 rounded-md" />
                     <Skeleton className="h-3 w-16 rounded-md opacity-60" />
                   </div>
                 </div>
-                <Skeleton className="h-6 w-20 rounded-lg" />
+                <Skeleton className="h-6 w-20 rounded" />
               </div>
             ))}
           </>
         ) : alertsDisplay.map((alert) => (
           <div
             key={alert.label}
-            className="flex items-center justify-between rounded-lg bg-secondary/10 p-5 border border-border/40 hover:bg-secondary/20 hover:border-primary/20 transition-all group/item"
+            className="flex items-center justify-between rounded bg-secondary/10 p-5 border border-border/40 hover:bg-secondary/20 hover:border-primary/20 transition-all group/item"
           >
             <div className="flex items-center gap-4">
-              <div className={`p-2.5 bg-background rounded-lg border border-border/40 shadow-sm transition-transform group-hover/item:scale-110 ${alert.color}`}>
+              <div className={`p-2.5 bg-background rounded border border-border/40 shadow-sm transition-transform group-hover/item:scale-110 ${alert.color}`}>
                 <alert.icon className="h-5 w-5" />
               </div>
               <div>
@@ -113,7 +113,7 @@ export function SecurityAlertsCard({ loading }: { loading: boolean }) {
                 </div>
               )}
               {alert.critical === 0 && alert.high === 0 && alert.medium === 0 && (
-                <div className="flex items-center gap-2 px-3 py-1 bg-success/5 border border-success/20 rounded-lg">
+                <div className="flex items-center gap-2 px-3 py-1 bg-success/5 border border-success/20 rounded">
                   <div className="h-1.5 w-1.5 rounded-full bg-success" />
                   <span className="text-[9px] font-black uppercase  text-success/60">Protected</span>
                 </div>
@@ -135,7 +135,7 @@ export function SecurityAlertsCard({ loading }: { loading: boolean }) {
             <p className="text-xl font-black text-destructive leading-none mt-1">{state.alerts?.filter(a => a.severity === 'critical').length || 0}</p>
           </div>
         </div>
-        <Button variant="ghost" size="sm" className="h-10 px-4 rounded-lg gap-2 text-[10px] font-black uppercase  text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all">
+        <Button variant="ghost" size="sm" className="h-10 px-4 rounded gap-2 text-[10px] font-black uppercase  text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all">
           Full Audit
           <ChevronRight className="h-4 w-4" />
         </Button>

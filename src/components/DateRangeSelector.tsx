@@ -110,7 +110,7 @@ function MonthYearPicker({
         <select
           value={value.year}
           onChange={(e) => onChange(value.month, parseInt(e.target.value))}
-          className="flex-1 h-9 rounded-lg bg-secondary/50 border border-border/50 px-3 text-sm font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+          className="flex-1 h-9 rounded bg-secondary/50 border border-border/50 px-3 text-sm font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
         >
           {years.map(year => (
             <option key={year} value={year}>{year}</option>
@@ -142,7 +142,7 @@ function MonthYearPicker({
               onClick={() => !isDisabled && onChange(index, value.year)}
               disabled={isDisabled}
               className={cn(
-                "px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200",
+                "px-3 py-2 rounded text-xs font-medium transition-all duration-200",
                 "hover:bg-secondary/50 disabled:opacity-30 disabled:cursor-not-allowed",
                 value.month === index
                   ? "bg-primary/10 text-primary border border-primary/30"
@@ -316,7 +316,7 @@ export function DateRangeSelector({ onDateRangeChange, className, orgCreatedAt }
                 key={preset.label}
                 onClick={() => applyPreset(preset.label)}
                 className={cn(
-                  "w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200",
+                  "w-full text-left px-3 py-2 rounded text-sm transition-all duration-200",
                   "hover:bg-secondary/50 flex items-center justify-between group",
                   selectedPreset === preset.label && !isCustom
                     ? "bg-primary/10 text-primary font-medium"
@@ -339,7 +339,7 @@ export function DateRangeSelector({ onDateRangeChange, className, orgCreatedAt }
                   key={preset.label}
                   onClick={() => applyRange(preset.label, preset.from, preset.to)}
                   className={cn(
-                    "w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200",
+                    "w-full text-left px-3 py-2 rounded text-sm transition-all duration-200",
                     "hover:bg-secondary/50 flex items-center justify-between group",
                     selectedPreset === preset.label && !isCustom
                       ? "bg-primary/10 text-primary font-medium"
@@ -358,7 +358,7 @@ export function DateRangeSelector({ onDateRangeChange, className, orgCreatedAt }
               <button
                 onClick={() => setIsCustom(true)}
                 className={cn(
-                  "w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200",
+                  "w-full text-left px-3 py-2 rounded text-sm transition-all duration-200",
                   "hover:bg-secondary/50 flex items-center justify-between",
                   isCustom
                     ? "bg-primary/10 text-primary font-medium"

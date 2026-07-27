@@ -186,7 +186,7 @@ export default function Page() {
             {/* ── TOP NAV BAR ── */}
             <nav className="relative z-20 flex items-center justify-between px-6 md:px-12 py-5 border-b border-white/5">
                 <div className="flex items-center gap-3">
-                    <div className="h-8 w-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center">
+                    <div className="h-8 w-8 rounded bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center">
                         <img src="/icon.png" alt="logo" className="h-8 w-8" />
                     </div>
                     <span className="font-black text-white text-lg tracking-tight">kordian</span>
@@ -200,7 +200,7 @@ export default function Page() {
                 <Button
                     onClick={handleConnect}
                     disabled={isConnecting || isLoading}
-                    className="h-9 px-5 text-xs font-black uppercase tracking-wider bg-cyan-500 hover:bg-cyan-400 text-black rounded-xl transition-all hover:scale-105 active:scale-95 gap-2 shadow-lg shadow-cyan-500/20"
+                    className="h-9 px-5 text-xs font-black uppercase tracking-wider bg-cyan-500 hover:bg-cyan-400 text-black rounded transition-all hover:scale-105 active:scale-95 gap-2 shadow-lg shadow-cyan-500/20"
                 >
                     {isConnecting ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Github className="h-3.5 w-3.5" />}
                     Connect
@@ -228,7 +228,7 @@ export default function Page() {
                 </p>
 
                 {/* Stats bar */}
-                <div className="flex flex-wrap items-center justify-center gap-8 mb-10 py-6 px-8 rounded-2xl border border-white/5 bg-white/[0.02]">
+                <div className="flex flex-wrap items-center justify-center gap-8 mb-10 py-6 px-8 rounded border border-white/5 bg-white/[0.02]">
                     {stats.map((stat, i) => (
                         <div key={i} className="text-center">
                             <div className="text-2xl font-black text-cyan-400 leading-none">{stat.value}</div>
@@ -242,7 +242,7 @@ export default function Page() {
                     <Button
                         onClick={handleConnect}
                         disabled={isConnecting || isLoading || loadingStates.fetchingOrgData}
-                        className="w-full h-16 text-base font-black uppercase tracking-wider rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-black transition-all hover:scale-[1.02] active:scale-95 gap-3 shadow-2xl shadow-cyan-500/25 group relative overflow-hidden"
+                        className="w-full h-16 text-base font-black uppercase tracking-wider rounded bg-cyan-500 hover:bg-cyan-400 text-black transition-all hover:scale-[1.02] active:scale-95 gap-3 shadow-2xl shadow-cyan-500/25 group relative overflow-hidden"
                     >
                         <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/0 via-white/10 to-cyan-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
                         {isConnecting ? (
@@ -273,10 +273,10 @@ export default function Page() {
             {/* ── ERROR BANNER ── */}
             {authError && (
                 <div className="relative z-10 px-6 md:px-12 mb-8 max-w-3xl mx-auto w-full">
-                    <Alert className="border-destructive/30 bg-destructive/5 backdrop-blur-xl rounded-2xl p-5">
+                    <Alert className="border-destructive/30 bg-destructive/5 backdrop-blur-xl rounded p-5">
                         <div className="flex flex-col sm:flex-row items-center gap-4 justify-between w-full">
                             <div className="flex items-center gap-3">
-                                <div className="p-2 bg-destructive/10 rounded-lg shrink-0">
+                                <div className="p-2 bg-destructive/10 rounded shrink-0">
                                     <XCircle className="h-5 w-5 text-destructive" />
                                 </div>
                                 <div>
@@ -285,7 +285,7 @@ export default function Page() {
                                 </div>
                             </div>
                             <div className="flex gap-2 shrink-0">
-                                <Button variant="outline" size="sm" onClick={handleConnect} className="h-9 px-4 rounded-xl border-destructive/20 text-destructive hover:bg-destructive text-xs">
+                                <Button variant="outline" size="sm" onClick={handleConnect} className="h-9 px-4 rounded border-destructive/20 text-destructive hover:bg-destructive text-xs">
                                     Retry
                                 </Button>
                                 <Button variant="ghost" size="sm" onClick={() => setAuthError(null)} className="h-9 px-3 text-muted-foreground text-xs">
@@ -311,7 +311,7 @@ export default function Page() {
                     {enterpriseFeatures.map((feature, index) => (
                         <div
                             key={index}
-                            className={`group relative rounded-2xl border ${feature.borderColor} ${feature.bgColor} p-7 overflow-hidden transition-all duration-300 hover:border-opacity-40 hover:scale-[1.01] animate-fade-in`}
+                            className={`group relative rounded border ${feature.borderColor} ${feature.bgColor} p-7 overflow-hidden transition-all duration-300 hover:border-opacity-40 hover:scale-[1.01] animate-fade-in`}
                             style={{ animationDelay: `${0.1 * index}s` }}
                         >
                             {/* Decorative bg icon */}
@@ -321,12 +321,12 @@ export default function Page() {
 
                             <div className="flex items-start justify-between mb-5 relative z-10">
                                 <div className="flex items-center gap-3">
-                                    <div className={`p-3 rounded-xl border ${feature.borderColor} bg-black/30 ${feature.color} group-hover:scale-110 transition-transform`}>
+                                    <div className={`p-3 rounded border ${feature.borderColor} bg-black/30 ${feature.color} group-hover:scale-110 transition-transform`}>
                                         <feature.icon className="h-5 w-5" />
                                     </div>
                                     <h3 className="text-base font-black text-white tracking-tight">{feature.title}</h3>
                                 </div>
-                                <span className={`text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg border ${feature.borderColor} ${feature.color} bg-black/20`}>
+                                <span className={`text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded border ${feature.borderColor} ${feature.color} bg-black/20`}>
                                     {feature.badge}
                                 </span>
                             </div>
@@ -337,7 +337,7 @@ export default function Page() {
 
                             <div className="flex flex-wrap gap-2 relative z-10">
                                 {feature.metrics.map((metric, i) => (
-                                    <span key={i} className="text-[10px] font-bold px-2.5 py-1 rounded-lg bg-white/5 text-white/40 border border-white/5 flex items-center gap-1.5">
+                                    <span key={i} className="text-[10px] font-bold px-2.5 py-1 rounded bg-white/5 text-white/40 border border-white/5 flex items-center gap-1.5">
                                         <Zap className={`h-2.5 w-2.5 ${feature.color}`} />
                                         {metric}
                                     </span>
@@ -350,7 +350,7 @@ export default function Page() {
 
             {/* ── BOTTOM CTA SECTION — can't miss it ── */}
             <div className="relative z-10 px-6 md:px-12 pb-24 max-w-2xl mx-auto w-full text-center">
-                <div className="rounded-3xl border border-cyan-500/15 bg-cyan-500/5 p-10 relative overflow-hidden">
+                <div className="rounded border border-cyan-500/15 bg-cyan-500/5 p-10 relative overflow-hidden">
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.08),transparent_70%)]" />
                     <div className="relative z-10">
                         <h2 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-3">
@@ -362,7 +362,7 @@ export default function Page() {
                         <Button
                             onClick={handleConnect}
                             disabled={isConnecting || isLoading || loadingStates.fetchingOrgData}
-                            className="h-14 px-10 text-sm font-black uppercase tracking-wider rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-black transition-all hover:scale-105 active:scale-95 gap-3 shadow-xl shadow-cyan-500/20 group"
+                            className="h-14 px-10 text-sm font-black uppercase tracking-wider rounded bg-cyan-500 hover:bg-cyan-400 text-black transition-all hover:scale-105 active:scale-95 gap-3 shadow-xl shadow-cyan-500/20 group"
                         >
                             {isConnecting ? (
                                 <><Loader2 className="h-4 w-4 animate-spin" /> Connecting...</>
@@ -386,11 +386,11 @@ export default function Page() {
                                         placeholder="GH_INSTALLATION_ID"
                                         value={manualId}
                                         onChange={(e) => setManualId(e.target.value)}
-                                        className="h-11 bg-white/5 border-white/10 focus:border-cyan-500/50 rounded-xl font-mono text-sm text-white"
+                                        className="h-11 bg-white/5 border-white/10 focus:border-cyan-500/50 rounded font-mono text-sm text-white"
                                     />
                                     <Button
                                         onClick={handleManualConnect}
-                                        className="h-11 w-11 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black p-0 shrink-0"
+                                        className="h-11 w-11 rounded bg-cyan-500 hover:bg-cyan-400 text-black p-0 shrink-0"
                                     >
                                         <ArrowRight className="h-4 w-4" />
                                     </Button>

@@ -12,7 +12,7 @@ export function TopContributors({ loading }: { loading: boolean }) {
 
       <div className="flex items-center justify-between mb-8 relative z-10">
         <div className="flex items-center gap-4">
-          <div className="rounded-lg bg-success/10 p-3 border border-success/20 shadow-sm group-hover:scale-110 transition-transform duration-500">
+          <div className="rounded bg-success/10 p-3 border border-success/20 shadow-sm group-hover:scale-110 transition-transform duration-500">
             <Medal className="h-6 w-6 text-success" />
           </div>
           <div>
@@ -26,7 +26,7 @@ export function TopContributors({ loading }: { loading: boolean }) {
         {loading ? (
           <>
             {[0, 1, 2, 3, 4].map((i) => (
-              <div key={i} className="flex items-center justify-between rounded-lg bg-secondary/10 p-4 border border-border/40">
+              <div key={i} className="flex items-center justify-between rounded bg-secondary/10 p-4 border border-border/40">
                 <div className="flex items-center gap-4">
                   <Skeleton className="h-10 w-10 rounded-full shrink-0" />
                   <div className="space-y-2">
@@ -39,7 +39,7 @@ export function TopContributors({ loading }: { loading: boolean }) {
             ))}
           </>
         ) : members.length === 0 ? (
-          <div className="py-12 text-center bg-secondary/5 rounded-3xl border border-dashed border-border/40">
+          <div className="py-12 text-center bg-secondary/5 rounded border border-dashed border-border/40">
             <p className="text-sm font-black text-foreground uppercase  opacity-40 italic">Inertia Detected</p>
             <p className="text-[10px] text-muted-foreground mt-2 max-w-xs mx-auto opacity-50 font-black uppercase ">No contribution events recorded in window</p>
           </div>
@@ -48,7 +48,7 @@ export function TopContributors({ loading }: { loading: boolean }) {
             <div
               key={contributor.username}
               onClick={() => setState(prev => ({ ...prev, selectedMemberId: contributor.username }))}
-              className="group/item flex items-center justify-between rounded-lg bg-secondary/10 p-4 border border-border/40 hover:bg-secondary/20 hover:border-primary/20 transition-all cursor-pointer overflow-hidden relative"
+              className="group/item flex items-center justify-between rounded bg-secondary/10 p-4 border border-border/40 hover:bg-secondary/20 hover:border-primary/20 transition-all cursor-pointer overflow-hidden relative"
             >
               <div className="flex items-center gap-4 relative z-10">
                 <div className="relative">
@@ -94,7 +94,7 @@ export function TopContributors({ loading }: { loading: boolean }) {
         <div className="flex items-center gap-3">
           <span className="text-[9px] font-black uppercase  text-muted-foreground opacity-40">Analysis window: 30 days</span>
         </div>
-        <Button variant="ghost" size="sm" className="h-10 px-4 rounded-lg gap-2 text-[10px] font-black uppercase  text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all">
+        <Button variant="ghost" size="sm" className="h-10 px-4 rounded gap-2 text-[10px] font-black uppercase  text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all">
           Full Squad
           <ChevronRight className="h-4 w-4" />
         </Button>

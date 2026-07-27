@@ -20,7 +20,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
        {/* Mobile Header & Sidebar */}
        <div className="md:hidden fixed top-0 left-0 right-0 h-16 border-b border-border bg-background/80 backdrop-blur-xl z-50 flex items-center px-4 justify-between">
          <div className="flex items-center gap-2">
-           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 overflow-hidden">
+           <div className="flex h-8 w-8 items-center justify-center rounded bg-primary/10 overflow-hidden">
              <img src="/icon.png" alt="Kordian Logo" className="h-full w-full object-cover" />
            </div>
            <span className="font-semibold text-foreground tracking-tight">Kordian</span>
