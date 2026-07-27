@@ -89,10 +89,10 @@ export default function Page() {
                             <Library className="h-7 w-7 text-primary" />
                         </div>
                         <div>
-                            <h1 className="text-3xl md:text-4xl font-black text-foreground tracking-tight">Repositories</h1>
+                            <h1 className="text-md md:text-4xl font-semibold text-foreground tracking-tight">Repositories</h1>
                             <p className="text-sm text-muted-foreground flex items-center gap-2 mt-1">
                                 <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-                                Managing <span className="font-black text-foreground">{repositories.length}</span> active codebase assets
+                                Managing <span className="font-semibold text-foreground">{repositories.length}</span> active codebase assets
                             </p>
                         </div>
                     </div>
@@ -101,7 +101,7 @@ export default function Page() {
                     <Button
                         variant="glow"
                         size="sm"
-                        className="flex-1 md:flex-none h-12 px-8 gap-2 bg-primary text-primary-foreground font-black shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all rounded"
+                        className="flex-1 md:flex-none h-12 px-8 gap-2 bg-primary text-primary-foreground font-semibold shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all rounded"
                         onClick={() => fetchOrgData(true)}
                     >
                         <RefreshCw className={`h-4 w-4 ${loadingStates.fetchingRepos ? "animate-spin" : ""}`} />
@@ -142,7 +142,7 @@ export default function Page() {
                                 <button
                                     key={option.id}
                                     onClick={() => setSortBy(option.id as any)}
-                                    className={`flex items-center gap-2 px-4 h-full rounded text-xs font-black uppercase  transition-all ${sortBy === option.id
+                                    className={`flex items-center gap-2 px-4 h-full rounded text-xs font-semibold uppercase  transition-all ${sortBy === option.id
                                         ? "bg-background text-primary shadow-sm"
                                         : "text-muted-foreground hover:text-foreground hover:bg-background/40"
                                         }`}
@@ -156,7 +156,7 @@ export default function Page() {
                         <div className="flex items-center h-14 bg-secondary/20 p-1.5 rounded border border-border/40 shrink-0">
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <button className="flex items-center gap-2 px-6 h-full rounded text-xs font-black uppercase  text-muted-foreground hover:text-foreground transition-all">
+                                    <button className="flex items-center gap-2 px-6 h-full rounded text-xs font-semibold uppercase  text-muted-foreground hover:text-foreground transition-all">
                                         <Filter className="h-3.5 w-3.5" />
                                         <span>{languageFilter === 'all' ? 'All Languages' : languageFilter}</span>
                                         <ChevronDown className="h-3.5 w-3.5 opacity-50" />
@@ -183,7 +183,7 @@ export default function Page() {
                         variant={filter === "all" ? "secondary" : "ghost"}
                         size="sm"
                         onClick={() => setFilter("all")}
-                        className={`h-9 px-5 rounded text-[10px] font-black uppercase  transition-all shrink-0 ${filter === "all" ? "bg-primary/20 text-primary border border-primary/30" : "text-muted-foreground hover:bg-secondary/40"}`}
+                        className={`h-9 px-5 rounded text-[10px] font-semibold uppercase  transition-all shrink-0 ${filter === "all" ? "bg-primary/20 text-primary border border-primary/30" : "text-muted-foreground hover:bg-secondary/40"}`}
                     >
                         All Assets
                     </Button>
@@ -197,7 +197,7 @@ export default function Page() {
                             variant={filter === f.id ? "secondary" : "ghost"}
                             size="sm"
                             onClick={() => setFilter(f.id as any)}
-                            className={`h-9 px-5 rounded text-[10px] font-black uppercase  transition-all shrink-0 flex items-center gap-2 ${filter === f.id
+                            className={`h-9 px-5 rounded text-[10px] font-semibold uppercase  transition-all shrink-0 flex items-center gap-2 ${filter === f.id
                                 ? `bg-${f.color}/10 border border-${f.color}/20 text-${f.color}`
                                 : "text-muted-foreground hover:bg-secondary/40"
                                 }`}
@@ -240,7 +240,7 @@ export default function Page() {
                             <div className="p-4 bg-secondary/20 rounded-full">
                                 <Search className="h-8 w-8 text-muted-foreground/40" />
                             </div>
-                            <p className="text-foreground font-black uppercase  text-sm">No match found</p>
+                            <p className="text-foreground font-semibold uppercase  text-sm">No match found</p>
                             <p className="text-muted-foreground text-sm">We couldn't find any repositories matching your current search and filters. Try adjusting them.</p>
                             <Button variant="outline" size="sm" onClick={() => { setSearchQuery(""); setLanguageFilter("all"); setFilter("all"); }} className="mt-2 rounded">Clear All Filters</Button>
                         </div>
@@ -264,7 +264,7 @@ export default function Page() {
                                         </div>
                                         <div className="min-w-0 flex-1">
                                             <div className="flex flex-wrap items-center gap-2 mb-1">
-                                                <h3 className="font-black text-xl text-foreground tracking-tight truncate group-hover:text-primary transition-colors">
+                                                <h3 className="font-semibold text-md text-foreground tracking-tight truncate group-hover:text-primary transition-colors">
                                                     {repo.name}
                                                 </h3>
                                                 {repo.visibility === "private" ? (
@@ -279,14 +279,14 @@ export default function Page() {
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <div className={`h-2 w-2 rounded-full ${repo.status === 'healthy' ? 'bg-success shadow-[0_0_4px_hsl(var(--success))]' : repo.status === 'warning' ? 'bg-warning shadow-[0_0_4px_hsl(var(--warning))]' : 'bg-destructive shadow-[0_0_4px_hsl(var(--destructive))]'}`} />
-                                                <span className="text-[10px] font-black uppercase  text-muted-foreground opacity-60">
+                                                <span className="text-[10px] font-semibold uppercase  text-muted-foreground opacity-60">
                                                     {repo.status} asset
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
                                     {repo.alerts > 0 && (
-                                        <div className={`shrink-0 px-3 py-1.5 rounded border font-black text-[10px] uppercase  flex items-center gap-2 shadow-sm ${repo.status === "critical" ? "bg-destructive/10 border-destructive/20 text-destructive" : "bg-warning/10 border-warning/20 text-warning"
+                                        <div className={`shrink-0 px-3 py-1.5 rounded border font-semibold text-[10px] uppercase  flex items-center gap-2 shadow-sm ${repo.status === "critical" ? "bg-destructive/10 border-destructive/20 text-destructive" : "bg-warning/10 border-warning/20 text-warning"
                                             }`}>
                                             <AlertTriangle className="h-3 w-3" />
                                             {repo.alerts}
@@ -335,8 +335,8 @@ export default function Page() {
                                                                         <img src={c.avatar} alt={c.login} className="h-full w-full object-cover" />
                                                                     </div>
                                                                     <div className="space-y-1">
-                                                                        <h4 className="text-sm font-black text-foreground tracking-tight">@{c.login}</h4>
-                                                                        <p className="text-[10px] text-muted-foreground font-black uppercase  opacity-60">
+                                                                        <h4 className="text-sm font-semibold text-foreground tracking-tight">@{c.login}</h4>
+                                                                        <p className="text-[10px] text-muted-foreground font-semibold uppercase  opacity-60">
                                                                             Repository Contributor
                                                                         </p>
                                                                         <div className="flex items-center pt-1.5">
@@ -351,7 +351,7 @@ export default function Page() {
                                                     </HoverCard>
                                                 ))}
                                                 {repo.contributors.length > 5 && (
-                                                    <div className="flex h-6 w-6 items-center justify-center rounded-full ring-2 ring-background bg-secondary text-[10px] font-black text-muted-foreground border border-border/40">
+                                                    <div className="flex h-6 w-6 items-center justify-center rounded-full ring-2 ring-background bg-secondary text-[10px] font-semibold text-muted-foreground border border-border/40">
                                                         +{repo.contributors.length - 5}
                                                     </div>
                                                 )}
@@ -359,7 +359,7 @@ export default function Page() {
                                         )}
                                     </div>
 
-                                    <div className="flex items-center gap-2 text-[10px] font-black uppercase  text-muted-foreground/40 group-hover:text-muted-foreground transition-colors">
+                                    <div className="flex items-center gap-2 text-[10px] font-semibold uppercase  text-muted-foreground/40 group-hover:text-muted-foreground transition-colors">
                                         <Clock className="h-3 w-3" />
                                         <span>Active {repo.lastCommit || 'recently'}</span>
                                     </div>

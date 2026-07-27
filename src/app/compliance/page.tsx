@@ -35,7 +35,7 @@ const StatusBar = ({ passed, total, label }: { passed: number; total: number; la
         <div className="space-y-2">
             <div className="flex items-center justify-between gap-2">
                 <span className="text-sm font-bold text-foreground/80 truncate">{label}</span>
-                <span className="text-[10px] font-black font-mono text-muted-foreground bg-secondary/30 px-2 py-0.5 rounded-md">
+                <span className="text-[10px] font-semibold font-mono text-muted-foreground bg-secondary/30 px-2 py-0.5 rounded-md">
                     {passed}/{total}
                 </span>
             </div>
@@ -126,7 +126,7 @@ export default function Page() {
                             <ShieldCheck className="h-7 w-7 text-primary" />
                         </div>
                         <div>
-                            <h1 className="text-3xl md:text-4xl font-black text-foreground tracking-tight">Compliance</h1>
+                            <h1 className="text-md md:text-4xl font-semibold text-foreground tracking-tight">Compliance</h1>
                             <p className="text-sm text-muted-foreground flex items-center gap-2 mt-1">
                                 <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
                                 Security posture audit and reporting
@@ -147,12 +147,12 @@ export default function Page() {
                         }}
                     >
                         <FileText className="h-4 w-4 transition-transform group-hover:scale-110" />
-                        <span className="font-black uppercase  text-[10px]">Generate Compliance Report</span>
+                        <span className="font-semibold uppercase  text-[10px]">Generate Compliance Report</span>
                     </Button>
                     <Button
                         variant="glow"
                         size="sm"
-                        className="flex-1 md:flex-none h-12 px-8 gap-2 bg-primary text-primary-foreground font-black shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all rounded"
+                        className="flex-1 md:flex-none h-12 px-8 gap-2 bg-primary text-primary-foreground font-semibold shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all rounded"
                         onClick={async () => {
                             setIsAuditing(true);
                             await fetchOrgData(true);
@@ -162,7 +162,7 @@ export default function Page() {
                         disabled={isAuditing}
                     >
                         {isAuditing ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCcw className="h-4 w-4" />}
-                        <span className="font-black uppercase  text-[10px]">Re-scan Org</span>
+                        <span className="font-semibold uppercase  text-[10px]">Re-scan Org</span>
                     </Button>
                 </div>
             </div>
@@ -177,8 +177,8 @@ export default function Page() {
                     <div className="p-6 md:p-8 flex flex-col md:flex-row items-center gap-8 md:gap-12 relative z-10">
                         <div className="relative shrink-0">
                             <div className={`h-32 w-32 md:h-40 md:w-40 flex flex-col items-center justify-center rounded border-4 ${gradeInfo.bg} ${gradeInfo.color} ${gradeInfo.glow} shadow-2xl transition-transform group-hover:scale-105 duration-500`}>
-                                <span className="text-5xl md:text-6xl font-black tracking-tighter leading-none">{gradeInfo.grade}</span>
-                                <span className="text-[10px] md:text-xs font-black uppercase  mt-2 opacity-80">{gradeInfo.label}</span>
+                                <span className="text-5xl md:text-6xl font-semibold tracking-tighter leading-none">{gradeInfo.grade}</span>
+                                <span className="text-[10px] md:text-xs font-semibold uppercase  mt-2 opacity-80">{gradeInfo.label}</span>
                             </div>
                             <div className="absolute -bottom-2 -right-2 p-2 bg-background rounded border border-border shadow-xl">
                                 <Zap className="h-5 w-5 text-amber-400 fill-amber-400" />
@@ -186,9 +186,9 @@ export default function Page() {
                         </div>
 
                         <div className="flex-1 text-center md:text-left">
-                            <h2 className="text-2xl md:text-3xl font-black text-foreground mb-3 tracking-tight">Organization Score</h2>
+                            <h2 className="text-md md:text-md font-semibold text-foreground mb-3 tracking-tight">Organization Score</h2>
                             <p className="text-muted-foreground text-sm md:text-base leading-relaxed max-w-xl">
-                                Your organization scored <span className="text-foreground font-black px-1.5 py-0.5 bg-primary/10 rounded">{percentage}%</span> on the security compliance audit across <span className="text-foreground font-black underline decoration-primary/40 underline-offset-4">{totalRepos}</span> active codebase assets.
+                                Your organization scored <span className="text-foreground font-semibold px-1.5 py-0.5 bg-primary/10 rounded">{percentage}%</span> on the security compliance audit across <span className="text-foreground font-semibold underline decoration-primary/40 underline-offset-4">{totalRepos}</span> active codebase assets.
                             </p>
 
                             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -197,8 +197,8 @@ export default function Page() {
                                         <CheckCircle className="h-5 w-5 text-success" />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-black uppercase  text-muted-foreground opacity-60">Compliant</p>
-                                        <p className="text-xl font-black text-foreground">{healthyRepos}</p>
+                                        <p className="text-[10px] font-semibold uppercase  text-muted-foreground opacity-60">Compliant</p>
+                                        <p className="text-md font-semibold text-foreground">{healthyRepos}</p>
                                     </div>
                                 </div>
                                 <div className="p-4 bg-secondary/20 rounded border border-border/40 hover:bg-secondary/30 transition-colors flex items-center gap-4">
@@ -206,8 +206,8 @@ export default function Page() {
                                         <AlertCircle className="h-5 w-5 text-destructive" />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-black uppercase  text-muted-foreground opacity-60">At Risk</p>
-                                        <p className="text-xl font-black text-foreground">{criticalRepos + warningRepos}</p>
+                                        <p className="text-[10px] font-semibold uppercase  text-muted-foreground opacity-60">At Risk</p>
+                                        <p className="text-md font-semibold text-foreground">{criticalRepos + warningRepos}</p>
                                     </div>
                                 </div>
                             </div>
@@ -217,7 +217,7 @@ export default function Page() {
 
                 <div className="lg:col-span-4 glass-card p-6 md:p-8 flex flex-col justify-between">
                     <div>
-                        <h3 className="text-lg font-black text-foreground mb-1 tracking-tight">Compliance Health</h3>
+                        <h3 className="text-lg font-semibold text-foreground mb-1 tracking-tight">Compliance Health</h3>
                         <p className="text-xs text-muted-foreground mb-6">Distribution of asset compliance status</p>
                     </div>
 
@@ -253,8 +253,8 @@ export default function Page() {
                             </ResponsiveContainer>
                         )}
                         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                            <span className="text-2xl font-black text-foreground">{percentage}%</span>
-                            <span className="text-[8px] font-black uppercase  opacity-40">Healthy</span>
+                            <span className="text-md font-semibold text-foreground">{percentage}%</span>
+                            <span className="text-[8px] font-semibold uppercase  opacity-40">Healthy</span>
                         </div>
                     </div>
 
@@ -262,8 +262,8 @@ export default function Page() {
                         {complianceData.map((item, index) => (
                             <div key={item.name} className="flex items-center gap-2">
                                 <div className="h-2 w-2 rounded-full shadow-[0_0_4px_rgba(0,0,0,0.2)]" style={{ backgroundColor: COLORS[index] }} />
-                                <span className="text-[10px] font-black uppercase  text-muted-foreground">{item.name}</span>
-                                <span className="text-[10px] font-mono font-black text-foreground ml-1">{item.value}</span>
+                                <span className="text-[10px] font-semibold uppercase  text-muted-foreground">{item.name}</span>
+                                <span className="text-[10px] font-mono font-semibold text-foreground ml-1">{item.value}</span>
                             </div>
                         ))}
                     </div>
@@ -274,7 +274,7 @@ export default function Page() {
             <div className="space-y-6 mb-12">
                 <div className="flex items-center gap-3 mb-2 px-2">
                     <TrendingUp className="h-5 w-5 text-primary" />
-                    <h2 className="text-xl font-black text-foreground tracking-tight">Security Control Matrix</h2>
+                    <h2 className="text-md font-semibold text-foreground tracking-tight">Security Control Matrix</h2>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -291,7 +291,7 @@ export default function Page() {
                                     <category.icon className="h-6 w-6 text-primary" />
                                 </div>
                                 <div>
-                                    <h3 className="text-lg font-black text-foreground tracking-tight group-hover:text-primary transition-colors">{category.category}</h3>
+                                    <h3 className="text-lg font-semibold text-foreground tracking-tight group-hover:text-primary transition-colors">{category.category}</h3>
                                     <p className="text-xs text-muted-foreground mt-1 font-medium">{category.description}</p>
                                 </div>
                             </div>
@@ -303,7 +303,7 @@ export default function Page() {
                             </div>
 
                             <div className="mt-8 flex items-center justify-end">
-                                <Button variant="ghost" size="sm" className="h-8 px-3 gap-1.5 text-[10px] font-black uppercase  text-muted-foreground hover:text-primary hover:bg-primary/5 rounded transition-all">
+                                <Button variant="ghost" size="sm" className="h-8 px-3 gap-1.5 text-[10px] font-semibold uppercase  text-muted-foreground hover:text-primary hover:bg-primary/5 rounded transition-all">
                                     Analyze Policies
                                     <ChevronRight className="h-3 w-3" />
                                 </Button>
@@ -317,11 +317,11 @@ export default function Page() {
             <div className="py-12 border-t border-border/20 text-center">
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary/10 rounded-full border border-border/40 mb-4 cursor-default">
                     <Lock className="h-3 w-3 text-muted-foreground" />
-                    <span className="text-[10px] font-black uppercase  text-muted-foreground opacity-60">Next full audit scheduled for Sunday, 00:00 UTC</span>
+                    <span className="text-[10px] font-semibold uppercase  text-muted-foreground opacity-60">Next full audit scheduled for Sunday, 00:00 UTC</span>
                 </div>
                 <p className="text-xs text-muted-foreground font-medium flex items-center justify-center gap-2">
                     All audits are performed according to
-                    <a href="#" className="text-primary hover:underline font-black uppercase  text-[10px]">Git Guard Protcol v4.2</a>
+                    <a href="#" className="text-primary hover:underline font-semibold uppercase  text-[10px]">Git Guard Protcol v4.2</a>
                 </p>
             </div>
         </DashboardLayout>

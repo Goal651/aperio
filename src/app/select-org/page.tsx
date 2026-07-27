@@ -38,7 +38,7 @@ function SelectOrgContent() {
             <div className="relative w-full max-w-lg glass-card p-8">
                 <div className="text-center mb-6">
                     <Building2 className="h-12 w-12 mx-auto text-primary mb-4" />
-                    <h1 className="text-xl font-semibold text-foreground mb-2">
+                    <h1 className="text-md font-semibold text-foreground mb-2">
                         Connect Your Organization
                     </h1>
                     <p className="text-sm text-muted-foreground">

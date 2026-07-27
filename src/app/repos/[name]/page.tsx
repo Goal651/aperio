@@ -83,7 +83,7 @@ export default function RepoDetailView() {
                 </Button>
                 <div>
                     <div className="flex items-center gap-3">
-                        <h1 className="text-2xl font-bold text-foreground">{repo.name}</h1>
+                        <h1 className="text-md font-bold text-foreground">{repo.name}</h1>
                         <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase  ${repo.visibility === 'public' ? 'bg-success/10 text-success' : 'bg-warning/10 text-warning'
                             }`}>
                             {repo.visibility}
@@ -116,7 +116,7 @@ export default function RepoDetailView() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2 space-y-8">
                     <div className="glass-card p-6">
-                        <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
+                        <h2 className="text-md font-semibold mb-6 flex items-center gap-2">
                             <Shield className="h-5 w-5 text-destructive" />
                             Security Vulnerabilities
                         </h2>

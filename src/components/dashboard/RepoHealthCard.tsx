@@ -39,14 +39,14 @@ export function RepoHealthCard({ loading = false }: { loading?: boolean }) {
             <Shield className="h-6 w-6 text-primary" />
           </div>
           <div>
-            <h3 className="font-black text-foreground tracking-tight">Repository Health</h3>
-            <p className="text-[10px] font-black uppercase  text-muted-foreground opacity-60">
+            <h3 className="font-semibold text-foreground tracking-tight">Repository Health</h3>
+            <p className="text-[10px] font-semibold uppercase  text-muted-foreground opacity-60">
               {hasIssues ? "Assets requiring immediate attention" : "All infrastructure systems operational"}
             </p>
           </div>
         </div>
         {!hasIssues && !loading && (
-          <div className="flex items-center gap-2 text-success bg-success/10 border border-success/20 px-4 py-1.5 rounded-full text-[10px] font-black uppercase  shadow-sm">
+          <div className="flex items-center gap-2 text-success bg-success/10 border border-success/20 px-4 py-1.5 rounded-full text-[10px] font-semibold uppercase  shadow-sm">
             <CheckCircle2 className="h-3.5 w-3.5" />
             <span>100% Compliant</span>
           </div>
@@ -74,13 +74,13 @@ export function RepoHealthCard({ loading = false }: { loading?: boolean }) {
             <div className="h-16 w-16 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-success/20">
               <CheckCircle2 className="h-8 w-8 text-success" />
             </div>
-            <p className="text-sm font-black text-foreground uppercase ">No Critical Risks Detected</p>
+            <p className="text-sm font-semibold text-foreground uppercase ">No Critical Risks Detected</p>
             <p className="text-xs text-muted-foreground mt-2 max-w-xs mx-auto opacity-70">All tracked repositories fall within organization security compliance standards.</p>
           </div>
         ) : (
           <div className="space-y-3">
             {/* Table Header for Desktop */}
-            <div className="hidden md:grid grid-cols-12 gap-4 px-5 py-2 text-[9px] font-black uppercase  text-muted-foreground opacity-40">
+            <div className="hidden md:grid grid-cols-12 gap-4 px-5 py-2 text-[9px] font-semibold uppercase  text-muted-foreground opacity-40">
               <div className="col-span-6">Resource Asset</div>
               <div className="col-span-2 text-center">Status</div>
               <div className="col-span-2 text-center">Vulnerabilities</div>
@@ -98,27 +98,27 @@ export function RepoHealthCard({ loading = false }: { loading?: boolean }) {
                     {repo.visibility === "private" ? <Lock className="h-3.5 w-3.5 text-muted-foreground" /> : <Unlock className="h-3.5 w-3.5 text-muted-foreground" />}
                   </div>
                   <div>
-                    <span className="font-black text-foreground tracking-tight group-hover/item:text-primary transition-colors block">{repo.name}</span>
-                    <span className="text-[10px] font-black uppercase  text-muted-foreground opacity-40">{repo.language || "Unknown Stack"}</span>
+                    <span className="font-semibold text-foreground tracking-tight group-hover/item:text-primary transition-colors block">{repo.name}</span>
+                    <span className="text-[10px] font-semibold uppercase  text-muted-foreground opacity-40">{repo.language || "Unknown Stack"}</span>
                   </div>
                 </div>
 
                 <div className="col-span-2 flex justify-center md:block text-center relative z-10">
                   <div className="inline-flex items-center gap-2 px-3 py-1 bg-background/50 rounded-full border border-border/40">
                     <StatusIcon status={repo.status} />
-                    <span className="text-[9px] font-black uppercase  hidden lg:inline">{repo.status}</span>
+                    <span className="text-[9px] font-semibold uppercase  hidden lg:inline">{repo.status}</span>
                   </div>
                 </div>
 
                 <div className="col-span-2 text-center relative z-10">
-                  <span className={`text-lg font-black font-mono tracking-tighter ${repo.status === 'critical' ? 'text-destructive' : 'text-warning'}`}>
+                  <span className={`text-lg font-semibold font-mono tracking-tighter ${repo.status === 'critical' ? 'text-destructive' : 'text-warning'}`}>
                     {repo.alerts}
                   </span>
-                  <span className="text-[8px] font-black opacity-30 ml-1.5 uppercase ">Alerts</span>
+                  <span className="text-[8px] font-semibold opacity-30 ml-1.5 uppercase ">Alerts</span>
                 </div>
 
                 <div className="col-span-2 text-right relative z-10 flex items-center justify-end gap-3">
-                  <span className="text-[10px] font-black font-mono text-muted-foreground opacity-60">
+                  <span className="text-[10px] font-semibold font-mono text-muted-foreground opacity-60">
                     {repo.lastCommit.split(',')[0]}
                   </span>
                   <ChevronRight className="h-4 w-4 text-muted-foreground/30 group-hover/item:text-primary group-hover/item:translate-x-1 transition-all" />
@@ -131,7 +131,7 @@ export function RepoHealthCard({ loading = false }: { loading?: boolean }) {
 
       {hasIssues && (
         <div className="mt-8 flex justify-end relative z-10">
-          <Button variant="ghost" size="sm" className="h-10 px-4 rounded gap-2 text-[10px] font-black uppercase  text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all">
+          <Button variant="ghost" size="sm" className="h-10 px-4 rounded gap-2 text-[10px] font-semibold uppercase  text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all">
             View Full Inventory
             <ChevronRight className="h-4 w-4" />
           </Button>

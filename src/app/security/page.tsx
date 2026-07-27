@@ -77,7 +77,7 @@ export default function Page() {
                             <div className="p-2 bg-primary/10 rounded">
                                 <Shield className="h-6 w-6 md:h-8 md:w-8 text-primary" />
                             </div>
-                            <h1 className="text-2xl md:text-4xl font-bold text-foreground tracking-tight">Security Overview</h1>
+                            <h1 className="text-md md:text-4xl font-bold text-foreground tracking-tight">Security Overview</h1>
                         </div>
                         <p className="text-sm md:text-base text-muted-foreground max-w-2xl leading-relaxed">
                             Real-time security vulnerability tracking and automated remediation across your entire organization's codebase.
@@ -96,12 +96,12 @@ export default function Page() {
                             }}
                         >
                             <ShieldCheck className="h-5 w-5 transition-transform group-hover:scale-110" />
-                            <span className="uppercase font-black text-[10px] tracking-widest">Security Report</span>
+                            <span className="uppercase font-semibold text-[10px] tracking-widest">Security Report</span>
                         </Button>
                         <Button
                             variant="glow"
                             size="lg"
-                            className="flex-1 sm:flex-none bg-primary text-primary-foreground font-black shadow-2xl shadow-primary/30 hover:scale-[1.02] active:scale-95 transition-all h-12 md:h-14 px-8 text-base rounded"
+                            className="flex-1 sm:flex-none bg-primary text-primary-foreground font-semibold shadow-2xl shadow-primary/30 hover:scale-[1.02] active:scale-95 transition-all h-12 md:h-14 px-8 text-base rounded"
                             onClick={async () => {
                                 setIsRemediating(true);
                                 await new Promise(r => setTimeout(r, 1500));
@@ -164,10 +164,10 @@ export default function Page() {
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-2">
                     <div className="flex flex-col gap-1">
                         <h2 className="font-bold text-lg text-foreground">Risk Exposure Profile</h2>
-                        <p className="text-[10px] text-muted-foreground uppercase  font-black opacity-70">Severity Distribution Analysis</p>
+                        <p className="text-[10px] text-muted-foreground uppercase  font-semibold opacity-70">Severity Distribution Analysis</p>
                     </div>
                     <div className="flex items-baseline gap-2 bg-background/50 px-3 py-1 rounded border border-border/50 self-start sm:self-auto">
-                        <span className="text-2xl font-black text-foreground font-mono">{totalAlertsCount}</span>
+                        <span className="text-md font-semibold text-foreground font-mono">{totalAlertsCount}</span>
                         <span className="text-[10px] font-bold text-muted-foreground uppercase opacity-60">Total Alerts</span>
                     </div>
                 </div>
@@ -197,7 +197,7 @@ export default function Page() {
                                 <span className="text-xs text-muted-foreground font-bold uppercase ">{stat.label}</span>
                             </div>
                             <div className="flex items-baseline gap-2">
-                                <p className="text-2xl font-black font-mono text-foreground leading-none">{stat.count}</p>
+                                <p className="text-md font-semibold font-mono text-foreground leading-none">{stat.count}</p>
                                 <p className="text-[10px] text-muted-foreground/60 font-bold">{(totalAlertsCount > 0 ? (stat.count / totalAlertsCount) * 100 : 0).toFixed(0)}%</p>
                             </div>
                         </div>
@@ -239,11 +239,11 @@ export default function Page() {
                             <ExternalLink className="h-4 w-4 text-muted-foreground/40 cursor-pointer hover:text-primary transition-all hover:scale-110" />
                         </div>
                         <div className="flex items-baseline gap-2 mb-4">
-                            <span className="text-xl md:text-xl font-black text-foreground font-mono">{type.active}</span>
+                            <span className="text-md md:text-md font-semibold text-foreground font-mono">{type.active}</span>
                             <span className="text-xs font-bold text-muted-foreground/60 uppercase tracking-tighter">Active Issues</span>
                         </div>
                         <div className="space-y-2">
-                            <div className="flex items-center justify-between text-[10px] font-black uppercase  text-muted-foreground/50">
+                            <div className="flex items-center justify-between text-[10px] font-semibold uppercase  text-muted-foreground/50">
                                 <span>Coverage</span>
                                 <span>{type.count} Total</span>
                             </div>
@@ -265,12 +265,12 @@ export default function Page() {
                         <div className="p-2 bg-destructive/10 rounded">
                             <AlertTriangle className="h-5 w-5 text-destructive" />
                         </div>
-                        <h2 className="font-bold text-xl text-foreground tracking-tight">
+                        <h2 className="font-bold text-md text-foreground tracking-tight">
                             {filter === "all" ? "Security Vulnerabilities" : `${filter.charAt(0).toUpperCase() + filter.slice(1)} Priority Detected`}
                         </h2>
                     </div>
                     <div className="flex items-center gap-2 self-start sm:self-auto">
-                        <span className={`text-[10px] font-black uppercase  px-3 py-1.5 rounded-full border ${filter === "critical" ? "bg-destructive/10 border-destructive/20 text-destructive" :
+                        <span className={`text-[10px] font-semibold uppercase  px-3 py-1.5 rounded-full border ${filter === "critical" ? "bg-destructive/10 border-destructive/20 text-destructive" :
                             "bg-secondary/50 border-border/50 text-muted-foreground"
                             }`}>
                             {filteredAlerts.length} Critical Findings
@@ -308,7 +308,7 @@ export default function Page() {
                                         </div>
                                         <div className="flex-1 min-w-0 space-y-2">
                                             <div className="flex flex-wrap items-center gap-2">
-                                                <button onClick={() => router.push(`/repos/${alert.repo}`)} className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-background/80 border border-border/50 text-[10px] font-black uppercase  text-muted-foreground hover:text-primary hover:border-primary/30 transition-all backdrop-blur-sm">
+                                                <button onClick={() => router.push(`/repos/${alert.repo}`)} className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-background/80 border border-border/50 text-[10px] font-semibold uppercase  text-muted-foreground hover:text-primary hover:border-primary/30 transition-all backdrop-blur-sm">
                                                     <ExternalLink className="h-3 w-3" />
                                                     {alert.repo}
                                                 </button>
@@ -334,7 +334,7 @@ export default function Page() {
                                                 <Clock className="h-3 w-3" />
                                                 Detected {alert.detected}
                                             </div>
-                                            {alert.fixed && <div className="flex items-center gap-1 font-black text-[9px] text-success uppercase mt-1 "><CheckCircle className="h-2.5 w-2.5" />Auto-Patch Ready</div>}
+                                            {alert.fixed && <div className="flex items-center gap-1 font-semibold text-[9px] text-success uppercase mt-1 "><CheckCircle className="h-2.5 w-2.5" />Auto-Patch Ready</div>}
                                         </div>
                                         {alert.url && (
                                             <Button

@@ -79,7 +79,7 @@ export default function Page() {
                             <Settings className="h-7 w-7 text-primary" />
                         </div>
                         <div>
-                            <h1 className="text-3xl md:text-4xl font-black text-foreground tracking-tight">Settings</h1>
+                            <h1 className="text-md md:text-4xl font-semibold text-foreground tracking-tight">Settings</h1>
                             <p className="text-sm text-muted-foreground flex items-center gap-2 mt-1">
                                 <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
                                 Customizing your organization experience
@@ -92,13 +92,13 @@ export default function Page() {
             <Tabs defaultValue="ranking" className="space-y-8">
                 <div className="overflow-x-auto pb-2 no-scrollbar">
                     <TabsList className="bg-secondary/10 p-1.5 rounded border border-border/40 w-full sm:w-auto h-14 items-stretch">
-                        <TabsTrigger value="ranking" className="flex-1 sm:flex-none gap-2 px-6 rounded data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-lg transition-all font-black uppercase  text-[10px]">
+                        <TabsTrigger value="ranking" className="flex-1 sm:flex-none gap-2 px-6 rounded data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-lg transition-all font-semibold uppercase  text-[10px]">
                             <Sliders className="h-3.5 w-3.5" /> Ranking Logic
                         </TabsTrigger>
-                        <TabsTrigger value="organization" className="flex-1 sm:flex-none gap-2 px-6 rounded data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-lg transition-all font-black uppercase  text-[10px]">
+                        <TabsTrigger value="organization" className="flex-1 sm:flex-none gap-2 px-6 rounded data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-lg transition-all font-semibold uppercase  text-[10px]">
                             <Building2 className="h-3.5 w-3.5" /> Infrastructure
                         </TabsTrigger>
-                        <TabsTrigger value="appearance" className="flex-1 sm:flex-none gap-2 px-6 rounded data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-lg transition-all font-black uppercase  text-[10px]">
+                        <TabsTrigger value="appearance" className="flex-1 sm:flex-none gap-2 px-6 rounded data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-lg transition-all font-semibold uppercase  text-[10px]">
                             <Palette className="h-3.5 w-3.5" /> Visual Style
                         </TabsTrigger>
                     </TabsList>
@@ -112,9 +112,9 @@ export default function Page() {
                         </div>
 
                         <div className="max-w-3xl relative z-10">
-                            <h2 className="text-2xl font-black text-foreground mb-2 flex items-center gap-3 tracking-tight">
+                            <h2 className="text-md font-semibold text-foreground mb-2 flex items-center gap-3 tracking-tight">
                                 Ranking Engine
-                                <span className="p-1 px-2 bg-primary/10 rounded font-black text-[10px] uppercase  text-primary border border-primary/20 shadow-sm">v2.0 Active</span>
+                                <span className="p-1 px-2 bg-primary/10 rounded font-semibold text-[10px] uppercase  text-primary border border-primary/20 shadow-sm">v2.0 Active</span>
                             </h2>
                             <p className="text-muted-foreground text-sm mb-10 leading-relaxed font-medium">
                                 Fine-tune the weights for each contribution type. These variables directly influence the
@@ -125,10 +125,10 @@ export default function Page() {
                                 <div className="space-y-6">
                                     <div className="flex items-center justify-between">
                                         <div className="space-y-1">
-                                            <Label className="text-base font-black text-foreground tracking-tight">Pull Requests Weight</Label>
+                                            <Label className="text-base font-semibold text-foreground tracking-tight">Pull Requests Weight</Label>
                                             <p className="text-xs text-muted-foreground">Rewards integration of new logic and features.</p>
                                         </div>
-                                        <span className="text-lg font-black font-mono text-primary bg-primary/10 px-4 py-1.5 rounded border border-primary/20 min-w-[3.5rem] text-center">{weights.prs}x</span>
+                                        <span className="text-lg font-semibold font-mono text-primary bg-primary/10 px-4 py-1.5 rounded border border-primary/20 min-w-[3.5rem] text-center">{weights.prs}x</span>
                                     </div>
                                     <Slider
                                         value={[weights.prs]}
@@ -142,10 +142,10 @@ export default function Page() {
                                 <div className="space-y-6">
                                     <div className="flex items-center justify-between">
                                         <div className="space-y-1">
-                                            <Label className="text-base font-black text-foreground tracking-tight">Review Contributions</Label>
+                                            <Label className="text-base font-semibold text-foreground tracking-tight">Review Contributions</Label>
                                             <p className="text-xs text-muted-foreground">Rewards mentoring and code quality maintenance.</p>
                                         </div>
-                                        <span className="text-lg font-black font-mono text-success bg-success/10 px-4 py-1.5 rounded border border-success/20 min-w-[3.5rem] text-center">{weights.reviews}x</span>
+                                        <span className="text-lg font-semibold font-mono text-success bg-success/10 px-4 py-1.5 rounded border border-success/20 min-w-[3.5rem] text-center">{weights.reviews}x</span>
                                     </div>
                                     <Slider
                                         value={[weights.reviews]}
@@ -159,10 +159,10 @@ export default function Page() {
                                 <div className="space-y-6">
                                     <div className="flex items-center justify-between">
                                         <div className="space-y-1">
-                                            <Label className="text-base font-black text-foreground tracking-tight">Raw Commit Frequency</Label>
+                                            <Label className="text-base font-semibold text-foreground tracking-tight">Raw Commit Frequency</Label>
                                             <p className="text-xs text-muted-foreground">Baseline weight for development pulse.</p>
                                         </div>
-                                        <span className="text-lg font-black font-mono text-warning bg-warning/10 px-4 py-1.5 rounded border border-warning/20 min-w-[3.5rem] text-center">{weights.commits}x</span>
+                                        <span className="text-lg font-semibold font-mono text-warning bg-warning/10 px-4 py-1.5 rounded border border-warning/20 min-w-[3.5rem] text-center">{weights.commits}x</span>
                                     </div>
                                     <Slider
                                         value={[weights.commits]}
@@ -177,7 +177,7 @@ export default function Page() {
                             <div className="flex flex-col sm:flex-row gap-4 pt-12 mt-4 border-t border-border/40">
                                 <Button
                                     onClick={handleSaveWeights}
-                                    className="h-12 px-8 gap-2 bg-primary text-primary-foreground font-black shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all rounded"
+                                    className="h-12 px-8 gap-2 bg-primary text-primary-foreground font-semibold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all rounded"
                                     disabled={isSaving}
                                 >
                                     {isSaving ? <RefreshCw className="h-4 w-4 animate-spin" /> : <CheckCircle2 className="h-4 w-4" />}
@@ -185,7 +185,7 @@ export default function Page() {
                                 </Button>
                                 <Button
                                     variant="outline"
-                                    className="h-12 px-8 rounded font-black uppercase  text-[10px] bg-secondary/10 border-border/40 hover:bg-secondary/20 transition-all"
+                                    className="h-12 px-8 rounded font-semibold uppercase  text-[10px] bg-secondary/10 border-border/40 hover:bg-secondary/20 transition-all"
                                     onClick={() => setWeights({ prs: 20, reviews: 15, commits: 2 })}
                                     disabled={isSaving}
                                 >
@@ -201,7 +201,7 @@ export default function Page() {
                     <div className="glass-card p-1 relative overflow-hidden group">
                         <div className="p-6 md:p-10 space-y-10">
                             <div>
-                                <h2 className="text-2xl font-black text-foreground mb-2 tracking-tight">Infrastructure</h2>
+                                <h2 className="text-md font-semibold text-foreground mb-2 tracking-tight">Infrastructure</h2>
                                 <p className="text-muted-foreground text-sm font-medium">Manage your GitHub Enterprise connection and app status.</p>
                             </div>
 
@@ -209,16 +209,16 @@ export default function Page() {
                                 <div className="p-6 rounded bg-secondary/10 border border-border/40 group-hover:bg-secondary/20 transition-all">
                                     <div className="flex items-center gap-3 mb-4 opacity-60">
                                         <Building2 className="h-4 w-4" />
-                                        <span className="text-[10px] font-black uppercase ">Connected Org</span>
+                                        <span className="text-[10px] font-semibold uppercase ">Connected Org</span>
                                     </div>
-                                    <p className="font-black text-2xl text-primary tracking-tight">@{state.selectedOrg || "None"}</p>
+                                    <p className="font-semibold text-md text-primary tracking-tight">@{state.selectedOrg || "None"}</p>
                                 </div>
                                 <div className="p-6 rounded bg-secondary/10 border border-border/40 group-hover:bg-secondary/20 transition-all">
                                     <div className="flex items-center gap-3 mb-4 opacity-60">
                                         <Cloud className="h-4 w-4" />
-                                        <span className="text-[10px] font-black uppercase ">Installation ID</span>
+                                        <span className="text-[10px] font-semibold uppercase ">Installation ID</span>
                                     </div>
-                                    <p className="font-mono text-2xl text-foreground font-black tracking-tight">{state.installationId || "N/A"}</p>
+                                    <p className="font-mono text-md text-foreground font-semibold tracking-tight">{state.installationId || "N/A"}</p>
                                 </div>
                             </div>
 
@@ -234,12 +234,12 @@ export default function Page() {
 
                             <div className="pt-10 border-t border-border/40 flex flex-col sm:flex-row justify-between items-center gap-6">
                                 <div>
-                                    <p className="text-base font-black text-foreground tracking-tight">External Connection</p>
+                                    <p className="text-base font-semibold text-foreground tracking-tight">External Connection</p>
                                     <p className="text-xs text-muted-foreground font-medium">The GitHub App currently has elevated privileges for code and member endpoints.</p>
                                 </div>
                                 <Button
                                     variant="destructive"
-                                    className="h-12 px-8 rounded font-black uppercase  text-[10px] shadow-lg shadow-destructive/20 hover:scale-[1.02] active:scale-95 transition-all gap-2"
+                                    className="h-12 px-8 rounded font-semibold uppercase  text-[10px] shadow-lg shadow-destructive/20 hover:scale-[1.02] active:scale-95 transition-all gap-2"
                                     onClick={handleDisconnect}
                                     disabled={isDisconnecting}
                                 >
@@ -256,7 +256,7 @@ export default function Page() {
                     <div className="glass-card p-6 md:p-10 relative overflow-hidden group">
                         <div className="max-w-3xl space-y-10">
                             <div>
-                                <h2 className="text-2xl font-black text-foreground mb-2 tracking-tight">Interface Style</h2>
+                                <h2 className="text-md font-semibold text-foreground mb-2 tracking-tight">Interface Style</h2>
                                 <p className="text-muted-foreground text-sm font-medium">Customizing how Kordian presents your infrastructure insights.</p>
                             </div>
 
@@ -266,7 +266,7 @@ export default function Page() {
                                         <div className="p-2 bg-background rounded shadow-sm border border-border/20 group-hover/switch:scale-110 transition-transform">
                                             <Moon className="h-4 w-4 text-primary" />
                                         </div>
-                                        <Label className="text-base font-black text-foreground tracking-tight">Stealth Mode (Dark)</Label>
+                                        <Label className="text-base font-semibold text-foreground tracking-tight">Stealth Mode (Dark)</Label>
                                     </div>
                                     <p className="text-xs text-muted-foreground font-medium ml-9">Optimize the interface for low-light developer environments.</p>
                                 </div>
@@ -287,8 +287,8 @@ export default function Page() {
                                         <Monitor className="h-4 w-4" />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-black uppercase  text-muted-foreground">Coming Soon</p>
-                                        <p className="text-sm font-black text-foreground">Compact Layout</p>
+                                        <p className="text-[10px] font-semibold uppercase  text-muted-foreground">Coming Soon</p>
+                                        <p className="text-sm font-semibold text-foreground">Compact Layout</p>
                                     </div>
                                 </div>
                                 <div className="p-5 rounded border border-border/40 bg-secondary/5 opacity-50 flex items-center gap-4 cursor-not-allowed">
@@ -296,8 +296,8 @@ export default function Page() {
                                         <Bell className="h-4 w-4" />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-black uppercase  text-muted-foreground">Coming Soon</p>
-                                        <p className="text-sm font-black text-foreground">Accent Colors</p>
+                                        <p className="text-[10px] font-semibold uppercase  text-muted-foreground">Coming Soon</p>
+                                        <p className="text-sm font-semibold text-foreground">Accent Colors</p>
                                     </div>
                                 </div>
                             </div>

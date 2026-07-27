@@ -16,8 +16,8 @@ export function TopContributors({ loading }: { loading: boolean }) {
             <Medal className="h-6 w-6 text-success" />
           </div>
           <div>
-            <h3 className="font-black text-foreground tracking-tight">Top Contributors</h3>
-            <p className="text-[10px] font-black uppercase  text-muted-foreground opacity-60">High-Velocity Engineering Force</p>
+            <h3 className="font-semibold text-foreground tracking-tight">Top Contributors</h3>
+            <p className="text-[10px] font-semibold uppercase  text-muted-foreground opacity-60">High-Velocity Engineering Force</p>
           </div>
         </div>
       </div>
@@ -40,8 +40,8 @@ export function TopContributors({ loading }: { loading: boolean }) {
           </>
         ) : members.length === 0 ? (
           <div className="py-12 text-center bg-secondary/5 rounded border border-dashed border-border/40">
-            <p className="text-sm font-black text-foreground uppercase  opacity-40 italic">Inertia Detected</p>
-            <p className="text-[10px] text-muted-foreground mt-2 max-w-xs mx-auto opacity-50 font-black uppercase ">No contribution events recorded in window</p>
+            <p className="text-sm font-semibold text-foreground uppercase  opacity-40 italic">Inertia Detected</p>
+            <p className="text-[10px] text-muted-foreground mt-2 max-w-xs mx-auto opacity-50 font-semibold uppercase ">No contribution events recorded in window</p>
           </div>
         ) : (
           members.map((contributor, index) => (
@@ -52,7 +52,7 @@ export function TopContributors({ loading }: { loading: boolean }) {
             >
               <div className="flex items-center gap-4 relative z-10">
                 <div className="relative">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/20 overflow-hidden text-xs font-black text-primary border-2 border-background shadow-lg transition-transform group-hover/item:scale-110">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/20 overflow-hidden text-xs font-semibold text-primary border-2 border-background shadow-lg transition-transform group-hover/item:scale-110">
                     {contributor.avatar?.startsWith("http") ? (
                       <img src={contributor.avatar} alt={contributor.username} className="h-full w-full object-cover" />
                     ) : (
@@ -66,20 +66,20 @@ export function TopContributors({ loading }: { loading: boolean }) {
                   )}
                 </div>
                 <div>
-                  <p className="text-sm font-black text-foreground tracking-tight group-hover/item:text-primary transition-colors">
+                  <p className="text-sm font-semibold text-foreground tracking-tight group-hover/item:text-primary transition-colors">
                     {contributor.name || contributor.username}
                   </p>
-                  <p className="text-[10px] font-black uppercase  text-muted-foreground opacity-60">
+                  <p className="text-[10px] font-semibold uppercase  text-muted-foreground opacity-60">
                     {contributor.commits || 0} commits <span className="mx-1 opacity-30">•</span> {contributor.prs || 0} PRs
                   </p>
                 </div>
               </div>
               <div className="flex items-center gap-4 relative z-10">
                 <div className="flex flex-col items-end">
-                  <span className="font-black font-mono text-xs text-muted-foreground opacity-40">
+                  <span className="font-semibold font-mono text-xs text-muted-foreground opacity-40">
                     RANKING
                   </span>
-                  <span className="font-black font-mono text-lg text-foreground leading-none">
+                  <span className="font-semibold font-mono text-lg text-foreground leading-none">
                     #{index + 1}
                   </span>
                 </div>
@@ -92,9 +92,9 @@ export function TopContributors({ loading }: { loading: boolean }) {
 
       <div className="mt-8 pt-6 border-t border-border/40 relative z-10 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <span className="text-[9px] font-black uppercase  text-muted-foreground opacity-40">Analysis window: 30 days</span>
+          <span className="text-[9px] font-semibold uppercase  text-muted-foreground opacity-40">Analysis window: 30 days</span>
         </div>
-        <Button variant="ghost" size="sm" className="h-10 px-4 rounded gap-2 text-[10px] font-black uppercase  text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all">
+        <Button variant="ghost" size="sm" className="h-10 px-4 rounded gap-2 text-[10px] font-semibold uppercase  text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all">
           Full Squad
           <ChevronRight className="h-4 w-4" />
         </Button>

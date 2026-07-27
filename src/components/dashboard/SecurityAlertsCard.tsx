@@ -56,8 +56,8 @@ export function SecurityAlertsCard({ loading }: { loading: boolean }) {
             <AlertTriangle className="h-6 w-6 text-destructive" />
           </div>
           <div>
-            <h3 className="font-black text-foreground tracking-tight">Security Alerts</h3>
-            <p className="text-[10px] font-black uppercase  text-muted-foreground opacity-60">Real-time Vulnerability Indexed</p>
+            <h3 className="font-semibold text-foreground tracking-tight">Security Alerts</h3>
+            <p className="text-[10px] font-semibold uppercase  text-muted-foreground opacity-60">Real-time Vulnerability Indexed</p>
           </div>
         </div>
       </div>
@@ -88,34 +88,34 @@ export function SecurityAlertsCard({ loading }: { loading: boolean }) {
                 <alert.icon className="h-5 w-5" />
               </div>
               <div>
-                <span className="text-sm font-black text-foreground block tracking-tight">
+                <span className="text-sm font-semibold text-foreground block tracking-tight">
                   {alert.label}
                 </span>
-                <span className="text-[9px] font-black uppercase  text-muted-foreground opacity-60">
+                <span className="text-[9px] font-semibold uppercase  text-muted-foreground opacity-60">
                   {alert.type}
                 </span>
               </div>
             </div>
             <div className="flex items-center gap-2">
               {alert.critical > 0 && (
-                <div className="bg-destructive/10 text-destructive border border-destructive/20 px-2 py-0.5 rounded text-[9px] font-black uppercase  animate-pulse shadow-sm">
+                <div className="bg-destructive/10 text-destructive border border-destructive/20 px-2 py-0.5 rounded text-[9px] font-semibold uppercase  animate-pulse shadow-sm">
                   {alert.critical} Crit
                 </div>
               )}
               {alert.high > 0 && (
-                <div className="bg-warning/10 text-warning border border-warning/20 px-2 py-0.5 rounded text-[9px] font-black uppercase  shadow-sm">
+                <div className="bg-warning/10 text-warning border border-warning/20 px-2 py-0.5 rounded text-[9px] font-semibold uppercase  shadow-sm">
                   {alert.high} High
                 </div>
               )}
               {alert.medium > 0 && (
-                <div className="bg-primary/10 text-primary border border-primary/20 px-2 py-0.5 rounded text-[9px] font-black uppercase  shadow-sm">
+                <div className="bg-primary/10 text-primary border border-primary/20 px-2 py-0.5 rounded text-[9px] font-semibold uppercase  shadow-sm">
                   {alert.medium} Med
                 </div>
               )}
               {alert.critical === 0 && alert.high === 0 && alert.medium === 0 && (
                 <div className="flex items-center gap-2 px-3 py-1 bg-success/5 border border-success/20 rounded">
                   <div className="h-1.5 w-1.5 rounded-full bg-success" />
-                  <span className="text-[9px] font-black uppercase  text-success/60">Protected</span>
+                  <span className="text-[9px] font-semibold uppercase  text-success/60">Protected</span>
                 </div>
               )}
             </div>
@@ -126,16 +126,16 @@ export function SecurityAlertsCard({ loading }: { loading: boolean }) {
       <div className="mt-8 pt-6 border-t border-border/40 relative z-10 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div>
-            <p className="text-[10px] font-black uppercase  text-muted-foreground opacity-60">Total Findings</p>
-            <p className="text-xl font-black text-foreground leading-none mt-1">{state.alerts?.length || 0}</p>
+            <p className="text-[10px] font-semibold uppercase  text-muted-foreground opacity-60">Total Findings</p>
+            <p className="text-md font-semibold text-foreground leading-none mt-1">{state.alerts?.length || 0}</p>
           </div>
           <div className="h-8 w-px bg-border/40" />
           <div>
-            <p className="text-[10px] font-black uppercase  text-muted-foreground opacity-60">Critical</p>
-            <p className="text-xl font-black text-destructive leading-none mt-1">{state.alerts?.filter(a => a.severity === 'critical').length || 0}</p>
+            <p className="text-[10px] font-semibold uppercase  text-muted-foreground opacity-60">Critical</p>
+            <p className="text-md font-semibold text-destructive leading-none mt-1">{state.alerts?.filter(a => a.severity === 'critical').length || 0}</p>
           </div>
         </div>
-        <Button variant="ghost" size="sm" className="h-10 px-4 rounded gap-2 text-[10px] font-black uppercase  text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all">
+        <Button variant="ghost" size="sm" className="h-10 px-4 rounded gap-2 text-[10px] font-semibold uppercase  text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all">
           Full Audit
           <ChevronRight className="h-4 w-4" />
         </Button>

@@ -38,7 +38,7 @@ export function StatCard({
     )}>
       <div className="flex items-start justify-between relative z-10">
         <div className="space-y-3 flex-1 min-w-0">
-          <p className="text-[10px] font-black uppercase  text-muted-foreground opacity-70">{title}</p>
+          <p className="text-[10px] font-semibold uppercase  text-muted-foreground opacity-70">{title}</p>
           {loading ? (
             <div className="space-y-2">
               <Skeleton className="h-10 w-24 rounded" />
@@ -46,7 +46,7 @@ export function StatCard({
             </div>
           ) : (
             <div className="space-y-1">
-              <p className="text-3xl font-black tracking-tight text-foreground leading-none">{value}</p>
+              <p className="text-md font-semibold tracking-tight text-foreground leading-none">{value}</p>
               {change && (
                 <div className="flex items-center gap-1.5 mt-2">
                   <div className={cn(
@@ -57,7 +57,7 @@ export function StatCard({
                   )} />
                   <p
                     className={cn(
-                      "text-[10px] font-black uppercase ",
+                      "text-[10px] font-semibold uppercase ",
                       changeType === "positive" && "text-success",
                       changeType === "negative" && "text-destructive",
                       changeType === "neutral" && "text-muted-foreground"

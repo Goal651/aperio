@@ -77,7 +77,7 @@ function AuthCallbackContent() {
                 {code || installationId || token ? (
                     <>
                         <CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-4" />
-                        <h2 className="text-xl font-semibold text-foreground mb-2">
+                        <h2 className="text-md font-semibold text-foreground mb-2">
                             GitHub App Connected
                         </h2>
                         <p className="text-muted-foreground text-sm">
@@ -87,7 +87,7 @@ function AuthCallbackContent() {
                 ) : (
                     <>
                         <AlertCircle className="h-12 w-12 text-destructive mx-auto mb-4" />
-                        <h2 className="text-xl font-semibold text-foreground mb-2">
+                        <h2 className="text-md font-semibold text-foreground mb-2">
                             Connection Failed
                         </h2>
                         <p className="text-muted-foreground text-sm">

@@ -80,7 +80,7 @@ export default function MemberDetailView() {
                 <div className="flex items-center gap-4">
                     <img src={member.avatar} alt={member.username || "Member avatar"} className="h-12 w-12 rounded-full border border-border/50" />
                     <div>
-                        <h1 className="text-2xl font-bold text-foreground">{member.name}</h1>
+                        <h1 className="text-md font-bold text-foreground">{member.name}</h1>
                         <p className="text-muted-foreground">@{member.username} · {member.role}</p>
                     </div>
                 </div>
@@ -110,7 +110,7 @@ export default function MemberDetailView() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2 space-y-8">
                     <div className="glass-card p-6">
-                        <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
+                        <h2 className="text-md font-semibold mb-6 flex items-center gap-2">
                             <GitCommit className="h-5 w-5 text-primary" />
                             Repository Contributions
                         </h2>

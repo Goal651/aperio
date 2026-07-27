@@ -142,7 +142,7 @@ export default function Page() {
                         <div className="absolute inset-0 bg-cyan-500/20 blur-2xl rounded-full" />
                         <Loader2 className="h-12 w-12 animate-spin text-cyan-400 relative z-10" />
                     </div>
-                    <h2 className="text-2xl font-black text-foreground tracking-tight mb-3">
+                    <h2 className="text-md font-semibold text-foreground tracking-tight mb-3">
                         {isConnecting ? 'Initializing Handshake' :
                             loadingStates.fetchingOrgData ? 'Synchronizing Data' :
                                 'Verifying Identity'}
@@ -189,9 +189,9 @@ export default function Page() {
                     <div className="h-8 w-8 rounded bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center">
                         <img src="/icon.png" alt="logo" className="h-8 w-8" />
                     </div>
-                    <span className="font-black text-white text-lg tracking-tight">kordian</span>
+                    <span className="font-semibold text-white text-lg tracking-tight">kordian</span>
                 </div>
-                <div className="hidden md:flex items-center gap-6 text-[11px] font-black uppercase tracking-widest text-muted-foreground/50">
+                <div className="hidden md:flex items-center gap-6 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/50">
                     <span className="flex items-center gap-1.5"><Shield className="h-3 w-3" /> SOC2</span>
                     <span className="flex items-center gap-1.5"><Globe className="h-3 w-3" /> GDPR</span>
                     <span className="flex items-center gap-1.5"><Lock className="h-3 w-3" /> Zero Retention</span>
@@ -200,7 +200,7 @@ export default function Page() {
                 <Button
                     onClick={handleConnect}
                     disabled={isConnecting || isLoading}
-                    className="h-9 px-5 text-xs font-black uppercase tracking-wider bg-cyan-500 hover:bg-cyan-400 text-black rounded transition-all hover:scale-105 active:scale-95 gap-2 shadow-lg shadow-cyan-500/20"
+                    className="h-9 px-5 text-xs font-semibold uppercase tracking-wider bg-cyan-500 hover:bg-cyan-400 text-black rounded transition-all hover:scale-105 active:scale-95 gap-2 shadow-lg shadow-cyan-500/20"
                 >
                     {isConnecting ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Github className="h-3.5 w-3.5" />}
                     Connect
@@ -211,12 +211,12 @@ export default function Page() {
             <div className="relative z-10 flex flex-col items-center text-center px-6 pt-20 pb-16 md:pt-28 md:pb-20">
 
                 {/* Eyebrow label */}
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-400 text-[10px] font-black uppercase tracking-widest mb-8">
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-400 text-[10px] font-semibold uppercase tracking-widest mb-8">
                     <Sparkles className="h-3 w-3" />
                     Free · Open Source · Stateless
                 </div>
 
-                <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter leading-[0.88] text-balance max-w-4xl mb-6">
+                <h1 className="text-5xl md:text-7xl lg:text-8xl font-semibold text-white tracking-tighter leading-[0.88] text-balance max-w-4xl mb-6">
                     Stop switching tabs.<br />
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 italic">
                         See everything.
@@ -231,8 +231,8 @@ export default function Page() {
                 <div className="flex flex-wrap items-center justify-center gap-8 mb-10 py-6 px-8 rounded border border-white/5 bg-white/[0.02]">
                     {stats.map((stat, i) => (
                         <div key={i} className="text-center">
-                            <div className="text-2xl font-black text-cyan-400 leading-none">{stat.value}</div>
-                            <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40 mt-1">{stat.label}</div>
+                            <div className="text-md font-semibold text-cyan-400 leading-none">{stat.value}</div>
+                            <div className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/40 mt-1">{stat.label}</div>
                         </div>
                     ))}
                 </div>
@@ -242,7 +242,7 @@ export default function Page() {
                     <Button
                         onClick={handleConnect}
                         disabled={isConnecting || isLoading || loadingStates.fetchingOrgData}
-                        className="w-full h-16 text-base font-black uppercase tracking-wider rounded bg-cyan-500 hover:bg-cyan-400 text-black transition-all hover:scale-[1.02] active:scale-95 gap-3 shadow-2xl shadow-cyan-500/25 group relative overflow-hidden"
+                        className="w-full h-16 text-base font-semibold uppercase tracking-wider rounded bg-cyan-500 hover:bg-cyan-400 text-black transition-all hover:scale-[1.02] active:scale-95 gap-3 shadow-2xl shadow-cyan-500/25 group relative overflow-hidden"
                     >
                         <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/0 via-white/10 to-cyan-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
                         {isConnecting ? (
@@ -258,14 +258,14 @@ export default function Page() {
                             </>
                         )}
                     </Button>
-                    <p className="text-[10px] text-muted-foreground/50 font-black uppercase tracking-widest">
+                    <p className="text-[10px] text-muted-foreground/50 font-semibold uppercase tracking-widest">
                         Read-only access · No code stored · Free forever
                     </p>
                 </div>
 
                 {/* Scroll hint */}
                 <div className="mt-16 flex flex-col items-center gap-2 text-muted-foreground/30 animate-bounce">
-                    <span className="text-[9px] font-black uppercase tracking-widest">See what's included</span>
+                    <span className="text-[9px] font-semibold uppercase tracking-widest">See what's included</span>
                     <ArrowDown className="h-4 w-4" />
                 </div>
             </div>
@@ -280,7 +280,7 @@ export default function Page() {
                                     <XCircle className="h-5 w-5 text-destructive" />
                                 </div>
                                 <div>
-                                    <h4 className="font-black text-foreground text-sm tracking-tight">Connection Failed</h4>
+                                    <h4 className="font-semibold text-foreground text-sm tracking-tight">Connection Failed</h4>
                                     <p className="text-muted-foreground text-xs font-medium">{getErrorDescription(authError)}</p>
                                 </div>
                             </div>
@@ -303,7 +303,7 @@ export default function Page() {
                 {/* Section label */}
                 <div className="flex items-center gap-4 mb-8">
                     <div className="h-px flex-1 bg-white/5" />
-                    <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40">What you get</span>
+                    <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/40">What you get</span>
                     <div className="h-px flex-1 bg-white/5" />
                 </div>
 
@@ -324,9 +324,9 @@ export default function Page() {
                                     <div className={`p-3 rounded border ${feature.borderColor} bg-black/30 ${feature.color} group-hover:scale-110 transition-transform`}>
                                         <feature.icon className="h-5 w-5" />
                                     </div>
-                                    <h3 className="text-base font-black text-white tracking-tight">{feature.title}</h3>
+                                    <h3 className="text-base font-semibold text-white tracking-tight">{feature.title}</h3>
                                 </div>
-                                <span className={`text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded border ${feature.borderColor} ${feature.color} bg-black/20`}>
+                                <span className={`text-[9px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded border ${feature.borderColor} ${feature.color} bg-black/20`}>
                                     {feature.badge}
                                 </span>
                             </div>
@@ -353,7 +353,7 @@ export default function Page() {
                 <div className="rounded border border-cyan-500/15 bg-cyan-500/5 p-10 relative overflow-hidden">
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.08),transparent_70%)]" />
                     <div className="relative z-10">
-                        <h2 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-3">
+                        <h2 className="text-md md:text-md font-semibold text-white tracking-tight mb-3">
                             Your org deserves better visibility.
                         </h2>
                         <p className="text-sm text-muted-foreground mb-8 max-w-sm mx-auto">
@@ -362,7 +362,7 @@ export default function Page() {
                         <Button
                             onClick={handleConnect}
                             disabled={isConnecting || isLoading || loadingStates.fetchingOrgData}
-                            className="h-14 px-10 text-sm font-black uppercase tracking-wider rounded bg-cyan-500 hover:bg-cyan-400 text-black transition-all hover:scale-105 active:scale-95 gap-3 shadow-xl shadow-cyan-500/20 group"
+                            className="h-14 px-10 text-sm font-semibold uppercase tracking-wider rounded bg-cyan-500 hover:bg-cyan-400 text-black transition-all hover:scale-105 active:scale-95 gap-3 shadow-xl shadow-cyan-500/20 group"
                         >
                             {isConnecting ? (
                                 <><Loader2 className="h-4 w-4 animate-spin" /> Connecting...</>
@@ -375,7 +375,7 @@ export default function Page() {
                         <div className="mt-6">
                             <button
                                 onClick={() => setShowManualInput(!showManualInput)}
-                                className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40 hover:text-cyan-400 transition-colors underline underline-offset-4"
+                                className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/40 hover:text-cyan-400 transition-colors underline underline-offset-4"
                             >
                                 Developer Manual Installation
                             </button>
@@ -401,7 +401,7 @@ export default function Page() {
                 </div>
 
                 {/* Footer trust signals */}
-                <div className="flex flex-wrap justify-center gap-x-8 gap-y-3 mt-10 text-[9px] font-black uppercase tracking-widest text-muted-foreground/25">
+                <div className="flex flex-wrap justify-center gap-x-8 gap-y-3 mt-10 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground/25">
                     <span className="flex items-center gap-2"><Cpu className="h-3 w-3" /> Edge Validated</span>
                     <span className="flex items-center gap-2"><Container className="h-3 w-3" /> Isolated Runtime</span>
                     <span className="flex items-center gap-2"><ShieldCheck className="h-3 w-3" /> Tier 1 Encryption</span>

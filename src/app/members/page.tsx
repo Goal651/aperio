@@ -39,16 +39,16 @@ const CustomTooltip = ({ active, payload, label }: any) => {
                 <p className="font-bold text-foreground mb-2 border-b border-border/50 pb-1">{label}</p>
                 <div className="space-y-1.5">
                     <p className="flex items-center justify-between gap-4 font-mono text-xs">
-                        <span className="text-muted-foreground uppercase  font-black">Commits</span>
-                        <span className="text-primary font-black">{payload[0].value}</span>
+                        <span className="text-muted-foreground uppercase  font-semibold">Commits</span>
+                        <span className="text-primary font-semibold">{payload[0].value}</span>
                     </p>
                     <p className="flex items-center justify-between gap-4 font-mono text-xs">
-                        <span className="text-muted-foreground uppercase  font-black">PRs</span>
-                        <span className="text-success font-black">{payload[1].value}</span>
+                        <span className="text-muted-foreground uppercase  font-semibold">PRs</span>
+                        <span className="text-success font-semibold">{payload[1].value}</span>
                     </p>
                     <p className="flex items-center justify-between gap-4 font-mono text-xs">
-                        <span className="text-muted-foreground uppercase  font-black">Reviews</span>
-                        <span className="text-warning font-black">{payload[2].value}</span>
+                        <span className="text-muted-foreground uppercase  font-semibold">Reviews</span>
+                        <span className="text-warning font-semibold">{payload[2].value}</span>
                     </p>
                 </div>
             </div>
@@ -103,7 +103,7 @@ export default function Page() {
                         <Users className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                        <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">Team Members</h1>
+                        <h1 className="text-md md:text-md font-bold text-foreground tracking-tight">Team Members</h1>
                         <p className="text-sm text-muted-foreground">
                             Deep contribution analytics and activity metrics for your organization
                         </p>
@@ -125,20 +125,20 @@ export default function Page() {
                 ) : (
                     <>
                         <div className="stat-card animate-fade-in p-4 md:p-6 bg-background/40">
-                            <p className="text-[10px] md:text-xs font-black uppercase  text-muted-foreground mb-1 md:mb-2">Total</p>
-                            <p className="text-xl md:text-3xl font-black text-foreground font-mono">{members.length}</p>
+                            <p className="text-[10px] md:text-xs font-semibold uppercase  text-muted-foreground mb-1 md:mb-2">Total</p>
+                            <p className="text-md md:text-md font-semibold text-foreground font-mono">{members.length}</p>
                         </div>
                         <div className="stat-card animate-fade-in p-4 md:p-6 bg-background/40" style={{ animationDelay: "0.05s" }}>
-                            <p className="text-[10px] md:text-xs font-black uppercase  text-muted-foreground mb-1 md:mb-2">Active</p>
-                            <p className="text-xl md:text-3xl font-black text-success font-mono">{members.filter(m => (m.prs || 0) > 0 || (m.commits || 0) > 0).length}</p>
+                            <p className="text-[10px] md:text-xs font-semibold uppercase  text-muted-foreground mb-1 md:mb-2">Active</p>
+                            <p className="text-md md:text-md font-semibold text-success font-mono">{members.filter(m => (m.prs || 0) > 0 || (m.commits || 0) > 0).length}</p>
                         </div>
                         <div className="stat-card animate-fade-in p-4 md:p-6 bg-background/40" style={{ animationDelay: "0.1s" }}>
-                            <p className="text-[10px] md:text-xs font-black uppercase  text-muted-foreground mb-1 md:mb-2">Inert</p>
-                            <p className="text-xl md:text-3xl font-black text-warning font-mono">{members.filter(m => (m.prs || 0) === 0 && (m.commits || 0) === 0).length}</p>
+                            <p className="text-[10px] md:text-xs font-semibold uppercase  text-muted-foreground mb-1 md:mb-2">Inert</p>
+                            <p className="text-md md:text-md font-semibold text-warning font-mono">{members.filter(m => (m.prs || 0) === 0 && (m.commits || 0) === 0).length}</p>
                         </div>
                         <div className="stat-card animate-fade-in p-4 md:p-6 bg-background/40" style={{ animationDelay: "0.15s" }}>
-                            <p className="text-[10px] md:text-xs font-black uppercase  text-muted-foreground mb-1 md:mb-2">Pending</p>
-                            <p className="text-xl md:text-3xl font-black text-muted-foreground/40 font-mono">0</p>
+                            <p className="text-[10px] md:text-xs font-semibold uppercase  text-muted-foreground mb-1 md:mb-2">Pending</p>
+                            <p className="text-md md:text-md font-semibold text-muted-foreground/40 font-mono">0</p>
                         </div>
                     </>
                 )}
@@ -149,7 +149,7 @@ export default function Page() {
                 <div className="flex items-center justify-between mb-8">
                     <div className="flex flex-col gap-1">
                         <h2 className="font-bold text-foreground">Top Contributors</h2>
-                        <p className="text-[10px] text-muted-foreground uppercase  font-black opacity-60">Comparative Activity Pulse</p>
+                        <p className="text-[10px] text-muted-foreground uppercase  font-semibold opacity-60">Comparative Activity Pulse</p>
                     </div>
                 </div>
                 <div className="h-64 sm:h-80 w-full">
@@ -178,15 +178,15 @@ export default function Page() {
                 <div className="flex flex-wrap gap-4 md:gap-8 mt-6 pt-6 border-t border-border/40">
                     <div className="flex items-center gap-2">
                         <div className="h-2 w-2 rounded-full bg-primary shadow-[0_0_8px_hsl(var(--primary))]" />
-                        <span className="text-[10px] font-black uppercase  text-muted-foreground">Commits</span>
+                        <span className="text-[10px] font-semibold uppercase  text-muted-foreground">Commits</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <div className="h-2 w-2 rounded-full bg-success shadow-[0_0_8px_hsl(var(--success))]" />
-                        <span className="text-[10px] font-black uppercase  text-muted-foreground">PRs</span>
+                        <span className="text-[10px] font-semibold uppercase  text-muted-foreground">PRs</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <div className="h-2 w-2 rounded-full bg-warning shadow-[0_0_8px_hsl(var(--warning))]" />
-                        <span className="text-[10px] font-black uppercase  text-muted-foreground">Reviews</span>
+                        <span className="text-[10px] font-semibold uppercase  text-muted-foreground">Reviews</span>
                     </div>
                 </div>
             </div>
@@ -198,10 +198,10 @@ export default function Page() {
                         <div className="p-2 bg-primary/10 rounded">
                             <Users className="h-5 w-5 text-primary" />
                         </div>
-                        <h2 className="font-bold text-xl text-foreground tracking-tight">Organization Members</h2>
+                        <h2 className="font-bold text-md text-foreground tracking-tight">Organization Members</h2>
                     </div>
                     <div className="flex items-center gap-2 self-start sm:self-auto">
-                        <span className="text-[10px] font-black uppercase  px-3 py-1.5 rounded-full border bg-secondary/50 border-border/50 text-muted-foreground">
+                        <span className="text-[10px] font-semibold uppercase  px-3 py-1.5 rounded-full border bg-secondary/50 border-border/50 text-muted-foreground">
                             {filteredMembers.length} Professional Contributors
                         </span>
                     </div>
@@ -237,12 +237,12 @@ export default function Page() {
                     <Table>
                         <TableHeader className="bg-secondary/30">
                             <TableRow className="hover:bg-transparent border-border/50">
-                                <TableHead className="font-black text-[10px] uppercase  py-4">Member</TableHead>
-                                <TableHead className="font-black text-[10px] uppercase  py-4 text-center">Commits</TableHead>
-                                <TableHead className="font-black text-[10px] uppercase  py-4 text-center">PRs</TableHead>
-                                <TableHead className="font-black text-[10px] uppercase  py-4 text-center">Reviews</TableHead>
-                                <TableHead className="font-black text-[10px] uppercase  py-4 text-center">Status</TableHead>
-                                <TableHead className="font-black text-[10px] uppercase  py-4 text-right">Activity</TableHead>
+                                <TableHead className="font-semibold text-[10px] uppercase  py-4">Member</TableHead>
+                                <TableHead className="font-semibold text-[10px] uppercase  py-4 text-center">Commits</TableHead>
+                                <TableHead className="font-semibold text-[10px] uppercase  py-4 text-center">PRs</TableHead>
+                                <TableHead className="font-semibold text-[10px] uppercase  py-4 text-center">Reviews</TableHead>
+                                <TableHead className="font-semibold text-[10px] uppercase  py-4 text-center">Status</TableHead>
+                                <TableHead className="font-semibold text-[10px] uppercase  py-4 text-right">Activity</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -287,7 +287,7 @@ export default function Page() {
                                     <TableCell className="text-center font-mono font-bold text-success">{member.prs || 0}</TableCell>
                                     <TableCell className="text-center font-mono font-bold text-warning">{member.reviews || 0}</TableCell>
                                     <TableCell className="text-center">
-                                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-black uppercase  border ${member.status === "active" ? "bg-success/10 border-success/20 text-success" : "bg-warning/10 border-warning/20 text-warning"
+                                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase  border ${member.status === "active" ? "bg-success/10 border-success/20 text-success" : "bg-warning/10 border-warning/20 text-warning"
                                             }`}>
                                             {member.status}
                                         </span>
@@ -344,15 +344,15 @@ export default function Page() {
                                     <div className="flex items-center gap-4">
                                         <Avatar className="h-12 w-12 border-2 border-primary/10 group-active:border-primary/30 transition-all">
                                             <AvatarImage src={member.avatar} />
-                                            <AvatarFallback className="bg-primary/5 text-primary text-sm font-black">
+                                            <AvatarFallback className="bg-primary/5 text-primary text-sm font-semibold">
                                                 {member.username.substring(0, 2).toUpperCase()}
                                             </AvatarFallback>
                                         </Avatar>
                                         <div className="flex flex-col">
-                                            <span className="font-black text-foreground text-lg tracking-tight group-active:text-primary transition-colors">{member.name}</span>
+                                            <span className="font-semibold text-foreground text-lg tracking-tight group-active:text-primary transition-colors">{member.name}</span>
                                             <div className="flex items-center gap-1.5 mt-0.5">
                                                 <div className={`h-1.5 w-1.5 rounded-full ${member.status === 'active' ? 'bg-success shadow-[0_0_4px_hsl(var(--success))]' : 'bg-warning shadow-[0_0_4px_hsl(var(--warning))]'}`} />
-                                                <span className="text-[10px] text-muted-foreground font-black uppercase  opacity-60">{member.status} Contributor</span>
+                                                <span className="text-[10px] text-muted-foreground font-semibold uppercase  opacity-60">{member.status} Contributor</span>
                                             </div>
                                         </div>
                                     </div>
@@ -363,16 +363,16 @@ export default function Page() {
 
                                 <div className="grid grid-cols-3 gap-3">
                                     <div className="p-3 rounded bg-background/40 border border-border/40 flex flex-col items-center gap-1 group-active:border-primary/20 transition-all">
-                                        <span className="text-[10px] font-black uppercase tracking-tighter text-muted-foreground/50">Commits</span>
-                                        <span className="font-mono font-black text-foreground text-lg">{member.commits || 0}</span>
+                                        <span className="text-[10px] font-semibold uppercase tracking-tighter text-muted-foreground/50">Commits</span>
+                                        <span className="font-mono font-semibold text-foreground text-lg">{member.commits || 0}</span>
                                     </div>
                                     <div className="p-3 rounded bg-background/40 border border-border/40 flex flex-col items-center gap-1 group-active:border-success/20 transition-all">
-                                        <span className="text-[10px] font-black uppercase tracking-tighter text-muted-foreground/50">PRs</span>
-                                        <span className="font-mono font-black text-success text-lg">{member.prs || 0}</span>
+                                        <span className="text-[10px] font-semibold uppercase tracking-tighter text-muted-foreground/50">PRs</span>
+                                        <span className="font-mono font-semibold text-success text-lg">{member.prs || 0}</span>
                                     </div>
                                     <div className="p-3 rounded bg-background/40 border border-border/40 flex flex-col items-center gap-1 group-active:border-warning/20 transition-all">
-                                        <span className="text-[10px] font-black uppercase tracking-tighter text-muted-foreground/50">Reviews</span>
-                                        <span className="font-mono font-black text-warning text-lg">{member.reviews || 0}</span>
+                                        <span className="text-[10px] font-semibold uppercase tracking-tighter text-muted-foreground/50">Reviews</span>
+                                        <span className="font-mono font-semibold text-warning text-lg">{member.reviews || 0}</span>
                                     </div>
                                 </div>
                             </div>
