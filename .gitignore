@@ -25,3 +25,5 @@ dist-ssr
 
 .next
 config.bat
+
+.env
